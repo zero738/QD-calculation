@@ -1,0 +1,37 @@
+path: null
+
+input_cores:
+    - Cd68Te55Cl26.xyz:
+        guess_bonds: True
+        indices: [45,49,56,39]
+
+input_ligands:
+    - PPh3_Cd.mol
+
+optional:
+    database:
+        dirname: database
+        read: True
+        write: True
+        overwrite: False
+        mol_format: [pdb]
+        mongodb: False
+
+    core:
+        dirname: core
+        dummy: Cd
+        allignment: sphere
+
+    ligand:
+        anchor: Cd
+        dirname: ligand
+        optimize: True
+        split: False
+        cosmo-rs: False
+
+    qd:
+        dirname: QD
+        construct_qd: True
+        optimize: False
+        bulkiness: False
+        activation_strain: False
