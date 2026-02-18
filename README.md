@@ -3,33 +3,6 @@
 Computational workflow for ligand-passivated semiconductor nanocrystal quantum dots.
 Covers structure assembly, DFT geometry optimization, and electronic property calculations.
 
----
-
-## Repository Structure
-
-```
-QD-calculation/
-├── workflow/               # QD structure assembly (CAT-based)
-│   ├── CATSupport.py       # Python wrapper around CAT
-│   ├── cat_workflow.ipynb  # Interactive notebook
-│   ├── README.md           # Workflow documentation
-│   ├── structures/
-│   │   ├── core/           # Core NC structures (.xyz)
-│   │   │   ├── II-VI/      # CdS, CdSe, CdTe, HgS, HgSe, HgTe, ZnS, ZnSe, ZnTe
-│   │   │   └── IV-VI/      # PbS, PbSe, PbTe
-│   │   └── ligand/         # Ligand structures (.mol)
-│   └── QD_output/          # Assembled QD structures (.pdb)
-│
-└── calculation/            # CP2K DFT calculations
-    ├── CdTe/               # Bare CdTe NC
-    │   ├── opt/            # Geometry optimization
-    │   └── sq/             # Single-point + DOS
-    └── CdTe_PPh3/          # CdTe NC with PPh3 ligands
-        ├── opt/
-        └── sq/
-```
-
----
 
 ## Workflow (QD Assembly)
 
