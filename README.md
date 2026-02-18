@@ -14,14 +14,36 @@ Core (.xyz) + Ligand (.mol)  →  build_quantum_dot()  →  {core}_{ligand}_{n}l
 
 See `workflow/README.md` for full documentation.
 
-### Quick start
+### Environment setup
+
+```bash
+# Create environment
+conda create -n nanocrystal python=3.11
+conda activate nanocrystal
+
+# Core dependencies
+pip install nlesc-CAT
+pip install "pandas<2.0"
+pip install "numpy==1.26.4" --force-reinstall
+conda install -c conda-forge h5py --force-reinstall  # fix numpy binary compatibility
+
+# Post-build relaxation (optional)
+conda install -c conda-forge xtb-python
+pip install ase
+
+# Jupyter
+pip install jupyterlab ipykernel
+python -m ipykernel install --user --name nanocrystal --display-name "nanocrystal"
+```
+
+### Launch
 
 ```bash
 conda activate nanocrystal
 jupyter lab
 ```
 
-Open `workflow/cat_workflow.ipynb` and run the cells.
+Open `workflow/cat_workflow.ipynb` with the **nanocrystal** kernel.
 
 ---
 
@@ -36,17 +58,6 @@ Single-point and geometry optimization calculations using CP2K.
 
 Each calculation directory contains a CP2K `.inp` file, a `job.slurm` submission script,
 and analysis notebooks (`dos.ipynb`) with output data.
-
----
-
-## Environment
-
-| Component | Package |
-|-----------|---------|
-| QD assembly | `nlesc-CAT`, `rdkit`, `pandas<2.0` |
-| Post-build relaxation | `xtb-python`, `ase` |
-| DFT | CP2K 2022.1+ |
-| Analysis | `numpy`, `matplotlib` |
 
 ---
 
