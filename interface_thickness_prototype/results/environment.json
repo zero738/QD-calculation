@@ -1,0 +1,21 @@
+{
+  "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "commands": {
+    "cp2k": null,
+    "cp2k.psmp": null,
+    "cp2k.popt": null,
+    "mpiexec": null,
+    "srun": null,
+    "sbatch": null
+  },
+  "packages": {
+    "ase": "3.26.0",
+    "numpy": "2.5.1",
+    "PyYAML": "6.0.3",
+    "matplotlib": "3.11.0",
+    "pytest": "9.1.1"
+  },
+  "cp2k_available": false,
+  "note": "Command discovery only; CP2K was not executed by this inspection."
+}

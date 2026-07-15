@@ -1,0 +1,31 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local logs and scheduler output
+*.log
+*.err
+slurm-*.out
+
+# CP2K outputs that can become very large
+*.wfn
+*.wfn.bak-*
+*.restart
+*.restart.bak-*
+*-pos-*.xyz
+*-frc-*.xyz
+*.cube
+*.molden
+*.molden.input
+
+# Generated CP2K stdout is intentionally not versioned. Curated JSON/CSV
+# summaries remain tracked under interface_thickness_prototype/results/.
+interface_thickness_prototype/models/*/*.out
+interface_thickness_prototype/models/*/*.parsed.json

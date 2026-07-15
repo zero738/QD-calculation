@@ -1,0 +1,21 @@
+# AFLOW-derived reference CIF; generated from verified prototype AB_cF8_216_a_c-001.
+# CdTe phase cross-reference: Materials Project mp-406. Starting a=6.48 A.
+data_CdTe
+_chemical_formula_sum 'Cd Te'
+_cell_length_a 6.480000
+_cell_length_b 6.480000
+_cell_length_c 6.480000
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_space_group_name_H-M_alt 'F -4 3 m'
+_space_group_IT_number 216
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Cd1 Cd 0.000000 0.000000 0.000000 1.0
+Te1 Te 0.250000 0.250000 0.250000 1.0

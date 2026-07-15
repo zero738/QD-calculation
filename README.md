@@ -59,6 +59,13 @@ Single-point and geometry optimization calculations using CP2K.
 Each calculation directory contains a CP2K `.inp` file, a `job.slurm` submission script,
 and analysis notebooks (`dos.ipynb`) with output data.
 
+## CdTe/Cu2Te interface thickness prototype
+
+`interface_thickness_prototype/` is an independent first-stage prototype for
+T0 (bare CdTe), T1 (one Cu2Te structural sheet), and T2 (two Cu2Te structural
+sheets). It does not modify the ligand/QD calculations above. See its own
+README and Chinese beginner guide before using the generated CP2K inputs.
+
 ---
 
 ## License

@@ -1,0 +1,21 @@
+# AFLOW-derived reference CIF; prototype A2B_hP6_191_h_e-001, ICSD 655706.
+# Parameters returned by AFLOW: a=4.237 A, c/a=1.71041, z(Te)=0.306, z(Cu)=0.16.
+data_Cu2Te
+_chemical_formula_sum 'Cu2 Te'
+_cell_length_a 4.237000
+_cell_length_b 4.237000
+_cell_length_c 7.24700717
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 120
+_space_group_name_H-M_alt 'P 6/m m m'
+_space_group_IT_number 191
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Cu1 Cu 0.3333333333 0.6666666667 0.1600000000 1.0
+Te1 Te 0.0000000000 0.0000000000 0.3060000000 1.0

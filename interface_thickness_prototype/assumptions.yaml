@@ -1,0 +1,41 @@
+prototype_status: "workflow_prototype_not_publication_model"
+cdte:
+  phase: "zinc blende"
+  space_group: "F-43m (No. 216)"
+  surface_orientation: "(111), Te-terminated top surface"
+  source:
+    database: "Materials Project / AFLOW crystallographic prototype"
+    identifier: "mp-406; AFLOW AB_cF8_216_a_c-001"
+    formula: "CdTe"
+    url: "https://materialsproject.org/materials/mp-406/"
+    aflow_url: "https://aflow.org/p/AB_cF8_216_a_c-001"
+  starting_lattice_constant_angstrom: 6.48
+cu_te:
+  representative_phase: "stoichiometric Cu2Te Ch prototype"
+  space_group: "P6/mmm (No. 191)"
+  surface_orientation: "(001)"
+  source:
+    database: "AFLOW Encyclopedia of Crystallographic Prototypes"
+    identifier: "A2B_hP6_191_h_e-001; ICSD 655706"
+    formula: "Cu2Te"
+    url: "https://aflow.org/p/A2B_hP6_191_h_e-001"
+    original_reference: "H. Nowotny, Z. Metallkd. 37, 40-42 (1946)"
+  aflow_parameters: {a_angstrom: 4.237, c_over_a: 1.71041, z_te: 0.306, z_cu: 0.16}
+  x_temporarily_set_to: 0
+  warning: "The experimental x, phase and orientation are unknown; this Cu2Te phase is only a verified representative prototype."
+matching:
+  cdte_surface_cells: 13
+  cu2te_surface_cells: 16
+  method: "hexagonal coincidence cells: CdTe [[3,1],[-1,4]] versus Cu2Te 4x4"
+  lattice_mismatch_percent: 2.56
+  applied_strain: "biaxial compression is applied to Cu2Te; CdTe is kept at its starting lattice"
+vacuum:
+  total_angstrom: 18.0
+  distribution: "9 A below and 9 A above the atoms"
+constraints:
+  fixed_layers: "bottom two CdTe atomic planes"
+prototype_limitations:
+  - "The CdTe(111) slab is polar and only three bilayers thick."
+  - "Only one termination and one initial lateral registry are used."
+  - "No Cu vacancies, Au electrode, ligands, grain boundaries or finite-temperature annealing are modeled."
+  - "No energy or performance conclusion is valid until convergence and alternative-interface tests are completed."
