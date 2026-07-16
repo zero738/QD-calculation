@@ -1,0 +1,6 @@
+﻿calculation_id,input_file,output_file,CP2K_version,actually_run,normal_program_end,SCF_converged,geometry_converged,SCF_steps,total_energy_hartree,wall_time_seconds,warning_or_error
+01_cdte_bulk_sp,smoke_tests/01_cdte_bulk_sp/input.executed.inp,smoke_tests/01_cdte_bulk_sp/output.out,CP2K version 2024.3,True,True,True,,12,-216.86598115423214,15.407626,
+02_cu2te_bulk_sp,smoke_tests/02_cu2te_bulk_sp/input.executed.inp,smoke_tests/02_cu2te_bulk_sp/output.out,CP2K version 2024.3,True,True,True,,18,-208.11415684737275,50.125061,
+03_b0_slab_sp,smoke_tests/03_b0_slab_sp/input.executed.inp,smoke_tests/03_b0_slab_sp/output.out,CP2K version 2024.3,True,False,False,,,,102.425199,normal CP2K end marker is missing
+04_h1_interface_sp,smoke_tests/04_h1_interface_sp/input.inp,smoke_tests/04_h1_interface_sp/output.out,,False,False,False,,,,,output file does not exist; calculation was not run
+05_h1_short_geo_opt,smoke_tests/05_h1_short_geo_opt/input.inp,smoke_tests/05_h1_short_geo_opt/output.out,,False,False,False,,,,,output file does not exist; calculation was not run

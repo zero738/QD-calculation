@@ -1,4 +1,4 @@
-model_id,Cd_atoms,Te_atoms,Cu_atoms,total_atoms,Cu_Te_layers,initial_thickness_A,initial_thickness_nm,optimized_thickness_A,minimum_distance_A,lateral_area_A2,lattice_mismatch_percent,CP2K_completed,SCF_converged,geometry_optimization_converged,total_energy_hartree,total_energy_eV,warnings
-T0,39,39,0,78,0,0.000000,0.000000,,2.805922,236.370895,2.585687,False,False,,,,CP2K not run or not proven converged
-T1,39,55,32,126,1,1.058063,0.105806,,2.384575,236.370895,2.585687,False,False,,,,CP2K not run or not proven converged
-T2,39,71,64,174,2,4.927965,0.492796,,2.384575,236.370895,2.585687,False,False,,,,CP2K not run or not proven converged
+﻿model_id,Cu2Te_repeat_count,Cu2Te_atomic_plane_count,top_termination,interface_contact_elements,Cd_atoms,Te_atoms,Cu_atoms,total_atoms,Cu2Te_z_span_A,interface_minimum_distance_A,nearest_interface_atom_pair,total_vacuum_A,applied_Cu2Te_strain_percent,prototype_only
+B0,0,0,none,none,39,39,0,78,0.000000,,,18.000000,-2.520514,True
+H1,1,4,Cu,Te(CdTe)/Cu(Cu2Te),39,71,64,174,4.927965,2.600000,Te48-Cu139,18.000000,-2.520514,True
+H2,2,8,Cu,Te(CdTe)/Cu(Cu2Te),39,103,128,270,12.174972,2.600000,Te48-Cu199,18.000000,-2.520514,True

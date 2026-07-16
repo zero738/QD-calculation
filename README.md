@@ -61,10 +61,11 @@ and analysis notebooks (`dos.ipynb`) with output data.
 
 ## CdTe/Cu2Te interface thickness prototype
 
-`interface_thickness_prototype/` is an independent first-stage prototype for
-T0 (bare CdTe), T1 (one Cu2Te structural sheet), and T2 (two Cu2Te structural
-sheets). It does not modify the ligand/QD calculations above. See its own
-README and Chinese beginner guide before using the generated CP2K inputs.
+`interface_thickness_prototype/` is an independent, minimal CP2K smoke-test
+prototype for B0 (bare CdTe), H1 (one complete Cu2Te c repeat), and H2 (two
+complete repeats). The earlier T0/T1/T2 half-sheet files are retained only as
+legacy evidence. This directory does not modify the ligand/QD calculations
+above. Read its README, RUN_CP2K guide, and Chinese beginner guide first.
 
 ---
 

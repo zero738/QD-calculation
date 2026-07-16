@@ -17,6 +17,8 @@ slurm-*.out
 # CP2K outputs that can become very large
 *.wfn
 *.wfn.bak-*
+*-RESTART.kp
+*-RESTART.kp.bak-*
 *.restart
 *.restart.bak-*
 *-pos-*.xyz
@@ -25,7 +27,7 @@ slurm-*.out
 *.molden
 *.molden.input
 
-# Generated CP2K stdout is intentionally not versioned. Curated JSON/CSV
-# summaries remain tracked under interface_thickness_prototype/results/.
+# Potentially large model runs are not versioned. The three deliberately small
+# smoke-test outputs and curated JSON/CSV evidence remain tracked.
 interface_thickness_prototype/models/*/*.out
 interface_thickness_prototype/models/*/*.parsed.json

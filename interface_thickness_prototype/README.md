@@ -1,64 +1,59 @@
-# CdTe/Cu₂Te 界面厚度 DFT 建模：最小可运行原型
+# CdTe/Cu₂Te 界面厚度：最小可运行核心
 
-这是一个与旧配体量子点项目隔离的第一阶段原型。它能从已记录来源的 CdTe 和 Cu₂Te
-结构生成 T0/T1/T2，检查重叠、真空、原子数和基底一致性，输出 CIF/XYZ/预览图，
-并生成 CP2K 单点和有限 5 步几何优化输入。它不声称给出了真实 Cu₂₋ₓTe 相、收敛能量、
-最佳实验膜厚或器件效率。
+该目录与仓库原有配体修饰量子点项目隔离。它完成一条尽量短、可核查的路径：
 
-## 模型
+```text
+已记录来源的 CIF → B0/H1/H2 → 静态验证 → CP2K 输入
+→ 按依赖顺序运行 smoke test → 严格解析 SCF/正常结束/能量 → CSV 报告
+```
 
-| 模型 | 含义 | 原子数 | Cu–Te 初始几何厚度 |
-|---|---|---:|---:|
-| T0 | 裸 CdTe(111) slab | 78 | 0 Å |
-| T1 | CdTe + 1 个 Cu₂Te 结构片 | 126 | 1.058 Å (0.1058 nm) |
-| T2 | CdTe + 2 个 Cu₂Te 结构片 | 174 | 4.928 Å (0.4928 nm) |
+这仍是结构和计算管线原型。实验尚未确认真实样品唯一的 Cu₂₋ₓTe 晶相、x 和界面取向。
 
-“结构片”是从 AFLOW Cu₂Te 原胞按 z 方向切出的化学计量 Cu₂Te 单元，包含相邻的 Cu/Te
-原子平面。它只是原型中的离散厚度定义，不应直接解释为实验连续薄膜厚度。
+## 当前模型
 
-## 从零重建和测试
+| 模型 | 定义 | Cu₂Te 完整 c 重复 | Cu₂Te 原子平面 | 顶部终止 | 原子数 | Cu₂Te z-span |
+|---|---|---:|---:|---|---:|---:|
+| B0 | 裸 CdTe(111) slab | 0 | 0 | 无 | 78 | 0 Å |
+| H1 | CdTe + 1 个完整 Cu₂Te c 重复 | 1 | 4 | Cu | 174 | 4.928 Å |
+| H2 | CdTe + 2 个完整 Cu₂Te c 重复 | 2 | 8 | Cu | 270 | 12.175 Å |
+
+源 Cu₂Te 完整重复单元沿 z 的原子平面次序是 `Cu–Te–Te–Cu`，因此 H1/H2 的首接触层和顶部终止都为 Cu。增厚时没有删除原子，也没有继续使用含义模糊的 half sheet。旧 T0/T1/T2 文件保留在 `models/T*`，只用于追溯第一版，生成器不再覆盖它们。
+
+## 从零生成和检查
 
 在仓库根目录运行：
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r interface_thickness_prototype\requirements.txt
-.\.venv\Scripts\python.exe interface_thickness_prototype\scripts\inspect_environment.py
 .\.venv\Scripts\python.exe interface_thickness_prototype\scripts\build_models.py
-.\.venv\Scripts\python.exe interface_thickness_prototype\scripts\validate_models.py
 .\.venv\Scripts\python.exe interface_thickness_prototype\scripts\generate_cp2k_inputs.py
-.\.venv\Scripts\python.exe -m pytest interface_thickness_prototype\tests -q
+.\.venv\Scripts\python.exe interface_thickness_prototype\scripts\validate_models.py
 .\.venv\Scripts\python.exe interface_thickness_prototype\scripts\summarize_results.py
+.\.venv\Scripts\python.exe -m pytest interface_thickness_prototype\tests -q
 ```
 
-Linux/macOS 把 Python 路径替换成 `.venv/bin/python`。
+Linux 把 Python 路径替换为 `.venv/bin/python`。详细 CP2K 运行方式见 `RUN_CP2K.md`。
 
-## 运行 CP2K（本项目没有自动运行或提交）
+## Smoke-test 阶梯
 
-进入一个模型目录后，可在已安装 CP2K 的机器上运行：
+运行器严格按以下顺序执行；前一步未同时通过正常结束、显式 SCF 收敛和能量检查时，不启动下一步：
 
-```bash
-./run_local.sh single_point.inp
-./run_local.sh test_geo_opt.inp
-```
+1. 8 原子 CdTe bulk 单点；
+2. 6 原子 Cu₂Te bulk 单点；
+3. B0 slab 单点；
+4. H1 界面单点；
+5. H1 最多 5 步测试几何优化。
 
-Windows PowerShell：
+默认基组为官方 `BASIS_MOLOPT` 中的 DZVP-MOLOPT-SR-GTH q11/q12/q6，配套 GTH-PBE 赝势。TZVP 只保留为以后可选的 production 方向，不是本地 smoke test 默认值。
 
-```powershell
-.\run_local.ps1 single_point.inp
-```
+## 最值得先看
 
-集群脚本 `job.slurm` 需要先按站点补充 account、partition、module 或容器设置；确认无误后
-才可由用户手动 `sbatch job.slurm`。本原型不会主动提交。
+- `results/model_summary.csv`：B0/H1/H2 的层数、终止、原子数、厚度和界面距离。
+- `results/smoke_test_summary.csv`：每个真实/未运行任务的版本、SCF、能量和运行时间。
+- `results/validation.json`：相同终止、相同界面、基底一致性和输入检查的机器可读证据。
+- `models/H1/preview_side.png` 与 `models/H2/preview_side.png`：本科生可直接读懂的侧视图。
+- `REPORT.md`：实际做了什么、哪些失败或未运行，以及科学警告。
+- `EXPLAIN_FOR_BEGINNER_CN.md`：概念和结果解释。
 
-## 关键输出
-
-- `assumptions.yaml`：所有相、取向、失配、应变、真空与固定层假设。
-- `models/T*/structure.cif|xyz|extxyz`：可视化结构；extxyz 保留区域和固定原子标签。
-- `models/T*/preview_side.png`：无图形界面生成的侧视预览。
-- `models/T*/single_point.inp`：PBE/GTH 单点力与能量输入。
-- `models/T*/test_geo_opt.inp`：最多 5 步的管线测试优化，不是完整优化。
-- `results/validation.json`：结构检查结果。
-- `results/model_summary.csv`：原子数、厚度、距离、面积、失配及严格收敛状态。
-- `EXPLAIN_FOR_BEGINNER_CN.md`：面向初学者的中文解释。
-- `REPORT.md`：实施判断、已运行内容与局限。
+请勿把不同原子数模型的绝对总能量直接相减，也不要由本原型声称得到稳定膜厚、DOS、功函数、器件效率或真实 Cu₂₋ₓTe 相。

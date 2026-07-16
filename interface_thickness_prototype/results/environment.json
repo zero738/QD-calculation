@@ -5,7 +5,10 @@
     "cp2k": null,
     "cp2k.psmp": null,
     "cp2k.popt": null,
+    "docker": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.EXE",
+    "wsl": "C:\\WINDOWS\\system32\\wsl.EXE",
     "mpiexec": null,
+    "mpirun": null,
     "srun": null,
     "sbatch": null
   },
@@ -16,6 +19,16 @@
     "matplotlib": "3.11.0",
     "pytest": "9.1.1"
   },
-  "cp2k_available": false,
-  "note": "Command discovery only; CP2K was not executed by this inspection."
+  "native_cp2k_available": false,
+  "docker_engine_available": true,
+  "docker_server_version": "28.3.2",
+  "configured_cp2k_image": "cp2k/cp2k:2024.3",
+  "configured_cp2k_image_present": true,
+  "configured_cp2k_image_id": "sha256:7574ebe45b231bf942607553b95685208b61031ccc6eb84d6c011462b89bf643",
+  "wsl_command_available": true,
+  "wsl_distributions": [
+    "docker-desktop"
+  ],
+  "runnable_cp2k_path_available": true,
+  "note": "Environment discovery only; actual execution is recorded per smoke-test task."
 }

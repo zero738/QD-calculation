@@ -23,6 +23,11 @@ cu_te:
   aflow_parameters: {a_angstrom: 4.237, c_over_a: 1.71041, z_te: 0.306, z_cu: 0.16}
   x_temporarily_set_to: 0
   warning: "The experimental x, phase and orientation are unknown; this Cu2Te phase is only a verified representative prototype."
+  thickness_definition: "integer repeats of the complete crystallographic c unit; no half-sheet slicing"
+  planes_per_complete_c_repeat: 4
+  full_repeat_plane_sequence: "Cu-Te-Te-Cu"
+  interface_first_contact_element: "Cu"
+  top_termination_for_H1_and_H2: "Cu"
 matching:
   cdte_surface_cells: 13
   cu2te_surface_cells: 16
@@ -39,3 +44,14 @@ prototype_limitations:
   - "Only one termination and one initial lateral registry are used."
   - "No Cu vacancies, Au electrode, ligands, grain boundaries or finite-temperature annealing are modeled."
   - "No energy or performance conclusion is valid until convergence and alternative-interface tests are completed."
+  - "B0/H1/H2 replace the earlier T0/T1/T2 half-sheet thickness definition; T0/T1/T2 remain only as legacy files for traceability."
+cp2k_smoke_test:
+  implementation: "official cp2k/cp2k:2024.3 Docker image or a native CP2K executable"
+  method: "PBE, Gamma point, Fermi-Dirac smearing"
+  basis_file: "BASIS_MOLOPT"
+  potential_file: "GTH_POTENTIALS"
+  basis_and_potential_aliases:
+    Cu: "DZVP-MOLOPT-SR-GTH-q11 / GTH-PBE-q11"
+    Cd: "DZVP-MOLOPT-SR-GTH-q12 / GTH-PBE-q12"
+    Te: "DZVP-MOLOPT-SR-GTH-q6 / GTH-PBE-q6"
+  warning: "These are low-cost smoke-test settings, not a basis/cutoff/k-point convergence study."

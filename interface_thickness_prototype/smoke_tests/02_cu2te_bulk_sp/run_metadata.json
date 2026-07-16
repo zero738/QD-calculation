@@ -1,0 +1,16 @@
+{
+  "calculation_id": "02_cu2te_bulk_sp",
+  "attempted": true,
+  "started_at_utc": "2026-07-16T16:25:59.474798+00:00",
+  "execution_mode": "docker",
+  "execution_command": "docker run --rm --cpus <threads> --shm-size 1g -e OMP_NUM_THREADS=<threads> -v <task_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k -i input.inp -o output.out",
+  "executed_input_file": "input.executed.inp",
+  "executed_input_sha256": "a09755a2d1ff2bab9888cc13cf5421f1af9a76069b954ab53ba468dd09dba190",
+  "cp2k_version": "CP2K version 2024.3",
+  "docker_image": "cp2k/cp2k:2024.3",
+  "cpu_threads": 4,
+  "wall_time_seconds": 50.125061,
+  "return_code": 0,
+  "launcher_stdout": "",
+  "launcher_stderr": ""
+}

@@ -1,0 +1,4 @@
+model_id,Cd_atoms,Te_atoms,Cu_atoms,total_atoms,legacy_half_sheet_count,initial_z_span_A,top_termination,legacy_warning
+T0,39,39,0,78,0,0.000000,none,bare legacy control
+T1,39,55,32,126,1,1.058063,Te,legacy half-sheet definition; not used by current workflow
+T2,39,71,64,174,2,4.927965,Cu,legacy half-sheet definition changed top termination; not used by current workflow

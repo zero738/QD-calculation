@@ -16,6 +16,10 @@ def load_config() -> dict:
         return yaml.safe_load(handle)
 
 
+def active_model_ids() -> tuple[str, ...]:
+    return tuple(load_config()["active_model_ids"])
+
+
 def load_metadata(model_id: str) -> dict:
     with (ROOT / "models" / model_id / "model.json").open(encoding="utf-8") as handle:
         return json.load(handle)
@@ -57,3 +61,18 @@ def total_vacuum(atoms) -> float:
 
 def lateral_area(atoms) -> float:
     return float(np.linalg.norm(np.cross(atoms.cell[0], atoms.cell[1])))
+
+
+def minimum_pair_between(atoms, first: list[int], second: list[int]) -> tuple[float, int, int]:
+    """Return the minimum-image distance and atom indices across two groups."""
+    if not first or not second:
+        raise ValueError("both atom-index groups must be non-empty")
+    best = (float("inf"), -1, -1)
+    second_array = np.asarray(second, dtype=int)
+    for i in first:
+        distances = np.asarray(atoms.get_distances(i, second_array, mic=True), dtype=float)
+        j_local = int(np.argmin(distances))
+        candidate = (float(distances[j_local]), int(i), int(second_array[j_local]))
+        if candidate[0] < best[0]:
+            best = candidate
+    return best

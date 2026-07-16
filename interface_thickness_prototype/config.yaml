@@ -1,4 +1,6 @@
 project_name: CdTe_Cu2Te_interface_thickness_prototype
+active_model_ids: [B0, H1, H2]
+legacy_model_ids: [T0, T1, T2]
 cdte:
   lattice_a_angstrom: 6.48
   miller_index: [1, 1, 1]
@@ -7,7 +9,8 @@ cdte:
 cu2te:
   miller_index: [0, 0, 1]
   lateral_supercell: [[4, 0], [0, 4]]
-  layer_counts: {T0: 0, T1: 1, T2: 2}
+  bulk_c_angstrom: 7.24700717
+  repeat_counts: {B0: 0, H1: 1, H2: 2}
 interface:
   initial_gap_angstrom: 2.60
   lateral_shift_fractional: [0.0, 0.0]
@@ -22,7 +25,7 @@ validation:
   minimum_distance_angstrom: 1.80
   maximum_warning_mismatch_percent: 3.0
 cp2k:
-  basis_file: BASIS_MOLOPT_UCL
+  basis_file: BASIS_MOLOPT
   potential_file: GTH_POTENTIALS
   cutoff_ry: 400
   rel_cutoff_ry: 60
@@ -34,3 +37,13 @@ cp2k:
   local_max_threads: 4
   slurm_cpus: 8
   slurm_time: "02:00:00"
+  docker_image: "cp2k/cp2k:2024.3"
+  basis_profile: "smoke_dzvp"
+  optional_production_basis_profile: "tzvp_ucl_not_generated_by_default"
+smoke_tests:
+  ordered_calculation_ids:
+    - 01_cdte_bulk_sp
+    - 02_cu2te_bulk_sp
+    - 03_b0_slab_sp
+    - 04_h1_interface_sp
+    - 05_h1_short_geo_opt
