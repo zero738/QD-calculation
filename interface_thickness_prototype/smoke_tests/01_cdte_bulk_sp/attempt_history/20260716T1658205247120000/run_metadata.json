@@ -1,21 +1,21 @@
 {
   "calculation_id": "01_cdte_bulk_sp",
   "attempted": true,
-  "started_at_utc": "2026-07-17T03:51:55.676150+00:00",
+  "started_at_utc": "2026-07-16T16:58:20.524712+00:00",
   "execution_mode": "docker",
   "execution_command": "docker run --rm --name <container> --cpus <threads> --shm-size 1g -e OMP_NUM_THREADS=<threads> -v <task_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k -i input.inp -o output.out",
   "executed_input_file": "input.executed.inp",
-  "executed_input_sha256": "0876136949a268bbe4148b3472619893d32eac82a1d38262798dfcec5ac34f8f",
+  "executed_input_sha256": "347412106a0266260371b6fa51deb54345c2f57f1b14d839adb12429f7bc69ca",
   "cp2k_version": "CP2K version 2024.3",
   "docker_image": "cp2k/cp2k:2024.3",
   "cpu_threads": 4,
   "timeout_seconds": 180,
-  "wall_time_seconds": 32.518768,
+  "wall_time_seconds": 34.624837,
   "timed_out": false,
-  "termination_reason": "process_exit_0",
-  "confirmed_stop_cause": "launcher process exited with return code 0",
-  "return_code": 0,
+  "termination_reason": "cp2k_abort",
+  "confirmed_stop_cause": "CP2K output contains an explicit abort marker",
+  "return_code": 1,
   "timeout_cleanup": null,
   "launcher_stdout": "",
-  "launcher_stderr": ""
+  "launcher_stderr": "Abort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\n"
 }

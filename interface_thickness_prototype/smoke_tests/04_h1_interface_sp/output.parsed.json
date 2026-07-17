@@ -5,8 +5,8 @@
   "cp2k_version": "CP2K version 2024.3",
   "execution_command": "docker run --rm --name <container> --cpus <threads> --shm-size 1g -e OMP_NUM_THREADS=<threads> -v <task_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k -i input.inp -o output.out",
   "cpu_threads": 4,
-  "wall_time_seconds": 22.02718,
-  "timeout_seconds": 240,
+  "wall_time_seconds": 1456.533034,
+  "timeout_seconds": 1800,
   "timed_out": false,
   "termination_reason": "process_exit_0",
   "confirmed_stop_cause": "launcher process exited with return code 0",
@@ -15,11 +15,11 @@
   "program_completed": true,
   "scf_converged": true,
   "geometry_optimization_converged": null,
-  "scf_steps": 15,
+  "scf_steps": 36,
   "scf_steps_per_run": [
-    15
+    36
   ],
-  "total_energy_hartree": -208.1206883249572,
-  "total_energy_ev": -5663.252435791295,
+  "total_energy_hartree": -5470.2873350273885,
+  "total_energy_ev": -148854.1015499666,
   "warning_or_error": null
 }

@@ -16,6 +16,8 @@ python interface_thickness_prototype/scripts/validate_models.py
 
 运行器按 CdTe bulk → Cu₂Te bulk → B0 → H1 单点 → H1 短优化的固定顺序执行。前一项没有明确 SCF 收敛和正常结束时，后一项会跳过。
 
+每项都有 `config.yaml` 中独立的硬超时；也可用 `--timeout-seconds N` 临时统一覆盖。运行器在任务启动时先写 metadata，最终再记录 `termination_reason`、`timed_out`、`return_code` 和能够机器确认的停止原因。只有运行器真实触发上限时才标记 `runner_timeout`；普通非零退出或外部中断不会被猜测成超时、OOM 或人工停止。
+
 原生 Linux CP2K：
 
 ```bash
@@ -57,7 +59,7 @@ sbatch interface_thickness_prototype/smoke_tests/run_smoke_tests.slurm
 - `input.inp`：当前生成器给出的完整 CP2K 输入；
 - `input.executed.inp`：真实运行前冻结的输入快照，并在 metadata 中记录 SHA-256；
 - `output.out`：完整 CP2K 输出；
-- `run_metadata.json`：版本、脱敏后的执行命令、线程、耗时和退出码；
+- `run_metadata.json`：版本、脱敏后的执行命令、线程、硬超时、耗时、`termination_reason`、`timed_out` 和退出码；
 - `output.parsed.json`：严格解析结果。
 
 只有以下条件同时成立，单点任务才标记 `program_completed=true`：

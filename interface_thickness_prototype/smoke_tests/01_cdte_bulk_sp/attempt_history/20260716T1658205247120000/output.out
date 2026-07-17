@@ -1,0 +1,396 @@
+ DBCSR| CPU Multiplication driver                                           XSMM (U)
+ DBCSR| Multrec recursion limit                                              512 (U)
+ DBCSR| Multiplication stack size                                           1000 (D)
+ DBCSR| Maximum elements for images                                    UNLIMITED (U)
+ DBCSR| Multiplicative factor virtual images                                   1 (U)
+ DBCSR| Use multiplication densification                                       T (D)
+ DBCSR| Multiplication size stacks                                             3 (U)
+ DBCSR| Use memory pool for CPU allocation                                     F (U)
+ DBCSR| Number of 3D layers                                               SINGLE (U)
+ DBCSR| Use MPI memory allocation                                              F (U)
+ DBCSR| Use RMA algorithm                                                      F (U)
+ DBCSR| Use Communication thread                                               T (U)
+ DBCSR| Communication thread load                                             75 (D)
+ DBCSR| MPI: My process id                                                     0
+ DBCSR| MPI: Number of processes                                               1
+ DBCSR| OMP: Current number of threads                                         4
+ DBCSR| OMP: Max number of threads                                             4
+ DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00 (U)
+
+
+  **** **** ******  **  PROGRAM STARTED AT               2026-07-16 16:58:22.722
+ ***** ** ***  *** **   PROGRAM STARTED ON                          8add39189bee
+ **    ****   ******    PROGRAM STARTED BY                             <unknown>
+ ***** **    ** ** **   PROGRAM PROCESS ID                                   585
+  **** **  *******  **  PROGRAM STARTED IN                                 /work
+
+ CP2K| version string:                                       CP2K version 2024.3
+ CP2K| source code revision number:                                  git:6712648
+ CP2K| cp2kflags: omp libint fftw3 libxc libgrpp pexsi elpa parallel scalapack c
+ CP2K|            osma quip xsmm plumed2 spglib libdftd4 sirius libvori libbqb l
+ CP2K|            libtorch libvdwxc hdf5
+ CP2K| is freely available from                            https://www.cp2k.org/
+ CP2K| Program compiled at                          Mon Sep  9 14:39:12 UTC 2024
+ CP2K| Program compiled on                                          5c005b387e2b
+ CP2K| Program compiled for                                                local
+ CP2K| Data directory path                                        /opt/cp2k/data
+ CP2K| Input file name                                                 input.inp
+
+ GLOBAL| Force Environment number                                              1
+ GLOBAL| Basis set file name                                        BASIS_MOLOPT
+ GLOBAL| Potential file name                                      GTH_POTENTIALS
+ GLOBAL| MM Potential file name                                     MM_POTENTIAL
+ GLOBAL| Coordinate file name                                      __STD_INPUT__
+ GLOBAL| Method name                                                        CP2K
+ GLOBAL| Project name                                            01_cdte_bulk_sp
+ GLOBAL| Run type                                                         ENERGY
+ GLOBAL| FFT library                                                       FFTW3
+ GLOBAL| Diagonalization library                                            ELPA
+ GLOBAL| DGEMM library                                                      BLAS
+ GLOBAL| Minimum number of eigenvectors for ELPA usage                        16
+ GLOBAL| Orthonormality check for eigenvectors                          DISABLED
+ GLOBAL| Matrix multiplication library                                     COSMA
+ GLOBAL| All-to-all communication in single precision                          F
+ GLOBAL| FFTs using library dependent lengths                                  F
+ GLOBAL| Grid backend                                                       AUTO
+ GLOBAL| Global print level                                                  LOW
+ GLOBAL| MPI I/O enabled                                                       T
+ GLOBAL| Total number of message passing processes                             1
+ GLOBAL| Number of threads for this process                                    4
+ GLOBAL| This output is from process                                           0
+ GLOBAL| Stack size for threads created by OpenMP (OMP_STACKSIZE)            16M
+ GLOBAL| CPU model name                AMD Ryzen 7 8845H w/ Radeon 780M Graphics
+ GLOBAL| CPUID                                                              1003
+ GLOBAL| Compiled for CPUID                                                    0
+
+ *** HINT in environment.F:921 :: The compiler target flags (generic) used ***
+ *** to build this binary cannot exploit all extensions of this CPU model  ***
+ *** (x86_avx512). Consider compiler target flags as part of FCFLAGS and   ***
+ *** CFLAGS (ARCH file).                                                   ***
+
+
+ MEMORY| system memory details [Kb]
+ MEMORY|                        rank 0           min           max       average
+ MEMORY| MemTotal             14211264      14211264      14211264      14211264
+ MEMORY| MemFree              13035848      13035848      13035848      13035848
+ MEMORY| Buffers                 34912         34912         34912         34912
+ MEMORY| Cached                 431212        431212        431212        431212
+ MEMORY| Slab                   138324        138324        138324        138324
+ MEMORY| SReclaimable            53908         53908         53908         53908
+ MEMORY| MemLikelyFree        13555880      13555880      13555880      13555880
+
+
+ GENERATE|  Preliminary Number of Bonds generated:                             0
+ GENERATE|  Achieved consistency in connectivity generation.
+
+ *******************************************************************************
+ *******************************************************************************
+ **                                                                           **
+ **     #####                         ##              ##                      **
+ **    ##   ##            ##          ##              ##                      **
+ **   ##     ##                       ##            ######                    **
+ **   ##     ##  ##   ##  ##   #####  ##  ##   ####   ##    #####    #####    **
+ **   ##     ##  ##   ##  ##  ##      ## ##   ##      ##   ##   ##  ##   ##   **
+ **   ##  ## ##  ##   ##  ##  ##      ####     ###    ##   ######   ######    **
+ **    ##  ###   ##   ##  ##  ##      ## ##      ##   ##   ##       ##        **
+ **     #######   #####   ##   #####  ##  ##  ####    ##    #####   ##        **
+ **           ##                                                    ##        **
+ **                                                                           **
+ **                                                ... make the atoms dance   **
+ **                                                                           **
+ **            Copyright (C) by CP2K developers group (2000-2024)             **
+ **                      J. Chem. Phys. 152, 194103 (2020)                    **
+ **                                                                           **
+ *******************************************************************************
+
+
+ TOTAL NUMBERS AND MAXIMUM NUMBERS
+
+  Total number of            - Atomic kinds:                                   2
+                             - Atoms:                                          8
+                             - Shell sets:                                     8
+                             - Shells:                                        48
+                             - Primitive Cartesian functions:                 40
+                             - Cartesian basis functions:                    176
+                             - Spherical basis functions:                    152
+
+  Maximum angular momentum of- Orbital basis functions:                        3
+                             - Local part of the GTH pseudopotential:          0
+                             - Non-local part of the GTH pseudopotential:      4
+
+
+ SCF PARAMETERS         Density guess:                                    ATOMIC
+                        --------------------------------------------------------
+                        max_scf:                                              50
+                        max_scf_history:                                       0
+                        max_diis:                                              4
+                        --------------------------------------------------------
+                        eps_scf:                                        1.00E-05
+                        eps_scf_history:                                0.00E+00
+                        eps_diis:                                       1.00E-01
+                        eps_eigval:                                     1.00E-05
+                        --------------------------------------------------------
+                        level_shift [a.u.]:                             0.000000
+                        --------------------------------------------------------
+                        No outer SCF
+
+ Number of electrons:                                                         72
+ Number of occupied orbitals:                                                 36
+ Number of molecular orbitals:                                                36
+
+ Number of orbital functions:                                                152
+ Number of independent orbital functions:                                    152
+
+ Extrapolation method: initial_guess
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  ----------------------------------- OT ---------------------------------------
+  Minimizer      : DIIS                : direct inversion
+                                         in the iterative subspace
+                                         using   7 DIIS vectors
+                                         safer DIIS on
+  Preconditioner : FULL_SINGLE_INVERSE : inversion of 
+                                         H + eS - 2*(Sc)(c^T*H*c+const)(Sc)^T
+  Precond_solver : DEFAULT
+  stepsize       :    0.08000000                  energy_gap     :    0.00100000
+  eps_taylor     :   0.10000E-15                  max_taylor     :             4
+  ----------------------------------- OT ---------------------------------------
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     1 OT DIIS     0.80E-01    0.5     0.09088740      -214.0781528864 -2.14E+02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     2 OT DIIS     0.80E-01    0.6     0.04733943      -215.6005100860 -1.52E+00
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     3 OT DIIS     0.80E-01    0.6     0.02785471      -216.1331316458 -5.33E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     4 OT DIIS     0.80E-01    0.7     0.01884811      -216.4257262967 -2.93E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     5 OT DIIS     0.80E-01    0.6     0.01458641      -216.5599715805 -1.34E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     6 OT DIIS     0.80E-01    0.6     0.01038621      -216.6814048568 -1.21E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     7 OT DIIS     0.80E-01    0.6     0.00721709      -216.7212735132 -3.99E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     8 OT DIIS     0.80E-01    0.6     0.00493662      -216.7589056594 -3.76E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     9 OT DIIS     0.80E-01    0.6     0.00399931      -216.7769370163 -1.80E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    10 OT DIIS     0.80E-01    0.6     0.00307502      -216.7934585699 -1.65E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    11 OT DIIS     0.80E-01    0.6     0.00248030      -216.8043178403 -1.09E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    12 OT DIIS     0.80E-01    0.6     0.00205386      -216.8133930797 -9.08E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    13 OT DIIS     0.80E-01    0.6     0.00178299      -216.8187699271 -5.38E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    14 OT DIIS     0.80E-01    0.6     0.00162022      -216.8229625222 -4.19E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    15 OT DIIS     0.80E-01    0.6     0.00151912      -216.8267270350 -3.76E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    16 OT DIIS     0.80E-01    0.6     0.00146700      -216.8294597685 -2.73E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    17 OT DIIS     0.80E-01    0.6     0.00142506      -216.8328825092 -3.42E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    18 OT DIIS     0.80E-01    0.6     0.00139811      -216.8353616356 -2.48E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    19 OT DIIS     0.80E-01    0.6     0.00136322      -216.8383875907 -3.03E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    20 OT DIIS     0.80E-01    0.6     0.00128783      -216.8428790693 -4.49E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    21 OT DIIS     0.80E-01    0.6     0.00123366      -216.8458769180 -3.00E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    22 OT DIIS     0.80E-01    0.6     0.00112929      -216.8506002555 -4.72E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    23 OT DIIS     0.80E-01    0.6     0.00114774      -216.8517758739 -1.18E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    24 OT DIIS     0.80E-01    0.6     0.00097221      -216.8546363154 -2.86E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    25 OT DIIS     0.80E-01    0.6     0.00086262      -216.8569768898 -2.34E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    26 OT DIIS     0.80E-01    0.6     0.00080007      -216.8601394862 -3.16E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    27 OT DIIS     0.80E-01    0.6     0.00068077      -216.8609686899 -8.29E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    28 OT DIIS     0.80E-01    0.6     0.00057289      -216.8616213223 -6.53E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    29 OT DIIS     0.80E-01    0.6     0.00054012      -216.8621446523 -5.23E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    30 OT DIIS     0.80E-01    0.6     0.00050311      -216.8630376132 -8.93E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    31 OT DIIS     0.80E-01    0.6     0.00062943      -216.8636746028 -6.37E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    32 OT DIIS     0.80E-01    0.6     0.00039377      -216.8637044335 -2.98E-05
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    33 OT DIIS     0.80E-01    0.6     0.00030567      -216.8641737848 -4.69E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    34 OT DIIS     0.80E-01    0.6     0.00028679      -216.8643806165 -2.07E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    35 OT DIIS     0.80E-01    0.6     0.00026350      -216.8645923530 -2.12E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    36 OT DIIS     0.80E-01    0.6     0.00024973      -216.8647767965 -1.84E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    37 OT DIIS     0.80E-01    0.6     0.00023782      -216.8648567781 -8.00E-05
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    38 OT DIIS     0.80E-01    0.6     0.00021938      -216.8650704326 -2.14E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    39 OT DIIS     0.80E-01    0.6     0.00019999      -216.8652758688 -2.05E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    40 OT DIIS     0.80E-01    0.6     0.00020229      -216.8655016713 -2.26E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    41 OT DIIS     0.80E-01    0.6     0.00016095      -216.8656435264 -1.42E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    42 OT DIIS     0.80E-01    0.6     0.00017283      -216.8658023363 -1.59E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    43 OT DIIS     0.80E-01    0.6     0.00011841      -216.8659118241 -1.09E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    44 OT DIIS     0.80E-01    0.6     0.00010309      -216.8659760512 -6.42E-05
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    45 OT DIIS     0.80E-01    0.6     0.00008181      -216.8660265534 -5.05E-05
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    46 OT DIIS     0.80E-01    0.6     0.00006889      -216.8660409289 -1.44E-05
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    47 OT DIIS     0.80E-01    0.6     0.00006681      -216.8660497633 -8.83E-06
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    48 OT DIIS     0.80E-01    0.6     0.00004838      -216.8660560959 -6.33E-06
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    49 OT DIIS     0.80E-01    0.6     0.00004231      -216.8660602725 -4.18E-06
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+    50 OT DIIS     0.80E-01    0.6     0.00003773      -216.8660640865 -3.81E-06
+
+  Leaving inner SCF loop after reaching    50 steps.
+
+
+  Electronic density on regular grids:        -71.9999999987        0.0000000013
+  Core density on regular grids:               71.9999999877       -0.0000000123
+  Total charge density on r-space grids:       -0.0000000111
+  Total charge density g-space grids:          -0.0000000111
+
+  Overlap energy of the core charge distribution:               0.00000000579253
+  Self energy of the core charge distribution:               -366.07652978339792
+  Core Hamiltonian energy:                                    111.40283960124407
+  Hartree energy:                                              71.75888261485004
+  Exchange-correlation energy:                                -33.95125652496257
+
+  Total energy:                                              -216.86606408647384
+
+ *******************************************************************************
+ *   ___                                                                       *
+ *  /   \                                                                      *
+ * [ABORT]                                                                     *
+ *  \___/     SCF run NOT converged. To continue the calculation regardless,   *
+ *    |             please set the keyword IGNORE_CONVERGENCE_FAILURE.         *
+ *  O/|                                                                        *
+ * /| |                                                                        *
+ * / \                                                            qs_scf.F:605 *
+ *******************************************************************************
+
+
+ ===== Routine Calling Stack ===== 
+
+            3 scf_env_do_scf
+            2 qs_energies
+            1 CP2K

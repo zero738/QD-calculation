@@ -1,0 +1,23 @@
+{
+  "output_file": "output.out",
+  "exists": true,
+  "actually_run": true,
+  "cp2k_version": "CP2K version 2024.3",
+  "execution_command": "docker run --rm --name <container> --cpus <threads> --shm-size 1g -e OMP_NUM_THREADS=<threads> -v <task_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k -i input.inp -o output.out",
+  "cpu_threads": 4,
+  "wall_time_seconds": 34.624837,
+  "timeout_seconds": 180,
+  "timed_out": false,
+  "termination_reason": "cp2k_abort",
+  "confirmed_stop_cause": "CP2K output contains an explicit abort marker",
+  "return_code": 1,
+  "normal_program_end": false,
+  "program_completed": false,
+  "scf_converged": false,
+  "geometry_optimization_converged": null,
+  "scf_steps": null,
+  "scf_steps_per_run": [],
+  "total_energy_hartree": null,
+  "total_energy_ev": null,
+  "warning_or_error": "CP2K reported an abort, stop, or unconverged SCF"
+}

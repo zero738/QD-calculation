@@ -27,11 +27,12 @@ validation:
 cp2k:
   basis_file: BASIS_MOLOPT
   potential_file: GTH_POTENTIALS
-  cutoff_ry: 400
-  rel_cutoff_ry: 60
-  eps_scf: 1.0e-6
-  max_scf: 80
-  added_mos: 50
+  # Deliberately low-cost smoke profile; none of these values is converged for research use.
+  cutoff_ry: 300
+  rel_cutoff_ry: 40
+  eps_scf: 1.0e-4
+  max_scf: 100
+  added_mos: 12
   electronic_temperature_k: 500
   geo_opt_test_max_iter: 5
   local_max_threads: 4
@@ -47,3 +48,9 @@ smoke_tests:
     - 03_b0_slab_sp
     - 04_h1_interface_sp
     - 05_h1_short_geo_opt
+  timeout_seconds:
+    01_cdte_bulk_sp: 180
+    02_cu2te_bulk_sp: 240
+    03_b0_slab_sp: 900
+    04_h1_interface_sp: 1800
+    05_h1_short_geo_opt: 300

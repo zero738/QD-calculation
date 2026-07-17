@@ -39,6 +39,10 @@ SMOKE_FIELDS = [
     "SCF_steps",
     "total_energy_hartree",
     "wall_time_seconds",
+    "timeout_seconds",
+    "timed_out",
+    "termination_reason",
+    "return_code",
     "warning_or_error",
 ]
 
@@ -108,6 +112,12 @@ def write_smoke_summary() -> Path:
                 "SCF_steps": parsed["scf_steps"] or "",
                 "total_energy_hartree": parsed["total_energy_hartree"] or "",
                 "wall_time_seconds": parsed["wall_time_seconds"] or "",
+                "timeout_seconds": parsed["timeout_seconds"] or "",
+                "timed_out": parsed["timed_out"],
+                "termination_reason": parsed["termination_reason"] or "",
+                "return_code": (
+                    "" if parsed["return_code"] is None else parsed["return_code"]
+                ),
                 "warning_or_error": parsed["warning_or_error"] or "",
             }
         )

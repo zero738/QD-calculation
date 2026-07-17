@@ -2,8 +2,8 @@
 # SMOKE TEST ONLY: PBE/DZVP, cutoff, Gamma point and model size are not converged.
 &GLOBAL
   PROJECT 03_b0_slab_sp
-  RUN_TYPE ENERGY_FORCE
-  PRINT_LEVEL MEDIUM
+  RUN_TYPE ENERGY
+  PRINT_LEVEL LOW
 &END GLOBAL
 
 &FORCE_EVAL
@@ -15,35 +15,29 @@
     MULTIPLICITY 1
     &QS
       METHOD GPW
-      EPS_DEFAULT 1.0E-12
+      EPS_DEFAULT 1.0E-10
     &END QS
     &POISSON
       PERIODIC XY
       PSOLVER ANALYTIC
     &END POISSON
     &MGRID
-      CUTOFF 400
-      REL_CUTOFF 60
+      CUTOFF 300
+      REL_CUTOFF 40
     &END MGRID
     &SCF
       SCF_GUESS ATOMIC
-      EPS_SCF 1e-06
-      MAX_SCF 80
-      ADDED_MOS 50
-      &DIAGONALIZATION
-        ALGORITHM STANDARD
-      &END DIAGONALIZATION
-      &SMEAR ON
-        METHOD FERMI_DIRAC
-        ELECTRONIC_TEMPERATURE [K] 500
-      &END SMEAR
-      &MIXING ON
-        METHOD BROYDEN_MIXING
-        ALPHA 0.20
-        NBROYDEN 8
-      &END MIXING
-      # Explicit OFF is required: at MEDIUM print level CP2K otherwise writes
-      # a k-point restart tens of MB large even for a six-atom cell.
+      EPS_SCF 0.0001
+      MAX_SCF 100
+      # Low-memory pipeline smoke choice, not a research SCF profile.
+      # In particular, H1 may be conductive and requires diagonalization/smearing
+      # before any electronic-structure interpretation.
+      &OT
+        MINIMIZER DIIS
+        PRECONDITIONER FULL_SINGLE_INVERSE
+        ENERGY_GAP 0.001
+      &END OT
+      # Disable large restart files in the bounded local smoke run.
       &PRINT
         &RESTART OFF
         &END RESTART
@@ -53,9 +47,7 @@
       &XC_FUNCTIONAL PBE
       &END XC_FUNCTIONAL
     &END XC
-    &KPOINTS
-      SCHEME GAMMA
-    &END KPOINTS
+    # No KPOINTS section: CP2K's default is Gamma-only and remains OT-compatible.
   &END DFT
   &SUBSYS
     &CELL
@@ -157,8 +149,5 @@
       # Matching GTH valence-electron setting: q6
     &END KIND
   &END SUBSYS
-  &PRINT
-    &FORCES ON
-    &END FORCES
-  &END PRINT
+
 &END FORCE_EVAL

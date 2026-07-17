@@ -3,7 +3,7 @@
 &GLOBAL
   PROJECT h1_test_opt
   RUN_TYPE GEO_OPT
-  PRINT_LEVEL MEDIUM
+  PRINT_LEVEL LOW
 &END GLOBAL
 
 &FORCE_EVAL
@@ -15,21 +15,22 @@
     MULTIPLICITY 1
     &QS
       METHOD GPW
-      EPS_DEFAULT 1.0E-12
+      EPS_DEFAULT 1.0E-10
     &END QS
     &POISSON
       PERIODIC XY
       PSOLVER ANALYTIC
     &END POISSON
     &MGRID
-      CUTOFF 400
-      REL_CUTOFF 60
+      CUTOFF 300
+      REL_CUTOFF 40
     &END MGRID
     &SCF
       SCF_GUESS ATOMIC
-      EPS_SCF 1e-06
-      MAX_SCF 80
-      ADDED_MOS 50
+      EPS_SCF 0.0001
+      MAX_SCF 100
+      # Cu2Te may be conductive, so retain diagonalization and smearing.
+      ADDED_MOS 12
       &DIAGONALIZATION
         ALGORITHM STANDARD
       &END DIAGONALIZATION
@@ -42,8 +43,7 @@
         ALPHA 0.20
         NBROYDEN 8
       &END MIXING
-      # Explicit OFF is required: at MEDIUM print level CP2K otherwise writes
-      # a k-point restart tens of MB large even for a six-atom cell.
+      # Disable large restart files in the bounded local smoke run.
       &PRINT
         &RESTART OFF
         &END RESTART

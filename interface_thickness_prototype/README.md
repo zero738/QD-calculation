@@ -47,6 +47,8 @@ Linux 把 Python 路径替换为 `.venv/bin/python`。详细 CP2K 运行方式�
 
 默认基组为官方 `BASIS_MOLOPT` 中的 DZVP-MOLOPT-SR-GTH q11/q12/q6，配套 GTH-PBE 赝势。TZVP 只保留为以后可选的 production 方向，不是本地 smoke test 默认值。
 
+当前 CP2K 2024.3/Docker 实测中，B0 单点以 49 个 SCF 步、772.206806 s 正常结束，H1 单点以 36 个 SCF 步、1456.533034 s 正常结束；两者都通过返回码、超时、SCF、能量和程序页脚的严格检查。这些是低成本管线 smoke 结果，不是可比较的科研总能量。
+
 ## 最值得先看
 
 - `results/model_summary.csv`：B0/H1/H2 的层数、终止、原子数、厚度和界面距离。

@@ -26,6 +26,7 @@ def parse_output(
     run_metadata_path: Path | None = None,
 ) -> dict:
     metadata = _read_metadata(run_metadata_path)
+    metadata_present = bool(metadata)
     display_path = path.as_posix() if not path.is_absolute() else path.name
     result = {
         "output_file": display_path,
@@ -35,6 +36,10 @@ def parse_output(
         "execution_command": metadata.get("execution_command"),
         "cpu_threads": metadata.get("cpu_threads"),
         "wall_time_seconds": metadata.get("wall_time_seconds"),
+        "timeout_seconds": metadata.get("timeout_seconds"),
+        "timed_out": bool(metadata.get("timed_out", False)),
+        "termination_reason": metadata.get("termination_reason"),
+        "confirmed_stop_cause": metadata.get("confirmed_stop_cause"),
         "return_code": metadata.get("return_code"),
         "normal_program_end": False,
         "program_completed": False,
@@ -58,6 +63,7 @@ def parse_output(
         token in upper
         for token in (
             "ABORT|",
+            "[ABORT]",
             "*** ERROR",
             "SCF RUN NOT CONVERGED",
             "SCF_NOT_CONVERGED",
@@ -87,8 +93,11 @@ def parse_output(
             "GEOMETRY OPTIMIZATION COMPLETED" in upper and not aborted
         )
     geo_ok = (not is_geo) or bool(result["geometry_optimization_converged"])
+    return_code_ok = (not metadata_present) or result["return_code"] == 0
     result["program_completed"] = bool(
         result["actually_run"]
+        and not result["timed_out"]
+        and return_code_ok
         and result["normal_program_end"]
         and result["scf_converged"]
         and not aborted
@@ -96,8 +105,20 @@ def parse_output(
         and geo_ok
     )
 
-    if aborted:
+    if result["timed_out"]:
+        result["warning_or_error"] = (
+            f"runner-enforced timeout after {result['timeout_seconds']} seconds"
+        )
+    elif aborted:
         result["warning_or_error"] = "CP2K reported an abort, stop, or unconverged SCF"
+    elif metadata_present and result["return_code"] is None:
+        result["warning_or_error"] = (
+            "run metadata has no final return code; termination is not confirmed"
+        )
+    elif result["return_code"] not in (None, 0):
+        result["warning_or_error"] = (
+            f"launcher exited with code {result['return_code']}; originating cause is unclassified"
+        )
     elif not result["normal_program_end"]:
         result["warning_or_error"] = "normal CP2K end marker is missing"
     elif not result["scf_converged"]:

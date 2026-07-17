@@ -2,8 +2,8 @@
 # SMOKE TEST ONLY: PBE/DZVP, cutoff, Gamma point and model size are not converged.
 &GLOBAL
   PROJECT 02_cu2te_bulk_sp
-  RUN_TYPE ENERGY_FORCE
-  PRINT_LEVEL MEDIUM
+  RUN_TYPE ENERGY
+  PRINT_LEVEL LOW
 &END GLOBAL
 
 &FORCE_EVAL
@@ -15,20 +15,21 @@
     MULTIPLICITY 1
     &QS
       METHOD GPW
-      EPS_DEFAULT 1.0E-12
+      EPS_DEFAULT 1.0E-10
     &END QS
     &POISSON
       PERIODIC XYZ
     &END POISSON
     &MGRID
-      CUTOFF 400
-      REL_CUTOFF 60
+      CUTOFF 300
+      REL_CUTOFF 40
     &END MGRID
     &SCF
       SCF_GUESS ATOMIC
-      EPS_SCF 1e-06
-      MAX_SCF 80
-      ADDED_MOS 20
+      EPS_SCF 0.0001
+      MAX_SCF 100
+      # Cu2Te may be conductive, so retain diagonalization and smearing.
+      ADDED_MOS 12
       &DIAGONALIZATION
         ALGORITHM STANDARD
       &END DIAGONALIZATION
@@ -41,9 +42,11 @@
         ALPHA 0.20
         NBROYDEN 8
       &END MIXING
-      # Wavefunction restart printing is disabled for the minimal smoke test:
-      # the k-point restart was tens of MB even for a six-atom cell. Enable it
-      # only in a production run with an explicit storage policy.
+      # Disable large restart files in the bounded local smoke run.
+      &PRINT
+        &RESTART OFF
+        &END RESTART
+      &END PRINT
     &END SCF
     &XC
       &XC_FUNCTIONAL PBE
@@ -81,8 +84,5 @@
       # Matching GTH valence-electron setting: q11
     &END KIND
   &END SUBSYS
-  &PRINT
-    &FORCES ON
-    &END FORCES
-  &END PRINT
+
 &END FORCE_EVAL

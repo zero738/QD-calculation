@@ -26,11 +26,10 @@
     &END MGRID
     &SCF
       SCF_GUESS ATOMIC
-      EPS_SCF 0.0001
-      MAX_SCF 100
-      # Low-memory pipeline smoke choice, not a research SCF profile.
-      # In particular, H1 may be conductive and requires diagonalization/smearing
-      # before any electronic-structure interpretation.
+      EPS_SCF 1e-05
+      MAX_SCF 50
+      # Low-memory smoke choice for nominally gapped CdTe only.
+      # It is not suitable evidence for a converged electronic-structure study.
       &OT
         MINIMIZER DIIS
         PRECONDITIONER FULL_SINGLE_INVERSE

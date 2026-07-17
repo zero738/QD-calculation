@@ -18,8 +18,8 @@
  DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00 (U)
 
 
-  **** **** ******  **  PROGRAM STARTED AT               2026-07-17 03:52:52.483
- ***** ** ***  *** **   PROGRAM STARTED ON                          f42a675b0ccb
+  **** **** ******  **  PROGRAM STARTED AT               2026-07-17 04:05:44.905
+ ***** ** ***  *** **   PROGRAM STARTED ON                          03da1f3ba225
  **    ****   ******    PROGRAM STARTED BY                             <unknown>
  ***** **    ** ** **   PROGRAM PROCESS ID                                   584
   **** **  *******  **  PROGRAM STARTED IN                                 /work
@@ -42,7 +42,7 @@
  GLOBAL| MM Potential file name                                     MM_POTENTIAL
  GLOBAL| Coordinate file name                                      __STD_INPUT__
  GLOBAL| Method name                                                        CP2K
- GLOBAL| Project name                                              03_b0_slab_sp
+ GLOBAL| Project name                                         04_h1_interface_sp
  GLOBAL| Run type                                                         ENERGY
  GLOBAL| FFT library                                                       FFTW3
  GLOBAL| Diagonalization library                                            ELPA
@@ -72,12 +72,12 @@
  MEMORY| system memory details [Kb]
  MEMORY|                        rank 0           min           max       average
  MEMORY| MemTotal             14211268      14211268      14211268      14211268
- MEMORY| MemFree              12501700      12501700      12501700      12501700
- MEMORY| Buffers                170180        170180        170180        170180
- MEMORY| Cached                 885804        885804        885804        885804
- MEMORY| Slab                    94868         94868         94868         94868
- MEMORY| SReclaimable            22980         22980         22980         22980
- MEMORY| MemLikelyFree        13580664      13580664      13580664      13580664
+ MEMORY| MemFree              12498544      12498544      12498544      12498544
+ MEMORY| Buffers                170412        170412        170412        170412
+ MEMORY| Cached                 886556        886556        886556        886556
+ MEMORY| Slab                    95456         95456         95456         95456
+ MEMORY| SReclaimable            23020         23020         23020         23020
+ MEMORY| MemLikelyFree        13578532      13578532      13578532      13578532
 
 
  GENERATE|  Preliminary Number of Bonds generated:                             0
@@ -106,13 +106,13 @@
 
  TOTAL NUMBERS AND MAXIMUM NUMBERS
 
-  Total number of            - Atomic kinds:                                   2
-                             - Atoms:                                         78
-                             - Shell sets:                                    78
-                             - Shells:                                       468
-                             - Primitive Cartesian functions:                390
-                             - Cartesian basis functions:                   1716
-                             - Spherical basis functions:                   1482
+  Total number of            - Atomic kinds:                                   3
+                             - Atoms:                                        174
+                             - Shell sets:                                   174
+                             - Shells:                                      1076
+                             - Primitive Cartesian functions:                934
+                             - Cartesian basis functions:                   4084
+                             - Spherical basis functions:                   3498
 
   Maximum angular momentum of- Orbital basis functions:                        3
                              - Local part of the GTH pseudopotential:          0
@@ -134,12 +134,12 @@
                         --------------------------------------------------------
                         No outer SCF
 
- Number of electrons:                                                        702
- Number of occupied orbitals:                                                351
- Number of molecular orbitals:                                               351
+ Number of electrons:                                                       1598
+ Number of occupied orbitals:                                                799
+ Number of molecular orbitals:                                               799
 
- Number of orbital functions:                                               1482
- Number of independent orbital functions:                                   1482
+ Number of orbital functions:                                               3498
+ Number of independent orbital functions:                                   3498
 
  Extrapolation method: initial_guess
 
@@ -163,217 +163,165 @@
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-     1 OT DIIS     0.80E-01   14.3     0.03408239     -2080.9453450908 -2.08E+03
+     1 OT DIIS     0.80E-01   42.1     0.01126424     -5425.4140577526 -5.43E+03
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-     2 OT DIIS     0.80E-01   15.7     0.01737243     -2097.4200238039 -1.65E+01
+     2 OT DIIS     0.80E-01   42.2     0.01716149     -5433.5788678801 -8.16E+00
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-     3 OT DIIS     0.80E-01   15.9     0.00773242     -2102.9194178753 -5.50E+00
+     3 OT DIIS     0.80E-01   41.5     0.01012239     -5440.1273605696 -6.55E+00
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-     4 OT DIIS     0.80E-01   15.8     0.00588105     -2105.5270636016 -2.61E+00
+     4 OT DIIS     0.80E-01   41.6     0.00409001     -5446.0207032404 -5.89E+00
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-     5 OT DIIS     0.80E-01   15.8     0.00444422     -2108.0604067258 -2.53E+00
+     5 OT DIIS     0.80E-01   40.6     0.00331026     -5451.4343781089 -5.41E+00
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-     6 OT DIIS     0.80E-01   15.7     0.00349268     -2109.8888190072 -1.83E+00
+     6 OT DIIS     0.80E-01   41.7     0.00277183     -5456.3114025484 -4.88E+00
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-     7 OT DIIS     0.80E-01   15.8     0.00249588     -2111.5046379386 -1.62E+00
+     7 OT DIIS     0.80E-01   40.8     0.00206650     -5459.6399459713 -3.33E+00
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-     8 OT DIIS     0.80E-01   15.5     0.00194070     -2112.1996871834 -6.95E-01
+     8 OT DIIS     0.80E-01   39.8     0.00157164     -5462.4951164973 -2.86E+00
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-     9 OT DIIS     0.80E-01   15.6     0.00151153     -2112.6889484984 -4.89E-01
+     9 OT DIIS     0.80E-01   39.6     0.00128761     -5464.1410629636 -1.65E+00
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    10 OT DIIS     0.80E-01   15.6     0.00127761     -2112.9807733258 -2.92E-01
+    10 OT DIIS     0.80E-01   39.0     0.00106913     -5465.2447118408 -1.10E+00
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    11 OT DIIS     0.80E-01   16.0     0.00109568     -2113.2187880719 -2.38E-01
+    11 OT DIIS     0.80E-01   39.7     0.00096027     -5466.1404938706 -8.96E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    12 OT DIIS     0.80E-01   15.4     0.00095592     -2113.4083833021 -1.90E-01
+    12 OT DIIS     0.80E-01   38.6     0.00081622     -5466.7290157136 -5.89E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    13 OT DIIS     0.80E-01   15.7     0.00085597     -2113.5495578114 -1.41E-01
+    13 OT DIIS     0.80E-01   39.3     0.00072981     -5467.2771938694 -5.48E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    14 OT DIIS     0.80E-01   15.4     0.00076652     -2113.6817036900 -1.32E-01
+    14 OT DIIS     0.80E-01   38.3     0.00063655     -5467.7785018694 -5.01E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    15 OT DIIS     0.80E-01   15.6     0.00070157     -2113.7798003175 -9.81E-02
+    15 OT DIIS     0.80E-01   38.6     0.00055308     -5468.2264785696 -4.48E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    16 OT DIIS     0.80E-01   15.7     0.00063164     -2113.8810512408 -1.01E-01
+    16 OT DIIS     0.80E-01   38.6     0.00049617     -5468.5180747810 -2.92E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    17 OT DIIS     0.80E-01   15.5     0.00056133     -2113.9775461383 -9.65E-02
+    17 OT DIIS     0.80E-01   38.6     0.00043561     -5468.8099916377 -2.92E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    18 OT DIIS     0.80E-01   15.3     0.00050969     -2114.0445896330 -6.70E-02
+    18 OT DIIS     0.80E-01   38.7     0.00039018     -5469.0376875603 -2.28E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    19 OT DIIS     0.80E-01   15.3     0.00046076     -2114.1045883360 -6.00E-02
+    19 OT DIIS     0.80E-01   38.2     0.00035636     -5469.1882001150 -1.51E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    20 OT DIIS     0.80E-01   15.3     0.00042338     -2114.1506875384 -4.61E-02
+    20 OT DIIS     0.80E-01   38.5     0.00031283     -5469.3946438247 -2.06E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    21 OT DIIS     0.80E-01   15.2     0.00039078     -2114.1881239858 -3.74E-02
+    21 OT DIIS     0.80E-01   38.6     0.00028667     -5469.5176718107 -1.23E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    22 OT DIIS     0.80E-01   15.1     0.00036030     -2114.2229568259 -3.48E-02
+    22 OT DIIS     0.80E-01   38.6     0.00025860     -5469.6306050881 -1.13E-01
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    23 OT DIIS     0.80E-01   15.2     0.00033504     -2114.2517388976 -2.88E-02
+    23 OT DIIS     0.80E-01   38.6     0.00023985     -5469.7112463013 -8.06E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    24 OT DIIS     0.80E-01   15.2     0.00031032     -2114.2798537525 -2.81E-02
+    24 OT DIIS     0.80E-01   38.6     0.00022317     -5469.7856255451 -7.44E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    25 OT DIIS     0.80E-01   15.0     0.00029200     -2114.3006711213 -2.08E-02
+    25 OT DIIS     0.80E-01   39.0     0.00020614     -5469.8610946077 -7.55E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    26 OT DIIS     0.80E-01   15.1     0.00027473     -2114.3198425766 -1.92E-02
+    26 OT DIIS     0.80E-01   38.3     0.00019331     -5469.9137735347 -5.27E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    27 OT DIIS     0.80E-01   15.0     0.00025667     -2114.3408163181 -2.10E-02
+    27 OT DIIS     0.80E-01   38.5     0.00017771     -5469.9849016891 -7.11E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    28 OT DIIS     0.80E-01   15.1     0.00024435     -2114.3553600139 -1.45E-02
+    28 OT DIIS     0.80E-01   38.6     0.00016005     -5470.0508286967 -6.59E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    29 OT DIIS     0.80E-01   15.2     0.00023213     -2114.3698734358 -1.45E-02
+    29 OT DIIS     0.80E-01   38.9     0.00014930     -5470.0886382685 -3.78E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    30 OT DIIS     0.80E-01   15.0     0.00021939     -2114.3852841347 -1.54E-02
+    30 OT DIIS     0.80E-01   39.0     0.00014191     -5470.1210225402 -3.24E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    31 OT DIIS     0.80E-01   15.3     0.00020860     -2114.3986259723 -1.33E-02
+    31 OT DIIS     0.80E-01   38.5     0.00013225     -5470.1542911395 -3.33E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    32 OT DIIS     0.80E-01   15.8     0.00019946     -2114.4101264766 -1.15E-02
+    32 OT DIIS     0.80E-01   38.5     0.00012615     -5470.1824459679 -2.82E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    33 OT DIIS     0.80E-01   15.2     0.00019170     -2114.4198879336 -9.76E-03
+    33 OT DIIS     0.80E-01   38.5     0.00011862     -5470.2096979454 -2.73E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    34 OT DIIS     0.80E-01   15.7     0.00018303     -2114.4312006458 -1.13E-02
+    34 OT DIIS     0.80E-01   38.3     0.00011256     -5470.2367395145 -2.70E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    35 OT DIIS     0.80E-01   15.4     0.00017508     -2114.4415220780 -1.03E-02
+    35 OT DIIS     0.80E-01   38.6     0.00010524     -5470.2605997557 -2.39E-02
 
  *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
 
-    36 OT DIIS     0.80E-01   15.1     0.00016861     -2114.4498374971 -8.32E-03
+    36 OT DIIS     0.80E-01   37.9     0.00009862     -5470.2873350274 -2.67E-02
 
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    37 OT DIIS     0.80E-01   15.4     0.00016085     -2114.4598352572 -1.00E-02
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    38 OT DIIS     0.80E-01   15.2     0.00015381     -2114.4694891354 -9.65E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    39 OT DIIS     0.80E-01   15.7     0.00014833     -2114.4765446188 -7.06E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    40 OT DIIS     0.80E-01   15.3     0.00014291     -2114.4834546840 -6.91E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    41 OT DIIS     0.80E-01   15.0     0.00013751     -2114.4912144430 -7.76E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    42 OT DIIS     0.80E-01   15.1     0.00013289     -2114.4978215688 -6.61E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    43 OT DIIS     0.80E-01   15.3     0.00012897     -2114.5026513089 -4.83E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    44 OT DIIS     0.80E-01   15.2     0.00012318     -2114.5103476180 -7.70E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    45 OT DIIS     0.80E-01   15.2     0.00011809     -2114.5179724504 -7.62E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    46 OT DIIS     0.80E-01   15.2     0.00011481     -2114.5217696156 -3.80E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    47 OT DIIS     0.80E-01   15.0     0.00010945     -2114.5273305016 -5.56E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    48 OT DIIS     0.80E-01   15.5     0.00010319     -2114.5344988797 -7.17E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    49 OT DIIS     0.80E-01   15.3     0.00009924     -2114.5394694796 -4.97E-03
-
-  *** SCF run converged in    49 steps ***
+  *** SCF run converged in    36 steps ***
 
 
-  Electronic density on regular grids:       -701.9999999358        0.0000000642
-  Core density on regular grids:              701.9999998795       -0.0000001205
-  Total charge density on r-space grids:       -0.0000000563
-  Total charge density g-space grids:          -0.0000000563
+  Electronic density on regular grids:      -1597.9999989217        0.0000010783
+  Core density on regular grids:             1597.9999997425       -0.0000002575
+  Total charge density on r-space grids:        0.0000008208
+  Total charge density g-space grids:           0.0000008208
 
-  Overlap energy of the core charge distribution:               0.00000004235787
-  Self energy of the core charge distribution:              -3569.24616538813007
-  Core Hamiltonian energy:                                   1078.74588655385446
-  Hartree energy:                                             703.46141978753940
-  Exchange-correlation energy:                               -327.50061047520899
+  Overlap energy of the core charge distribution:               0.00000552627526
+  Self energy of the core charge distribution:              -8256.19443405485254
+  Core Hamiltonian energy:                                   2560.68124641593113
+  Hartree energy:                                            1098.03221634082320
+  Exchange-correlation energy:                               -872.80636925556541
 
-  Total energy:                                             -2114.53946947958684
+  Total energy:                                             -5470.28733502738851
 
- ENERGY| Total FORCE_EVAL ( QS ) energy [a.u.]:            -2114.539469479586842
+ ENERGY| Total FORCE_EVAL ( QS ) energy [a.u.]:            -5470.287335027388508
 
  -------------------------------------------------------------------------------
  -                                                                             -
@@ -381,53 +329,53 @@
  -                                                                             -
  -------------------------------------------------------------------------------
  COUNTER                                    TOTAL       BLAS       SMM       ACC
- flops    13 x    31 x    31              1948908       0.0%    100.0%      0.0%     
- flops    31 x    31 x  1482              2848404       0.0%    100.0%      0.0%     
- flops    25 x    31 x    31              3747900       0.0%    100.0%      0.0%     
- flops    13 x    32 x    31             10058880       0.0%    100.0%      0.0%     
- flops    13 x    31 x    32             10058880       0.0%    100.0%      0.0%     
- flops    32 x    31 x  1482             14701440       0.0%    100.0%      0.0%     
- flops    31 x    32 x  1482             14701440       0.0%    100.0%      0.0%     
- flops    25 x    32 x    31             19344000       0.0%    100.0%      0.0%     
- flops    25 x    31 x    32             19344000       0.0%    100.0%      0.0%     
- flops    13 x    32 x    32            114216960       0.0%    100.0%      0.0%     
- flops    32 x    32 x  1482            166932480       0.0%    100.0%      0.0%     
- flops    25 x    32 x    32            219648000       0.0%    100.0%      0.0%     
- flops    13 x    31 x    13           1657451952       0.0%    100.0%      0.0%     
- flops    25 x    31 x    13           3160164800       0.0%    100.0%      0.0%     
- flops    13 x    31 x    25           3160164800       0.0%    100.0%      0.0%     
- flops    13 x    13 x   351           4719419640       0.0%    100.0%      0.0%     
- flops    25 x    31 x    25           6129630000       0.0%    100.0%      0.0%     
- flops    64 x   351 x   351           6859831680       0.0%    100.0%      0.0%     
- flops    25 x    13 x   351           8542164150       0.0%    100.0%      0.0%     
- flops    13 x    25 x   351           9007362000       0.0%    100.0%      0.0%     
- flops    95 x   351 x   351          10182562650       0.0%    100.0%      0.0%     
- flops    64 x   351 x  1482          12983742720       0.0%    100.0%      0.0%     
- flops   266 x   351 x  1482          13836841200       0.0%    100.0%      0.0%     
- flops   266 x   351 x   351          15926932476       0.0%    100.0%      0.0%     
- flops    13 x    32 x    13          17109181440       0.0%    100.0%      0.0%     
- flops    25 x    25 x   351          17453475000       0.0%    100.0%      0.0%     
- flops    95 x   351 x  1482          19272743100       0.0%    100.0%      0.0%     
- flops    96 x   351 x   351          20579495040       0.0%    100.0%      0.0%     
- flops   406 x   351 x  1482          21119389200       0.0%    100.0%      0.0%     
- flops   406 x   351 x   351          24309528516       0.0%    100.0%      0.0%     
- flops    25 x    32 x    13          32621056000       0.0%    100.0%      0.0%     
- flops    13 x    32 x    25          32621056000       0.0%    100.0%      0.0%     
- flops    96 x   351 x  1482          38951228160       0.0%    100.0%      0.0%     
- flops   405 x   351 x  1482          42134742000       0.0%    100.0%      0.0%     
- flops   405 x   351 x   351          48499305660       0.0%    100.0%      0.0%     
- flops    25 x    32 x    25          63273600000       0.0%    100.0%      0.0%     
- flops inhomo. stacks                           0       0.0%      0.0%      0.0%
- flops total                       474.708619E+09       0.0%    100.0%      0.0%
- flops max/rank                    474.708619E+09       0.0%    100.0%      0.0%
- matmuls inhomo. stacks                         0       0.0%      0.0%      0.0%
- matmuls total                            7100887       0.0%    100.0%      0.0%
- number of processed stacks                 13204       0.0%    100.0%      0.0%
- average stack size                                     0.0     537.8       0.0
- marketing flops                   515.097723E+09
+ flops    13 x    31 x    31              3548012       0.0%    100.0%      0.0%     
+ flops    31 x    31 x  3498              6723156       0.0%    100.0%      0.0%     
+ flops    25 x    31 x    31              9898300       0.0%    100.0%      0.0%     
+ flops    13 x    32 x    31             43949568       0.0%    100.0%      0.0%     
+ flops    13 x    31 x    32             43949568       0.0%    100.0%      0.0%     
+ flops    32 x    31 x  3498             83280384       0.0%    100.0%      0.0%     
+ flops    31 x    32 x  3498             83280384       0.0%    100.0%      0.0%     
+ flops    25 x    32 x    31            122611200       0.0%    100.0%      0.0%     
+ flops    25 x    31 x    32            122611200       0.0%    100.0%      0.0%     
+ flops    13 x    32 x    32           1134182400       0.0%    100.0%      0.0%     
+ flops    32 x    32 x  3498           2149171200       0.0%    100.0%      0.0%     
+ flops    25 x    32 x    32           3164160000       0.0%    100.0%      0.0%     
+ flops    13 x    31 x    13           3513503916       0.0%    100.0%      0.0%     
+ flops    25 x    31 x    13           9944145900       0.0%    100.0%      0.0%     
+ flops    13 x    31 x    25           9944145900       0.0%    100.0%      0.0%     
+ flops    13 x    13 x   799          22523440862       0.0%    100.0%      0.0%     
+ flops    25 x    31 x    25          28716772500       0.0%    100.0%      0.0%     
+ flops   128 x   799 x   799          51970948608       0.0%    100.0%      0.0%     
+ flops    13 x    25 x   799          61747598900       0.0%    100.0%      0.0%     
+ flops    25 x    13 x   799          63629723300       0.0%    100.0%      0.0%     
+ flops    13 x    32 x    13          87044226048       0.0%    100.0%      0.0%     
+ flops   223 x   799 x   799          90543137028       0.0%    100.0%      0.0%     
+ flops   128 x   799 x  3498         102315772416       0.0%    100.0%      0.0%     
+ flops   682 x   799 x  3498         141053114136       0.0%    100.0%      0.0%     
+ flops   682 x   799 x   799         154998655592       0.0%    100.0%      0.0%     
+ flops   223 x   799 x  3498         178253259756       0.0%    100.0%      0.0%     
+ flops   224 x   799 x   799         181898320128       0.0%    100.0%      0.0%     
+ flops    25 x    25 x   799         182801212500       0.0%    100.0%      0.0%     
+ flops   934 x   799 x  3498         193172446632       0.0%    100.0%      0.0%     
+ flops   935 x   799 x  3498         193379269380       0.0%    100.0%      0.0%     
+ flops   934 x   799 x   799         212270886104       0.0%    100.0%      0.0%     
+ flops   935 x   799 x   799         212498156860       0.0%    100.0%      0.0%     
+ flops    25 x    32 x    13         246358195200       0.0%    100.0%      0.0%     
+ flops    13 x    32 x    25         246358195200       0.0%    100.0%      0.0%     
+ flops   224 x   799 x  3498         358105203456       0.0%    100.0%      0.0%     
+ flops    25 x    32 x    25         711434880000       0.0%    100.0%      0.0%     
+ flops inhomo. stacks                411086548288     100.0%      0.0%      0.0%
+ flops total                         4.162529E+12       9.9%     90.1%      0.0%
+ flops max/rank                      4.162529E+12       9.9%     90.1%      0.0%
+ matmuls inhomo. stacks                       215     100.0%      0.0%      0.0%
+ matmuls total                           52209272       0.0%    100.0%      0.0%
+ number of processed stacks                 59745       0.4%     99.6%      0.0%
+ average stack size                                     1.0     877.0       0.0
+ marketing flops                     4.767578E+12
  -------------------------------------------------------------------------------
- # multiplications                           1082
- max memory usage/rank               3.760468E+09
+ # multiplications                            796
+ max memory usage/rank               5.883576E+09
  # max total images/rank                        1
  # max 3D layers                                1
  # MPI messages exchanged                       0
@@ -438,10 +386,10 @@
  -------------------------------------------------------------------------------
  ROUTINE             CALLS      AVE VOLUME [Bytes]
  MP_Bcast               37                     12.
- MP_Allreduce         5950                     29.
- MP_Alltoall          3616                 401004.
- MP_ISend             4324                  16977.
- MP_IRecv             4324                  16977.
+ MP_Allreduce         4390                     52.
+ MP_Alltoall          2706                2421032.
+ MP_ISend             3180                  82512.
+ MP_IRecv             3180                  82512.
  -------------------------------------------------------------------------------
 
  -------------------------------------------------------------------------------
@@ -458,16 +406,16 @@
  -                                                                             -
  -------------------------------------------------------------------------------
  LP    KERNEL             BACKEND                              COUNT     PERCENT
- 5     collocate general  CPU                                1060800      23.58%
- 5     integrate general  CPU                                1039584      23.11%
- 4     collocate general  CPU                                 645450      14.35%
- 4     integrate general  CPU                                 632541      14.06%
- 6     collocate general  CPU                                 565500      12.57%
- 6     integrate general  CPU                                 554190      12.32%
- 0     collocate general  CPU                                     78       0.00%
+ 5     collocate general  CPU                                3223181      23.62%
+ 5     integrate general  CPU                                3136068      22.98%
+ 6     collocate general  CPU                                2530948      18.54%
+ 6     integrate general  CPU                                2462544      18.04%
+ 4     collocate general  CPU                                1163280       8.52%
+ 4     integrate general  CPU                                1131840       8.29%
+ 0     collocate general  CPU                                    174       0.00%
  -------------------------------------------------------------------------------
 
- MEMORY| Estimated peak process memory [MiB]                                3587
+ MEMORY| Estimated peak process memory [MiB]                                5518
 
  -------------------------------------------------------------------------------
  -                                                                             -
@@ -477,9 +425,9 @@
 
  ROUTINE             CALLS      AVE VOLUME [Bytes]
  MP_Group                4
- MP_Bcast             3727                   2115.
- MP_Allreduce         9843                   1870.
- MP_Sync                53
+ MP_Bcast             2829                   5204.
+ MP_Allreduce         7617                   4751.
+ MP_Sync                40
  -------------------------------------------------------------------------------
 
 
@@ -590,42 +538,49 @@
  -------------------------------------------------------------------------------
  SUBROUTINE                       CALLS  ASD         SELF TIME        TOTAL TIME
                                 MAXIMUM       AVERAGE  MAXIMUM  AVERAGE  MAXIMUM
- CP2K                                 1  1.0    0.503    0.503  769.102  769.102
- qs_energies                          1  2.0    0.000    0.000  764.537  764.537
- scf_env_do_scf                       1  3.0    0.000    0.000  757.614  757.614
- scf_env_do_scf_inner_loop           49  4.0    0.038    0.038  743.627  743.627
- qs_ks_update_qs_env                 50  5.0    0.001    0.001  541.029  541.029
- rebuild_ks_matrix                   49  6.0    0.000    0.000  540.823  540.823
- qs_ks_build_kohn_sham_matrix        49  7.0    0.013    0.013  540.823  540.823
- fft_wrap_pw1pw2                    839 10.3    0.027    0.027  309.563  309.563
- fft_wrap_pw1pw2_150                542 11.7   55.738   55.738  303.056  303.056
- qs_vxc_create                       49  8.0    0.001    0.001  303.025  303.025
- xc_vxc_pw_create                    49  9.0    3.628    3.628  303.023  303.023
- qs_rho_update_rho_low               50  5.0    0.000    0.000  207.560  207.560
- calculate_rho_elec                  50  6.0    2.228    2.228  207.559  207.559
- xc_pw_derive                       294 11.0    0.008    0.008  190.159  190.159
- sum_up_and_integrate                49  8.0    0.002    0.002  184.413  184.413
- integrate_v_rspace                  49  9.0    0.072    0.072  183.945  183.945
- xc_rho_set_and_dset_create          49 10.0    7.431    7.431  169.341  169.341
- fft3d_s                            840 12.3  163.203  163.203  163.208  163.208
- grid_integrate_task_list            49 10.0  151.199  151.199  151.199  151.199
- grid_collocate_task_list            50  7.0  139.669  139.669  139.669  139.669
- xc_pw_divergence                    49 10.0    0.005    0.005  129.216  129.216
- xc_functional_eval                  49 11.0    0.001    0.001   71.335   71.335
- pbe_lda_eval                        49 12.0   71.335   71.335   71.335   71.335
- density_rs2pw                       50  7.0    0.005    0.005   65.662   65.662
- pw_scatter_s                       442 12.7   57.541   57.541   57.541   57.541
- pw_derive                          441 11.3   37.919   37.919   37.919   37.919
- potential_pw2rs                     49 10.0    0.059    0.059   32.674   32.674
- pw_gather_s                        397 11.8   27.983   27.983   27.983   27.983
- pw_poisson_solve                    49  8.0    0.003    0.003   26.208   26.208
+ CP2K                                 1  1.0    0.630    0.630 1453.224 1453.224
+ qs_energies                          1  2.0    0.000    0.000 1447.779 1447.779
+ scf_env_do_scf                       1  3.0    0.000    0.000 1426.279 1426.279
+ scf_env_do_scf_inner_loop           36  4.0    0.027    0.027 1386.694 1386.694
+ qs_ks_update_qs_env                 37  5.0    0.001    0.001  848.093  848.093
+ rebuild_ks_matrix                   36  6.0    0.000    0.000  847.342  847.342
+ qs_ks_build_kohn_sham_matrix        36  7.0    0.009    0.009  847.341  847.341
+ sum_up_and_integrate                36  8.0    0.001    0.001  501.018  501.018
+ integrate_v_rspace                  36  9.0    0.155    0.155  500.581  500.581
+ qs_rho_update_rho_low               37  5.0    0.000    0.000  500.080  500.080
+ calculate_rho_elec                  37  6.0    2.235    2.235  500.080  500.080
+ grid_integrate_task_list            36 10.0  468.153  468.153  468.153  468.153
+ grid_collocate_task_list            37  7.0  434.721  434.721  434.721  434.721
+ fft_wrap_pw1pw2                    618 10.3    0.020    0.020  295.840  295.840
+ fft_wrap_pw1pw2_150                399 11.7   52.120   52.120  286.797  286.797
+ qs_vxc_create                       36  8.0    0.001    0.001  283.131  283.131
+ xc_vxc_pw_create                    36  9.0    3.358    3.358  283.130  283.130
+ xc_pw_derive                       216 11.0    0.005    0.005  179.579  179.579
+ fft3d_s                            619 12.3  156.720  156.720  156.725  156.725
+ xc_rho_set_and_dset_create          36 10.0    5.921    5.921  156.594  156.594
+ xc_pw_divergence                    36 10.0    0.003    0.003  122.401  122.401
+ dbcsr_multiply_generic             796 10.1    0.059    0.059   79.569   79.569
+ qs_scf_new_mos                      36  5.0    0.000    0.000   79.104   79.104
+ qs_scf_loop_do_ot                   36  6.0    0.000    0.000   79.103   79.103
+ ot_scf_mini                         36  7.0    0.003    0.003   74.004   74.004
+ xc_functional_eval                  36 11.0    0.001    0.001   66.506   66.506
+ pbe_lda_eval                        36 12.0   66.505   66.505   66.505   66.505
+ density_rs2pw                       37  7.0    0.004    0.004   63.124   63.124
+ pw_scatter_s                       325 12.7   53.756   53.756   53.756   53.756
+ multiply_cannon                    796 11.1    0.157    0.157   48.584   48.584
+ multiply_cannon_loop               796 12.1    0.046    0.046   48.204   48.204
+ multiply_cannon_multrec            796 13.1   48.139   48.139   48.157   48.157
+ ot_mini                             36  8.0    0.000    0.000   41.573   41.573
+ init_scf_loop                        1  4.0    0.000    0.000   39.534   39.534
+ pw_derive                          324 11.3   34.942   34.942   34.942   34.942
+ potential_pw2rs                     36 10.0    0.058    0.058   32.273   32.273
  -------------------------------------------------------------------------------
 
- The number of warnings for this run is : 49
+ The number of warnings for this run is : 36
  
  -------------------------------------------------------------------------------
-  **** **** ******  **  PROGRAM ENDED AT                 2026-07-17 04:05:41.867
- ***** ** ***  *** **   PROGRAM RAN ON                              f42a675b0ccb
+  **** **** ******  **  PROGRAM ENDED AT                 2026-07-17 04:29:58.353
+ ***** ** ***  *** **   PROGRAM RAN ON                              03da1f3ba225
  **    ****   ******    PROGRAM RAN BY                                 <unknown>
  ***** **    ** ** **   PROGRAM PROCESS ID                                   584
   **** **  *******  **  PROGRAM STOPPED IN                                 /work

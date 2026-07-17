@@ -2,8 +2,9 @@
   {
     "id": "01_cdte_bulk_sp",
     "source": "cdte_bulk",
-    "run_type": "ENERGY_FORCE",
+    "run_type": "ENERGY",
     "periodic": "XYZ",
+    "scf_profile": "ot_low_memory_smoke",
     "atom_count": 8,
     "input_file": "smoke_tests/01_cdte_bulk_sp/input.inp",
     "output_file": "smoke_tests/01_cdte_bulk_sp/output.out"
@@ -11,8 +12,9 @@
   {
     "id": "02_cu2te_bulk_sp",
     "source": "cu2te_bulk",
-    "run_type": "ENERGY_FORCE",
+    "run_type": "ENERGY",
     "periodic": "XYZ",
+    "scf_profile": "diag_smear_smoke",
     "atom_count": 6,
     "input_file": "smoke_tests/02_cu2te_bulk_sp/input.inp",
     "output_file": "smoke_tests/02_cu2te_bulk_sp/output.out"
@@ -20,8 +22,9 @@
   {
     "id": "03_b0_slab_sp",
     "source": "B0",
-    "run_type": "ENERGY_FORCE",
+    "run_type": "ENERGY",
     "periodic": "XY",
+    "scf_profile": "ot_low_memory_smoke",
     "atom_count": 78,
     "input_file": "smoke_tests/03_b0_slab_sp/input.inp",
     "output_file": "smoke_tests/03_b0_slab_sp/output.out"
@@ -29,8 +32,9 @@
   {
     "id": "04_h1_interface_sp",
     "source": "H1",
-    "run_type": "ENERGY_FORCE",
+    "run_type": "ENERGY",
     "periodic": "XY",
+    "scf_profile": "ot_low_memory_smoke",
     "atom_count": 174,
     "input_file": "smoke_tests/04_h1_interface_sp/input.inp",
     "output_file": "smoke_tests/04_h1_interface_sp/output.out"
@@ -40,6 +44,7 @@
     "source": "H1",
     "run_type": "GEO_OPT",
     "periodic": "XY",
+    "scf_profile": "diag_smear_smoke",
     "atom_count": 174,
     "input_file": "smoke_tests/05_h1_short_geo_opt/input.inp",
     "output_file": "smoke_tests/05_h1_short_geo_opt/output.out"

@@ -1,0 +1,23 @@
+{
+  "output_file": "output.out",
+  "exists": true,
+  "actually_run": true,
+  "cp2k_version": "CP2K version 2024.3",
+  "execution_command": "docker run --rm --name <container> --cpus <threads> --shm-size 1g -e OMP_NUM_THREADS=<threads> -v <task_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k -i input.inp -o output.out",
+  "cpu_threads": 4,
+  "wall_time_seconds": 606.163909,
+  "timeout_seconds": 600,
+  "timed_out": true,
+  "termination_reason": "runner_timeout",
+  "confirmed_stop_cause": "the runner enforced its 600-second task timeout and requested Docker container stop",
+  "return_code": 137,
+  "normal_program_end": false,
+  "program_completed": false,
+  "scf_converged": false,
+  "geometry_optimization_converged": null,
+  "scf_steps": null,
+  "scf_steps_per_run": [],
+  "total_energy_hartree": null,
+  "total_energy_ev": null,
+  "warning_or_error": "runner-enforced timeout after 600 seconds"
+}

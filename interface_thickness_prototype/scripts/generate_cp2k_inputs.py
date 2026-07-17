@@ -21,11 +21,11 @@ SMOKE_BASIS = {
 }
 
 SMOKE_TASKS = (
-    {"id": "01_cdte_bulk_sp", "source": "cdte_bulk", "run_type": "ENERGY_FORCE", "periodic": "XYZ"},
-    {"id": "02_cu2te_bulk_sp", "source": "cu2te_bulk", "run_type": "ENERGY_FORCE", "periodic": "XYZ"},
-    {"id": "03_b0_slab_sp", "source": "B0", "run_type": "ENERGY_FORCE", "periodic": "XY"},
-    {"id": "04_h1_interface_sp", "source": "H1", "run_type": "ENERGY_FORCE", "periodic": "XY"},
-    {"id": "05_h1_short_geo_opt", "source": "H1", "run_type": "GEO_OPT", "periodic": "XY"},
+    {"id": "01_cdte_bulk_sp", "source": "cdte_bulk", "run_type": "ENERGY", "periodic": "XYZ", "scf_profile": "ot_low_memory_smoke"},
+    {"id": "02_cu2te_bulk_sp", "source": "cu2te_bulk", "run_type": "ENERGY", "periodic": "XYZ", "scf_profile": "diag_smear_smoke"},
+    {"id": "03_b0_slab_sp", "source": "B0", "run_type": "ENERGY", "periodic": "XY", "scf_profile": "ot_low_memory_smoke"},
+    {"id": "04_h1_interface_sp", "source": "H1", "run_type": "ENERGY", "periodic": "XY", "scf_profile": "ot_low_memory_smoke"},
+    {"id": "05_h1_short_geo_opt", "source": "H1", "run_type": "GEO_OPT", "periodic": "XY", "scf_profile": "diag_smear_smoke"},
 )
 
 
@@ -40,6 +40,7 @@ def render_input(
     periodic: str,
     config: dict,
     fixed_indices_1based: list[int] | None = None,
+    scf_profile: str = "diag_smear_smoke",
 ) -> str:
     cp = config["cp2k"]
     coordinates = "\n".join(
@@ -60,7 +61,38 @@ def render_input(
     &END KIND"""
         )
     poisson_solver = "      PSOLVER ANALYTIC\n" if periodic == "XY" else ""
-    added_mos = cp["added_mos"] if len(atoms) > 20 else min(cp["added_mos"], 20)
+    if scf_profile == "ot_low_memory_smoke":
+        scf_method = """      # Low-memory pipeline smoke choice, not a research SCF profile.
+      # In particular, H1 may be conductive and requires diagonalization/smearing
+      # before any electronic-structure interpretation.
+      &OT
+        MINIMIZER DIIS
+        PRECONDITIONER FULL_SINGLE_INVERSE
+        ENERGY_GAP 0.001
+      &END OT"""
+    elif scf_profile == "diag_smear_smoke":
+        scf_method = f"""      # Cu2Te may be conductive, so retain diagonalization and smearing.
+      ADDED_MOS {cp['added_mos']}
+      &DIAGONALIZATION
+        ALGORITHM STANDARD
+      &END DIAGONALIZATION
+      &SMEAR ON
+        METHOD FERMI_DIRAC
+        ELECTRONIC_TEMPERATURE [K] {cp['electronic_temperature_k']}
+      &END SMEAR
+      &MIXING ON
+        METHOD BROYDEN_MIXING
+        ALPHA 0.20
+        NBROYDEN 8
+      &END MIXING"""
+    else:
+        raise ValueError(f"unknown SCF profile: {scf_profile}")
+    if scf_profile == "ot_low_memory_smoke":
+        kpoints = "    # No KPOINTS section: CP2K's default is Gamma-only and remains OT-compatible."
+    else:
+        kpoints = """    &KPOINTS
+      SCHEME GAMMA
+    &END KPOINTS"""
     motion = ""
     if run_type == "GEO_OPT":
         if not fixed_indices_1based:
@@ -99,7 +131,7 @@ def render_input(
 &GLOBAL
   PROJECT {project}
   RUN_TYPE {run_type}
-  PRINT_LEVEL MEDIUM
+  PRINT_LEVEL LOW
 &END GLOBAL
 
 &FORCE_EVAL
@@ -111,7 +143,7 @@ def render_input(
     MULTIPLICITY 1
     &QS
       METHOD GPW
-      EPS_DEFAULT 1.0E-12
+      EPS_DEFAULT 1.0E-10
     &END QS
     &POISSON
       PERIODIC {periodic}
@@ -124,21 +156,8 @@ def render_input(
       SCF_GUESS ATOMIC
       EPS_SCF {cp['eps_scf']}
       MAX_SCF {cp['max_scf']}
-      ADDED_MOS {added_mos}
-      &DIAGONALIZATION
-        ALGORITHM STANDARD
-      &END DIAGONALIZATION
-      &SMEAR ON
-        METHOD FERMI_DIRAC
-        ELECTRONIC_TEMPERATURE [K] {cp['electronic_temperature_k']}
-      &END SMEAR
-      &MIXING ON
-        METHOD BROYDEN_MIXING
-        ALPHA 0.20
-        NBROYDEN 8
-      &END MIXING
-      # Explicit OFF is required: at MEDIUM print level CP2K otherwise writes
-      # a k-point restart tens of MB large even for a six-atom cell.
+{scf_method}
+      # Disable large restart files in the bounded local smoke run.
       &PRINT
         &RESTART OFF
         &END RESTART
@@ -148,9 +167,7 @@ def render_input(
       &XC_FUNCTIONAL PBE
       &END XC_FUNCTIONAL
     &END XC
-    &KPOINTS
-      SCHEME GAMMA
-    &END KPOINTS
+{kpoints}
   &END DFT
   &SUBSYS
     &CELL
@@ -164,10 +181,7 @@ def render_input(
     &END COORD
 {chr(10).join(kinds)}
   &END SUBSYS
-  &PRINT
-    &FORCES ON
-    &END FORCES
-  &END PRINT
+{('  &PRINT' + chr(10) + '    &FORCES ON' + chr(10) + '    &END FORCES' + chr(10) + '  &END PRINT') if run_type == 'GEO_OPT' else ''}
 &END FORCE_EVAL
 {motion}"""
 
@@ -254,6 +268,7 @@ def write_smoke_tests(config: dict) -> None:
             task["periodic"],
             config,
             fixed if task["run_type"] == "GEO_OPT" else None,
+            task["scf_profile"],
         )
         (task_dir / "input.inp").write_text(input_text, encoding="utf-8", newline="\n")
         write(task_dir / "structure.cif", atoms, format="cif")
@@ -293,7 +308,18 @@ def main() -> int:
         atoms = load_model(model_id)
         meta = load_metadata(model_id)
         (model_dir / "single_point.inp").write_text(
-            render_input(atoms, f"{model_id.lower()}_sp", "ENERGY_FORCE", "XY", config),
+            render_input(
+                atoms,
+                f"{model_id.lower()}_sp",
+                "ENERGY",
+                "XY",
+                config,
+                scf_profile=(
+                    "ot_low_memory_smoke"
+                    if model_id in ("B0", "H1")
+                    else "diag_smear_smoke"
+                ),
+            ),
             encoding="utf-8",
             newline="\n",
         )
@@ -306,6 +332,7 @@ def main() -> int:
                     "XY",
                     config,
                     meta["fixed_atom_indices_cp2k_1based"],
+                    "diag_smear_smoke",
                 ),
                 encoding="utf-8",
                 newline="\n",
