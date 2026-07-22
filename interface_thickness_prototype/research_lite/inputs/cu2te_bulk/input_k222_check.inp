@@ -2,7 +2,7 @@
 # PROFILE research_lite: trend-oriented starting point, not publication-converged.
 # The polar CdTe(111) slabs may only support relative trend checks after further convergence work.
 &GLOBAL
-  PROJECT rl_cu2te_bulk_gamma
+  PROJECT rl_cu2te_bulk_k222
   RUN_TYPE ENERGY
   PRINT_LEVEL LOW
 &END GLOBAL
@@ -52,26 +52,16 @@
       &XC_FUNCTIONAL PBE
       &END XC_FUNCTIONAL
     &END XC
-    # Implicit Gamma: no KPOINTS section, preserving CP2K 2024.3 PDOS/LDOS support.
+    &KPOINTS
+      SCHEME MONKHORST-PACK 2 2 2
+    &END KPOINTS
     &PRINT
       &DOS ON
         DELTA_E 0.00183747
         FILENAME =total_dos.dat
       &END DOS
-      &PDOS ON
-        NLUMO 40
-        COMPONENTS
-      # LDOS group 1: Cu_bulk
-      &LDOS
-        LIST 1..4
-        COMPONENTS
-      &END LDOS
-      # LDOS group 2: Te_bulk
-      &LDOS
-        LIST 5..6
-        COMPONENTS
-      &END LDOS
-      &END PDOS
+      # PDOS/LDOS intentionally omitted for this explicit k-point check:
+      # CP2K 2024.3 reports that projected DOS is not implemented for KPOINTS.
       # CP2K's V_HARTREE_CUBE contains the electron+ion electrostatic potential
       # with the opposite sign to the conventional physical potential.
       &V_HARTREE_CUBE ON

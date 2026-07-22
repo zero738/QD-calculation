@@ -4,6 +4,7 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
 from ase.io import read, write
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -12,13 +13,33 @@ from generate_cp2k_inputs import SMOKE_BASIS, fmt_vector
 
 
 RESEARCH_TASKS = (
-    ("cu2te_bulk", "bulk", "structures/bulk/Cu2Te_AFLOW_icsd655706.cif", "XYZ"),
-    ("B0", "active", "models/B0/structure.extxyz", "XY"),
-    ("C50", "coverage", "coverage_models/C50/structure.extxyz", "XY"),
-    ("C100", "coverage", "coverage_models/C100/structure.extxyz", "XY"),
-    ("H1", "active", "models/H1/structure.extxyz", "XY"),
-    ("H2", "active", "models/H2/structure.extxyz", "XY"),
+    ("cu2te_bulk", "bulk", "structures/bulk/Cu2Te_AFLOW_icsd655706.cif", "XYZ", []),
+    ("B0", "active", "models/B0/structure.extxyz", "XY", ["C0"]),
+    ("C50", "coverage", "coverage_models/C50/structure.extxyz", "XY", []),
+    ("H1", "active", "models/H1/structure.extxyz", "XY", ["C100"]),
+    ("H2", "active", "models/H2/structure.extxyz", "XY", []),
 )
+
+
+def _remove_superseded_generated_inputs(root: Path) -> None:
+    stale_c100 = root / "C100"
+    allowed = {
+        "input_gamma.inp",
+        "input_k221_check.inp",
+        "input_kpoint_check.inp",
+        "structure.cif",
+        "structure.xyz",
+    }
+    if stale_c100.is_dir():
+        unexpected = {path.name for path in stale_c100.iterdir()} - allowed
+        if unexpected:
+            raise ValueError(f"refusing to remove unexpected C100 files: {sorted(unexpected)}")
+        for path in list(stale_c100.iterdir()):
+            path.unlink()
+        stale_c100.rmdir()
+    old_bulk_check = root / "cu2te_bulk" / "input_k221_check.inp"
+    if old_bulk_check.is_file():
+        old_bulk_check.unlink()
 
 
 def _index_expression(indices: list[int]) -> str:
@@ -62,6 +83,19 @@ def _kpoints_block(mesh: list[int] | str) -> str:
     return f"""    &KPOINTS
       SCHEME MONKHORST-PACK {mesh[0]} {mesh[1]} {mesh[2]}
     &END KPOINTS"""
+
+
+def _task_metrics(atoms, source_kind: str) -> tuple[float | None, int]:
+    symbols = atoms.get_chemical_symbols()
+    if source_kind == "bulk":
+        return None, symbols.count("Cu") // 2
+    area = float(np.linalg.norm(np.cross(atoms.cell[0], atoms.cell[1])))
+    components = [str(value) for value in atoms.arrays["component"]]
+    film_cu = sum(
+        symbol == "Cu" and component == "cu2te_film"
+        for symbol, component in zip(symbols, components)
+    )
+    return area, film_cu // 2
 
 
 def render_research_lite(atoms, project: str, periodic: str, groups: list[dict], config: dict, kpoints: list[int] | str, enable_pdos: bool = True) -> str:
@@ -198,11 +232,19 @@ def main() -> int:
     config = load_config()
     cp = config["cp2k"]["profiles"]["research_lite"]
     root = ROOT / "research_lite" / "inputs"
+    _remove_superseded_generated_inputs(root)
     manifest = []
-    for calculation_id, source_kind, source_path, periodic in RESEARCH_TASKS:
+    for calculation_id, source_kind, source_path, periodic, result_aliases in RESEARCH_TASKS:
         atoms = read(ROOT / source_path)
         atoms.pbc = tuple(axis in periodic for axis in "XYZ")
         groups = region_groups(atoms, source_kind)
+        substrate_area, formula_units = _task_metrics(atoms, source_kind)
+        optional_mesh = (
+            cp["optional_bulk_kpoint_check"]
+            if source_kind == "bulk"
+            else cp["optional_slab_kpoint_check"]
+        )
+        mesh_tag = "".join(str(value) for value in optional_mesh)
         task_dir = root / calculation_id
         task_dir.mkdir(parents=True, exist_ok=True)
         gamma_input = task_dir / "input_gamma.inp"
@@ -211,9 +253,17 @@ def main() -> int:
             encoding="utf-8",
             newline="\n",
         )
-        check_input = task_dir / "input_k221_check.inp"
+        check_input = task_dir / f"input_k{mesh_tag}_check.inp"
         check_input.write_text(
-            render_research_lite(atoms, f"rl_{calculation_id.lower()}_k221", periodic, groups, config, cp["optional_kpoint_check"], enable_pdos=False),
+            render_research_lite(
+                atoms,
+                f"rl_{calculation_id.lower()}_k{mesh_tag}",
+                periodic,
+                groups,
+                config,
+                optional_mesh,
+                enable_pdos=False,
+            ),
             encoding="utf-8",
             newline="\n",
         )
@@ -230,17 +280,31 @@ def main() -> int:
                 "source_structure": source_path,
                 "periodic": periodic,
                 "atom_count": len(atoms),
+                "result_aliases": result_aliases,
+                "substrate_area_angstrom2": substrate_area,
+                "cu2te_formula_units": formula_units,
                 "gamma_input": str(gamma_input.relative_to(ROOT)).replace("\\", "/"),
-                "optional_k221_input": str(check_input.relative_to(ROOT)).replace("\\", "/"),
+                "optional_kpoint_check_input": str(check_input.relative_to(ROOT)).replace("\\", "/"),
+                "optional_kpoint_mesh": optional_mesh,
+                "kpoint_convergence_status": "not_run",
+                "gamma_reference_scope": (
+                    "Gamma-only bulk reference; the 2x2x2 energy check has not been run"
+                    if source_kind == "bulk"
+                    else "Gamma-only slab starting point; the 2x2x1 energy check has not been run"
+                ),
+                "dos_near_fermi_window_ev": cp["dos_near_fermi_window_ev"],
                 "gamma_capabilities": ["Fermi energy", "DOS", "PDOS/LDOS", "Hartree potential", "electron density"],
-                "optional_k221_capabilities": ["Fermi energy", "DOS", "Hartree potential", "electron density"],
-                "optional_k221_limitation": "CP2K 2024.3 does not implement PDOS/LDOS when a KPOINTS section is active",
+                "optional_kpoint_check_capabilities": ["Fermi energy", "DOS", "Hartree potential", "electron density"],
+                "optional_kpoint_check_limitation": "CP2K 2024.3 does not implement PDOS/LDOS when a KPOINTS section is active",
                 "ldos_groups": groups,
                 "actually_run": actually_run,
                 "run_directory": f"research_lite/runs/{calculation_id}" if actually_run else None,
             }
         )
-        print(f"{calculation_id}: generated Gamma and optional 2x2x1 research_lite inputs")
+        print(
+            f"{calculation_id}: generated Gamma and optional "
+            f"{'x'.join(str(value) for value in optional_mesh)} research_lite inputs"
+        )
     manifest_path = ROOT / "research_lite" / "manifest.json"
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

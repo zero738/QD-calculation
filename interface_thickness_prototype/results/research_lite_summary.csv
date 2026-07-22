@@ -1,7 +1,6 @@
-calculation_id,calculation_profile,actually_run,normal_program_end,SCF_converged,SCF_steps,total_energy_hartree,fermi_energy_hartree,fermi_energy_ev_raw_cp2k_reference,DOS_output_present,PDOS_LDOS_output_present,potential_output_present,normalized_DOS_near_EF_per_ev,wall_time_seconds,research_output_complete,warning_or_error
-cu2te_bulk,research_lite,True,True,True,19,-208.1141555686789,0.25768268823406,7.0119031584415135,True,False,True,0.22049953304630862,48.89789759999985,False,"CP2K ended successfully, but research outputs are missing: PDOS/LDOS"
-B0,research_lite,False,False,False,,,,,False,False,False,,,False,not run
-C50,research_lite,False,False,False,,,,,False,False,False,,,False,not run
-C100,research_lite,False,False,False,,,,,False,False,False,,,False,not run
-H1,research_lite,False,False,False,,,,,False,False,False,,,False,not run
-H2,research_lite,False,False,False,,,,,False,False,False,,,False,not run
+calculation_id,result_aliases,calculation_profile,actually_run,normal_program_end,SCF_converged,energy_valid,SCF_steps,total_energy_hartree,fermi_energy_hartree,fermi_energy_ev_raw_cp2k_reference,DOS_output_present,PDOS_LDOS_output_present,potential_output_present,raw_total_DOS_near_EF_mean_bin_density,raw_total_DOS_near_EF_per_ev,total_DOS_near_EF_per_ev_per_substrate_angstrom2,Cu2Te_projected_DOS_near_EF_per_ev_per_formula_unit,kpoint_mesh,kpoint_convergence_checked,kpoint_status_warning,wall_time_seconds,electronic_outputs_complete,warning_or_error
+cu2te_bulk,,research_lite,True,True,True,True,18,-208.11415857615756,0.25768275978693,7.0119051054942965,True,True,True,0.011025,0.22049953304630862,,7.5,implicit_gamma,False,Gamma-only bulk reference; the 2x2x2 energy check has not been run,68.13035429999945,True,
+B0,C0,research_lite,False,False,False,False,,,,,False,False,False,,,,,,False,,,False,not run
+C50,,research_lite,False,False,False,False,,,,,False,False,False,,,,,,False,,,False,not run
+H1,C100,research_lite,False,False,False,False,,,,,False,False,False,,,,,,False,,,False,not run
+H2,,research_lite,False,False,False,False,,,,,False,False,False,,,,,,False,,,False,not run

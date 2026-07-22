@@ -1,6 +1,5 @@
-model_id,coverage_percent,research_lite_actually_run,work_function_ev,normalized_DOS_near_EF_per_ev,interface_charge_transfer_e,potential_barrier_proxy_ev,status,warning
-B0,0,False,,,,,not_calculated,极性 CdTe(111) 薄片仅可用于收敛后相对趋势；当前不得解释为接触电阻或器件效率。
-C50,50.0,False,,,,,not_calculated,极性 CdTe(111) 薄片仅可用于收敛后相对趋势；当前不得解释为接触电阻或器件效率。
-C100,100.0,False,,,,,not_calculated,极性 CdTe(111) 薄片仅可用于收敛后相对趋势；当前不得解释为接触电阻或器件效率。
-H1,100,False,,,,,not_calculated,极性 CdTe(111) 薄片仅可用于收敛后相对趋势；当前不得解释为接触电阻或器件效率。
-H2,100,False,,,,,not_calculated,极性 CdTe(111) 薄片仅可用于收敛后相对趋势；当前不得解释为接触电阻或器件效率。
+model_id,canonical_calculation_id,result_reference,coverage_percent,research_lite_actually_run,energy_valid,electronic_outputs_complete,work_function_ev,raw_total_DOS_near_EF_mean_bin_density,raw_total_DOS_near_EF_per_ev,total_DOS_near_EF_per_ev_per_substrate_angstrom2,Cu2Te_projected_DOS_near_EF_per_ev_per_formula_unit,interface_charge_transfer_e,potential_barrier_proxy_ev,status,warning
+C0,B0,C0 reuses B0; no duplicate calculation,0.0,False,False,False,,,,,,,,not_calculated,raw total DOS is not size-normalized; compare area- or Cu2Te-formula-unit-normalized proxies only. Polar CdTe(111) remains prototype-only.
+C50,C50,direct,50.0,False,False,False,,,,,,,,not_calculated,raw total DOS is not size-normalized; compare area- or Cu2Te-formula-unit-normalized proxies only. Polar CdTe(111) remains prototype-only.
+C100,H1,C100 reuses H1; no duplicate calculation,100.0,False,False,False,,,,,,,,not_calculated,raw total DOS is not size-normalized; compare area- or Cu2Te-formula-unit-normalized proxies only. Polar CdTe(111) remains prototype-only.
+H2,H2,direct,100,False,False,False,,,,,,,,not_calculated,raw total DOS is not size-normalized; compare area- or Cu2Te-formula-unit-normalized proxies only. Polar CdTe(111) remains prototype-only.

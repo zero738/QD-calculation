@@ -6,10 +6,10 @@ const csv = fs.readFileSync(path, "utf8");
 const workbook = await Workbook.fromCSV(csv, { sheetName: "experiment_data" });
 const inspection = await workbook.inspect({
   kind: "table",
-  range: "experiment_data!A1:K3",
+  range: "experiment_data!A1:L3",
   include: "values",
   tableMaxRows: 3,
-  tableMaxCols: 11,
+  tableMaxCols: 12,
 });
 const errors = await workbook.inspect({
   kind: "match",

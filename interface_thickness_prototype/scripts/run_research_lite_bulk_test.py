@@ -14,6 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import ROOT, load_config
 from parse_research_lite_output import parse_research_run
+from planar_average_cube import write_planar_average
 from run_smoke_tests import command_version, docker_available, ensure_image
 
 
@@ -42,6 +43,10 @@ def main() -> int:
     parser.add_argument("--threads", type=int)
     parser.add_argument("--timeout-seconds", type=int)
     parser.add_argument("--allow-pull", action="store_true")
+    parser.add_argument(
+        "--archive-existing-as",
+        help="Archive one existing audited attempt under runs/cu2te_bulk/history before rerunning",
+    )
     args = parser.parse_args()
 
     config = load_config()
@@ -60,7 +65,20 @@ def main() -> int:
     parsed_path = run_dir / "output.parsed.json"
     prior_metadata = run_dir / "run_metadata.json"
     if prior_metadata.is_file() and json.loads(prior_metadata.read_text(encoding="utf-8")).get("attempted"):
-        raise SystemExit("Refusing to overwrite the existing audited Cu2Te research_lite attempt")
+        archive_name = args.archive_existing_as
+        if not archive_name:
+            raise SystemExit("Refusing to overwrite the existing audited Cu2Te research_lite attempt")
+        if Path(archive_name).name != archive_name:
+            raise SystemExit("archive name must be one plain directory name")
+        history_root = (run_dir / "history").resolve()
+        archive_dir = (history_root / archive_name).resolve()
+        if archive_dir.parent != history_root or archive_dir.exists():
+            raise SystemExit("requested history archive is unsafe or already exists")
+        archive_dir.mkdir(parents=True)
+        for existing in list(run_dir.iterdir()):
+            if existing.name == "history":
+                continue
+            shutil.move(str(existing), str(archive_dir / existing.name))
 
     input_snapshot = run_dir / "input.executed.inp"
     shutil.copy2(source_dir / "input_gamma.inp", input_snapshot)
@@ -69,6 +87,8 @@ def main() -> int:
     output_path = run_dir / "output.out"
     metadata_path = run_dir / "run_metadata.json"
     version = command_version("docker", None, image)
+    manifest = json.loads((ROOT / "research_lite" / "manifest.json").read_text(encoding="utf-8"))
+    task = next(item for item in manifest if item["calculation_id"] == "cu2te_bulk")
     container_name = f"cp2k-research-lite-{uuid.uuid4().hex[:8]}"
     command = [
         "docker",
@@ -107,6 +127,16 @@ def main() -> int:
         "confirmed_stop_cause": None,
         "wall_time_seconds": None,
         "input_sha256": _sha256(input_snapshot),
+        "kpoint_mesh": "implicit_gamma",
+        "kpoint_convergence_checked": False,
+        "kpoint_status_warning": "Gamma-only bulk reference; the 2x2x2 energy check has not been run",
+        "dos_near_fermi_window_ev": cp["dos_near_fermi_window_ev"],
+        "substrate_area_angstrom2": task["substrate_area_angstrom2"],
+        "cu2te_formula_units": task["cu2te_formula_units"],
+        "attempt_number": 2 if args.archive_existing_as else 1,
+        "historical_attempt_archive": (
+            f"history/{args.archive_existing_as}" if args.archive_existing_as else None
+        ),
     }
     metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
@@ -140,11 +170,16 @@ def main() -> int:
     )
     metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
+    potential_cube = run_dir / "hartree_potential.cube"
+    if potential_cube.is_file():
+        write_planar_average(
+            potential_cube, run_dir / "hartree_potential_planar_average.csv"
+        )
     result = parse_research_run(run_dir)
     parsed_path.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     _update_manifest()
     print(json.dumps(result, indent=2, ensure_ascii=False))
-    return 0 if result["research_output_complete"] else 2
+    return 0 if result["electronic_outputs_complete"] else 2
 
 
 if __name__ == "__main__":

@@ -2,8 +2,8 @@
   "calculation_id": "cu2te_bulk",
   "calculation_profile": "research_lite",
   "attempted": true,
-  "started_at_utc": "2026-07-22T14:42:14.969168+00:00",
-  "finished_at_utc": "2026-07-22T14:43:03.873650+00:00",
+  "started_at_utc": "2026-07-22T16:35:47.747541+00:00",
+  "finished_at_utc": "2026-07-22T16:36:55.883831+00:00",
   "execution_command": "docker run --rm -e OMP_NUM_THREADS=4 -v <run_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k -i input.executed.inp -o output.out",
   "cp2k_version": "CP2K version 2024.3",
   "docker_image": "cp2k/cp2k:2024.3",
@@ -13,6 +13,14 @@
   "return_code": 0,
   "termination_reason": "process_exit_0",
   "confirmed_stop_cause": "CP2K/Docker process exited normally",
-  "wall_time_seconds": 48.89789759999985,
-  "input_sha256": "08f856b9d681028b0f154c8dab611438822332877f6231fd3ce35a3aa236a0ff"
+  "wall_time_seconds": 68.13035429999945,
+  "input_sha256": "2c68baff6381f94d7124b1ea3f446a4f1fab9a2b1e2730421c390dd0a09b5dd9",
+  "kpoint_mesh": "implicit_gamma",
+  "kpoint_convergence_checked": false,
+  "kpoint_status_warning": "Gamma-only bulk reference; the 2x2x2 energy check has not been run",
+  "dos_near_fermi_window_ev": 0.2,
+  "substrate_area_angstrom2": null,
+  "cu2te_formula_units": 2,
+  "attempt_number": 2,
+  "historical_attempt_archive": "history/attempt_01_explicit_gamma_kpoints"
 }

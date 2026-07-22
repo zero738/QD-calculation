@@ -63,8 +63,10 @@ cp2k:
       print_level: LOW
       # Implicit Gamma (no KPOINTS section) is required for CP2K 2024.3 PDOS/LDOS.
       gamma_kpoints: implicit
-      optional_kpoint_check: [2, 2, 1]
+      optional_bulk_kpoint_check: [2, 2, 2]
+      optional_slab_kpoint_check: [2, 2, 1]
       pdos_nlumo: 40
+      dos_near_fermi_window_ev: 0.20
       # CP2K 2024.3 DOS/DELTA_E is unitless in input and interpreted in hartree.
       dos_delta_e_hartree: 0.00183747  # approximately 0.05 eV
       potential_cube_stride: [4, 4, 2]

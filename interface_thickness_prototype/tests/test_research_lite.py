@@ -78,10 +78,13 @@ def test_research_lite_profile_is_distinct_and_fully_written_to_inputs():
     assert set(profiles) == {"smoke_ot", "research_lite"}
     research = profiles["research_lite"]
     manifest = json.loads((ROOT / "research_lite" / "manifest.json").read_text(encoding="utf-8"))
-    assert [task["calculation_id"] for task in manifest] == ["cu2te_bulk", "B0", "C50", "C100", "H1", "H2"]
+    assert [task["calculation_id"] for task in manifest] == ["cu2te_bulk", "B0", "C50", "H1", "H2"]
+    assert not list((ROOT / "research_lite" / "inputs" / "C100").glob("input*.inp"))
+    assert next(task for task in manifest if task["calculation_id"] == "B0")["result_aliases"] == ["C0"]
+    assert next(task for task in manifest if task["calculation_id"] == "H1")["result_aliases"] == ["C100"]
     for task in manifest:
         gamma = (ROOT / task["gamma_input"]).read_text(encoding="utf-8")
-        k221 = (ROOT / task["optional_k221_input"]).read_text(encoding="utf-8")
+        kpoint_check = (ROOT / task["optional_kpoint_check_input"]).read_text(encoding="utf-8")
         assert "PROFILE research_lite" in gamma
         assert "&DIAGONALIZATION" in gamma and "&SMEAR ON" in gamma
         assert f"EPS_SCF {research['eps_scf']}" in gamma
@@ -93,8 +96,10 @@ def test_research_lite_profile_is_distinct_and_fully_written_to_inputs():
         assert "&DOS ON" in gamma and "&PDOS ON" in gamma and "&LDOS" in gamma
         assert "&V_HARTREE_CUBE ON" in gamma and "&E_DENSITY_CUBE ON" in gamma
         assert "&KPOINTS" not in gamma
-        assert "SCHEME MONKHORST-PACK 2 2 1" in k221
-        assert "&PDOS ON" not in k221 and "not implemented for KPOINTS" in k221
+        expected_mesh = [2, 2, 2] if task["calculation_id"] == "cu2te_bulk" else [2, 2, 1]
+        assert task["optional_kpoint_mesh"] == expected_mesh
+        assert f"SCHEME MONKHORST-PACK {' '.join(map(str, expected_mesh))}" in kpoint_check
+        assert "&PDOS ON" not in kpoint_check and "not implemented for KPOINTS" in kpoint_check
         if task["periodic"] == "XY":
             assert gamma.upper().count("PERIODIC XY") >= 2 and "PSOLVER ANALYTIC" in gamma
         else:
@@ -104,7 +109,7 @@ def test_research_lite_profile_is_distinct_and_fully_written_to_inputs():
 def test_cp2k_2024_3_check_evidence_matches_current_inputs():
     evidence = json.loads((ROOT / "research_lite" / "cp2k_input_checks.json").read_text(encoding="utf-8"))
     assert evidence["cp2k_version"] == "CP2K version 2024.3"
-    assert evidence["all_passed"] and len(evidence["results"]) == 12
+    assert evidence["all_passed"] and len(evidence["results"]) == 10
     for result in evidence["results"]:
         path = ROOT / result["input_file"]
         assert result["check_passed"] and result["return_code"] == 0
@@ -114,7 +119,7 @@ def test_cp2k_2024_3_check_evidence_matches_current_inputs():
 def test_unrun_models_have_no_fabricated_research_values():
     with (ROOT / "results" / "research_lite_summary.csv").open(encoding="utf-8", newline="") as handle:
         rows = {row["calculation_id"]: row for row in csv.DictReader(handle)}
-    for model_id in ("B0", "C50", "C100", "H1", "H2"):
+    for model_id in ("B0", "C50", "H1", "H2"):
         assert rows[model_id]["actually_run"] == "False"
         assert rows[model_id]["total_energy_hartree"] == ""
         assert rows[model_id]["fermi_energy_hartree"] == ""
@@ -126,27 +131,55 @@ def test_unrun_models_have_no_fabricated_research_values():
         assert "smoke" in row["warning"]
 
 
-def test_actual_bulk_run_is_preserved_and_strictly_partial():
+def test_coverage_summaries_use_only_canonical_calculation_ids():
+    with (ROOT / "results" / "relative_coverage_formation_energy.csv").open(encoding="utf-8", newline="") as handle:
+        formation = {row["model_id"]: row for row in csv.DictReader(handle)}
+    assert formation["C0"]["canonical_calculation_id"] == "B0"
+    assert formation["C50"]["canonical_calculation_id"] == "C50"
+    assert formation["C100"]["canonical_calculation_id"] == "H1"
+    assert formation["C0"]["E_bulk_kpoint_mesh"] == "implicit_gamma"
+    assert formation["C0"]["E_bulk_kpoint_convergence_checked"] == "False"
+
+    with (ROOT / "results" / "dft_proxy_summary.csv").open(encoding="utf-8", newline="") as handle:
+        proxies = {row["model_id"]: row for row in csv.DictReader(handle)}
+    assert list(proxies) == ["C0", "C50", "C100", "H2"]
+    assert proxies["C0"]["canonical_calculation_id"] == "B0"
+    assert proxies["C100"]["canonical_calculation_id"] == "H1"
+    for row in proxies.values():
+        assert "raw total DOS is not size-normalized" in row["warning"]
+
+
+def test_actual_bulk_rerun_has_separate_energy_and_electronic_states():
     run_dir = ROOT / "research_lite" / "runs" / "cu2te_bulk"
     parsed = parse_research_run(run_dir)
     metadata = json.loads((run_dir / "run_metadata.json").read_text(encoding="utf-8"))
     assert metadata["calculation_profile"] == "research_lite"
     assert metadata["timeout_seconds"] == 300 and metadata["timed_out"] is False
     assert metadata["return_code"] == 0 and metadata["termination_reason"] == "process_exit_0"
-    assert parsed["program_completed"] and parsed["scf_converged"] and parsed["scf_steps"] == 19
+    assert parsed["program_completed"] and parsed["scf_converged"] and parsed["scf_steps"]
+    assert parsed["energy_valid"]
     assert parsed["total_energy_hartree"] is not None and parsed["fermi_energy_hartree"] is not None
     assert parsed["dos_output_present"] and parsed["potential_output_present"]
-    assert not parsed["pdos_output_present"] and not parsed["research_output_complete"]
-    assert any("not implemented" in warning for warning in parsed["cp2k_warnings"])
+    assert parsed["pdos_output_present"] and parsed["ldos_output_present"]
+    assert parsed["electronic_outputs_complete"] and parsed["research_output_complete"]
+    assert not parsed["cp2k_warnings"]
+    assert parsed["raw_total_dos_near_fermi_per_ev"] is not None
+    assert parsed["total_dos_near_fermi_per_ev_per_substrate_angstrom2"] is None
+    assert parsed["cu2te_projected_dos_near_fermi_per_ev_per_formula_unit"] is not None
+    assert parsed["kpoint_mesh"] == "implicit_gamma"
+    assert parsed["kpoint_convergence_checked"] is False
     assert (run_dir / "input.executed.inp").is_file() and (run_dir / "output.out").is_file()
     assert (run_dir / "total_dos.dat").is_file()
     assert (run_dir / "hartree_potential_planar_average.csv").is_file()
+    history = run_dir / "history" / "attempt_01_explicit_gamma_kpoints"
+    historical = parse_research_run(history)
+    assert historical["energy_valid"] and not historical["electronic_outputs_complete"]
 
 
 def test_research_parser_accepts_complete_synthetic_artifact_set(tmp_path):
     (tmp_path / "input.executed.inp").write_text("&GLOBAL\n RUN_TYPE ENERGY\n&END GLOBAL\n", encoding="utf-8")
     (tmp_path / "run_metadata.json").write_text(
-        json.dumps({"attempted": True, "return_code": 0, "timed_out": False, "calculation_profile": "research_lite"}),
+        json.dumps({"calculation_id": "cu2te_bulk", "attempted": True, "return_code": 0, "timed_out": False, "calculation_profile": "research_lite", "cu2te_formula_units": 2}),
         encoding="utf-8",
     )
     (tmp_path / "output.out").write_text(
@@ -158,19 +191,23 @@ def test_research_parser_accepts_complete_synthetic_artifact_set(tmp_path):
         encoding="utf-8",
     )
     (tmp_path / "region-LDOS-1.pdos").write_text("# Fermi energy: 0.1 a.u.\n1 0.10 1.0 0.5\n", encoding="utf-8")
+    (tmp_path / "region-LDOS-2.pdos").write_text("# Fermi energy: 0.1 a.u.\n1 0.10 1.0 0.5\n", encoding="utf-8")
     (tmp_path / "total_dos.dat").write_text("0.100 2.0 1.0\n0.102 1.0 0.5\n", encoding="utf-8")
     (tmp_path / "hartree_potential.cube").write_text("present", encoding="utf-8")
     (tmp_path / "electron_density.cube").write_text("present", encoding="utf-8")
     result = parse_research_run(tmp_path)
     assert result["research_output_complete"]
+    assert result["energy_valid"] and result["electronic_outputs_complete"]
     assert result["pdos_output_present"] and result["dos_output_present"]
-    assert result["normalized_dos_near_fermi_per_ev"] is not None
+    assert result["raw_total_dos_near_fermi_per_ev"] is not None
+    assert result["cu2te_projected_dos_near_fermi_per_ev_per_formula_unit"] is not None
 
 
 def test_experiment_template_has_only_required_header_fields():
     expected = [
-        "sample_id", "solution_concentration", "measured_thickness_nm", "coverage_percent",
-        "PCE", "Voc", "Jsc", "FF", "series_resistance", "contact_resistance", "contact_resistance_method",
+        "sample_id", "solution_concentration_umol_ml", "measured_thickness_nm", "coverage_percent",
+        "PCE_percent", "Voc_V", "Jsc_mA_cm2", "FF_percent", "series_resistance_ohm_cm2",
+        "contact_resistance_ohm_cm2", "contact_resistance_method", "replicate_id",
     ]
     with (ROOT / "results" / "experiment_data_template.csv").open(encoding="utf-8", newline="") as handle:
         rows = list(csv.reader(handle))

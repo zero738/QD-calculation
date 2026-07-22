@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-07-22T14:58:58.846140+00:00",
+  "checked_at_utc": "2026-07-22T16:35:11.413330+00:00",
   "cp2k_version": "CP2K version 2024.3",
   "docker_image": "cp2k/cp2k:2024.3",
   "check_command": "docker run --rm -v <input_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k --check -i <input>",
@@ -16,9 +16,9 @@
     },
     {
       "calculation_id": "cu2te_bulk",
-      "input_kind": "optional_k221",
-      "input_file": "research_lite/inputs/cu2te_bulk/input_k221_check.inp",
-      "input_sha256": "9e4bd89b81aff529c08e95ebee67a76d130ebb6c7450357c2ed395784fe2ffe6",
+      "input_kind": "optional_kpoint_check",
+      "input_file": "research_lite/inputs/cu2te_bulk/input_k222_check.inp",
+      "input_sha256": "50a3a87c5acfbd748056d7d17e5e8721cc673e0cb9a13dafc1fd6875f8f8dfb1",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -34,7 +34,7 @@
     },
     {
       "calculation_id": "B0",
-      "input_kind": "optional_k221",
+      "input_kind": "optional_kpoint_check",
       "input_file": "research_lite/inputs/B0/input_k221_check.inp",
       "input_sha256": "54fedb67e9c8d9d65d24a759e8a9983a76a453671c2820d82ab2b1f98d47e8fc",
       "return_code": 0,
@@ -52,27 +52,9 @@
     },
     {
       "calculation_id": "C50",
-      "input_kind": "optional_k221",
+      "input_kind": "optional_kpoint_check",
       "input_file": "research_lite/inputs/C50/input_k221_check.inp",
       "input_sha256": "6ff65bf8c562e430a89198a47eeea0da9a5efca97d5d3b3c04de30f26da512b3",
-      "return_code": 0,
-      "check_passed": true,
-      "message": "         or will run successfully"
-    },
-    {
-      "calculation_id": "C100",
-      "input_kind": "gamma",
-      "input_file": "research_lite/inputs/C100/input_gamma.inp",
-      "input_sha256": "56a5e6db9912b19f5f62132792276d08c18a53ab6a1be430a6e9595cb0553e2e",
-      "return_code": 0,
-      "check_passed": true,
-      "message": "         or will run successfully"
-    },
-    {
-      "calculation_id": "C100",
-      "input_kind": "optional_k221",
-      "input_file": "research_lite/inputs/C100/input_k221_check.inp",
-      "input_sha256": "6e06069aac010e842bc9fc0237d848a22c83d323f0e75769a0aab93e1c9a83ff",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -88,7 +70,7 @@
     },
     {
       "calculation_id": "H1",
-      "input_kind": "optional_k221",
+      "input_kind": "optional_kpoint_check",
       "input_file": "research_lite/inputs/H1/input_k221_check.inp",
       "input_sha256": "1a9a120ce779fe7eb9e186463040d0437894891c7d4b95c0c64f162b6e6a5416",
       "return_code": 0,
@@ -106,7 +88,7 @@
     },
     {
       "calculation_id": "H2",
-      "input_kind": "optional_k221",
+      "input_kind": "optional_kpoint_check",
       "input_file": "research_lite/inputs/H2/input_k221_check.inp",
       "input_sha256": "7563f15a720945dfc3418d9ea6708214775f4211a5f66f80f41625f07895cbec",
       "return_code": 0,

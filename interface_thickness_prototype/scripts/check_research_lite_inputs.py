@@ -18,7 +18,10 @@ def main() -> int:
     manifest = json.loads((ROOT / "research_lite" / "manifest.json").read_text(encoding="utf-8"))
     results = []
     for task in manifest:
-        for input_kind, key in (("gamma", "gamma_input"), ("optional_k221", "optional_k221_input")):
+        for input_kind, key in (
+            ("gamma", "gamma_input"),
+            ("optional_kpoint_check", "optional_kpoint_check_input"),
+        ):
             input_path = ROOT / task[key]
             command = [
                 "docker", "run", "--rm", "-v", f"{input_path.parent.resolve()}:/work", "-w", "/work",

@@ -43,6 +43,7 @@ def parse_output(
         "confirmed_stop_cause": metadata.get("confirmed_stop_cause"),
         "return_code": metadata.get("return_code"),
         "normal_program_end": False,
+        "energy_valid": False,
         "program_completed": False,
         "scf_converged": False,
         "geometry_optimization_converged": None,
@@ -102,7 +103,7 @@ def parse_output(
         )
     geo_ok = (not is_geo) or bool(result["geometry_optimization_converged"])
     return_code_ok = (not metadata_present) or result["return_code"] == 0
-    result["program_completed"] = bool(
+    result["energy_valid"] = bool(
         result["actually_run"]
         and not result["timed_out"]
         and return_code_ok
@@ -110,8 +111,8 @@ def parse_output(
         and result["scf_converged"]
         and not aborted
         and energies
-        and geo_ok
     )
+    result["program_completed"] = bool(result["energy_valid"] and geo_ok)
 
     if result["timed_out"]:
         result["warning_or_error"] = (

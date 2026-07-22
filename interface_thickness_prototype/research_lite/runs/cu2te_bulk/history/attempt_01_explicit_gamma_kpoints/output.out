@@ -18,8 +18,8 @@
  DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00 (U)
 
 
-  **** **** ******  **  PROGRAM STARTED AT               2026-07-22 16:35:50.103
- ***** ** ***  *** **   PROGRAM STARTED ON                          8d9c3ea14447
+  **** **** ******  **  PROGRAM STARTED AT               2026-07-22 14:42:17.143
+ ***** ** ***  *** **   PROGRAM STARTED ON                          982334617d1e
  **    ****   ******    PROGRAM STARTED BY                             <unknown>
  ***** **    ** ** **   PROGRAM PROCESS ID                                   584
   **** **  *******  **  PROGRAM STARTED IN                                 /work
@@ -72,12 +72,12 @@
  MEMORY| system memory details [Kb]
  MEMORY|                        rank 0           min           max       average
  MEMORY| MemTotal             14211268      14211268      14211268      14211268
- MEMORY| MemFree              13026904      13026904      13026904      13026904
- MEMORY| Buffers                 36888         36888         36888         36888
- MEMORY| Cached                 467584        467584        467584        467584
- MEMORY| Slab                    98116         98116         98116         98116
- MEMORY| SReclaimable            20736         20736         20736         20736
- MEMORY| MemLikelyFree        13552112      13552112      13552112      13552112
+ MEMORY| MemFree              12614304      12614304      12614304      12614304
+ MEMORY| Buffers                 90324         90324         90324         90324
+ MEMORY| Cached                 859784        859784        859784        859784
+ MEMORY| Slab                    96192         96192         96192         96192
+ MEMORY| SReclaimable            22176         22176         22176         22176
+ MEMORY| MemLikelyFree        13586588      13586588      13586588      13586588
 
 
  GENERATE|  Preliminary Number of Bonds generated:                             0
@@ -157,118 +157,55 @@
 
   Step     Update method      Time    Convergence         Total energy    Change
   ------------------------------------------------------------------------------
+     1 NoMix/Diag. 0.15E+00    1.3     3.29044068      -209.0977668190 -2.09E+02
+     2 Broy./Diag. 0.15E+00    2.3     1.01510985      -214.3453389553 -5.25E+00
+     3 Broy./Diag. 0.15E+00    2.2     0.04425373      -208.0138894426  6.33E+00
+     4 Broy./Diag. 0.15E+00    2.2     0.18895597      -207.9063841796  1.08E-01
+     5 Broy./Diag. 0.15E+00    2.4     0.01743583      -207.7375439499  1.69E-01
+     6 Broy./Diag. 0.15E+00    2.3     0.01931731      -208.0963728399 -3.59E-01
+     7 Broy./Diag. 0.15E+00    2.3     0.03601595      -208.1894299133 -9.31E-02
+     8 Broy./Diag. 0.15E+00    2.2     0.00390328      -208.0585424774  1.31E-01
+     9 Broy./Diag. 0.15E+00    2.3     0.00373523      -208.0701412128 -1.16E-02
+    10 Broy./Diag. 0.15E+00    2.3     0.00072991      -208.1009354331 -3.08E-02
+    11 Broy./Diag. 0.15E+00    2.2     0.00098978      -208.1113762258 -1.04E-02
+    12 Broy./Diag. 0.15E+00    2.3     0.00043616      -208.1133033348 -1.93E-03
+    13 Broy./Diag. 0.15E+00    2.2     0.00008769      -208.1140738160 -7.70E-04
+    14 Broy./Diag. 0.15E+00    2.2     0.00015388      -208.1141210842 -4.73E-05
+    15 Broy./Diag. 0.15E+00    2.2     0.00002907      -208.1141772927 -5.62E-05
+    16 Broy./Diag. 0.15E+00    2.2     0.00000897      -208.1141722633  5.03E-06
+    17 Broy./Diag. 0.15E+00    2.2     0.00000176      -208.1141626278  9.64E-06
+    18 Broy./Diag. 0.15E+00    2.2     0.00000603      -208.1141565789  6.05E-06
+    19 Broy./Diag. 0.15E+00    2.3     0.00000035      -208.1141555687  1.01E-06
 
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-     1 NoMix/Diag. 0.15E+00    1.2     0.97256285      -209.6050695831 -2.10E+02
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-     2 Broy./Diag. 0.15E+00    3.4     0.33707800      -208.5128513837  1.09E+00
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-     3 Broy./Diag. 0.15E+00    3.4     0.36669320      -207.2339640489  1.28E+00
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-     4 Broy./Diag. 0.15E+00    3.5     0.16689496      -207.2348957464 -9.32E-04
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-     5 Broy./Diag. 0.15E+00    3.4     0.09459529      -207.9127613557 -6.78E-01
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-     6 Broy./Diag. 0.15E+00    3.5     0.08056344      -208.1313675482 -2.19E-01
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-     7 Broy./Diag. 0.15E+00    3.4     0.01875367      -208.1074877939  2.39E-02
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-     8 Broy./Diag. 0.15E+00    3.5     0.03961818      -208.1049623093  2.53E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-     9 Broy./Diag. 0.15E+00    3.5     0.00841350      -208.1107900577 -5.83E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    10 Broy./Diag. 0.15E+00    3.6     0.01028993      -208.1165685222 -5.78E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    11 Broy./Diag. 0.15E+00    3.5     0.00554635      -208.1133584942  3.21E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    12 Broy./Diag. 0.15E+00    3.5     0.00069739      -208.1121707623  1.19E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    13 Broy./Diag. 0.15E+00    3.5     0.00016437      -208.1141125443 -1.94E-03
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    14 Broy./Diag. 0.15E+00    3.6     0.00009837      -208.1142988698 -1.86E-04
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    15 Broy./Diag. 0.15E+00    3.5     0.00003774      -208.1141677938  1.31E-04
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    16 Broy./Diag. 0.15E+00    3.6     0.00001111      -208.1141504236  1.74E-05
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    17 Broy./Diag. 0.15E+00    3.4     0.00000690      -208.1141575397 -7.12E-06
-
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-    18 Broy./Diag. 0.15E+00    3.5     0.00000071      -208.1141585762 -1.04E-06
-
-  *** SCF run converged in    18 steps ***
+  *** SCF run converged in    19 steps ***
 
 
-  Electronic density on regular grids:        -55.9999999995        0.0000000005
+  Electronic density on regular grids:        -55.9999999994        0.0000000006
   Core density on regular grids:               55.9999999999       -0.0000000001
   Total charge density on r-space grids:        0.0000000005
   Total charge density g-space grids:           0.0000000005
 
   Overlap energy of the core charge distribution:               0.00000040489149
   Self energy of the core charge distribution:               -292.93426679167021
-  Core Hamiltonian energy:                                     96.36562393731066
-  Hartree energy:                                              23.51020092950244
-  Exchange-correlation energy:                                -35.04991746679899
-  Electronic entropic energy:                                  -0.00579958857487
-  Fermi energy:                                                 0.25768275978693
+  Core Hamiltonian energy:                                     96.36562500693354
+  Hartree energy:                                              23.51020193121479
+  Exchange-correlation energy:                                -35.04991653360382
+  Electronic entropic energy:                                  -0.00579958715898
+  Fermi energy:                                                 0.25768268823406
 
-  Total energy:                                              -208.11415857615756
+  Total energy:                                              -208.11415556867891
 
    Calculate DOS at iteration step                                   0
 
-   Calculate PDOS at iteration step                                  0
- OT| Eigensolver reached convergence in 99 iterations
+ *** WARNING in qs_scf_post_gpw.F:1781 :: Projected density of states ***
+ *** (pDOS) is not implemented for k points                           ***
 
- *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
-
-
-   Compute            2    additional unoccupied KS orbitals
-
-   Prepare the list of atoms for LDOS.   Number of lists:            2
-          List        1  contains           4 atoms
-          List        2  contains           2 atoms
-
-              ---- PDOS: start iteration on the KS states --- 
 
  The electron density is written in cube file format to the file:
 
  electron_density.cube
 
- ENERGY| Total FORCE_EVAL ( QS ) energy [a.u.]:             -208.114158576157564
+ ENERGY| Total FORCE_EVAL ( QS ) energy [a.u.]:             -208.114155568678910
 
  -------------------------------------------------------------------------------
  -                                                                             -
@@ -276,66 +213,23 @@
  -                                                                             -
  -------------------------------------------------------------------------------
  COUNTER                                    TOTAL       BLAS       SMM       ACC
- flops     4 x     2 x    68                 3264       0.0%    100.0%      0.0%     
- flops     4 x     2 x   126                 6048       0.0%    100.0%      0.0%     
- flops     2 x     2 x     2                 8848       0.0%    100.0%      0.0%     
- flops    13 x     4 x    13                16224       0.0%    100.0%      0.0%     
- flops    50 x     2 x    68                40800       0.0%    100.0%      0.0%     
- flops    32 x     2 x    68                52224       0.0%    100.0%      0.0%     
- flops    38 x     2 x    68                62016       0.0%    100.0%      0.0%     
- flops    25 x     4 x    13                62400       0.0%    100.0%      0.0%     
- flops    13 x     4 x    25                62400       0.0%    100.0%      0.0%     
- flops     6 x     2 x    70                84000       0.0%    100.0%      0.0%     
- flops    50 x     2 x     2               119200       0.0%    100.0%      0.0%     
- flops     6 x     2 x   126               151200       0.0%    100.0%      0.0%     
- flops    38 x     2 x     2               181184       0.0%    100.0%      0.0%     
- flops     2 x     2 x   126               194544       0.0%    100.0%      0.0%     
- flops     4 x    68 x   126               205632       0.0%    100.0%      0.0%     
- flops    25 x     4 x    25               240000       0.0%    100.0%      0.0%     
- flops    13 x    32 x    13               259584       0.0%    100.0%      0.0%     
- flops     6 x    70 x   126               317520       0.0%    100.0%      0.0%     
- flops    13 x     2 x    13               546208       0.0%    100.0%      0.0%     
- flops    50 x     2 x    70               700000       0.0%    100.0%      0.0%     
- flops    32 x     2 x    70               896000       0.0%    100.0%      0.0%     
- flops    25 x    32 x    13               998400       0.0%    100.0%      0.0%     
- flops    13 x    32 x    25               998400       0.0%    100.0%      0.0%     
- flops    38 x     2 x    70              1064000       0.0%    100.0%      0.0%     
- flops    13 x    13 x    68              1241136       0.0%    100.0%      0.0%     
- flops    32 x     2 x   126              1709568       0.0%    100.0%      0.0%     
- flops    25 x     2 x    13              2100800       0.0%    100.0%      0.0%     
- flops    13 x     2 x    25              2100800       0.0%    100.0%      0.0%     
- flops    25 x    13 x    68              3182400       0.0%    100.0%      0.0%     
- flops    13 x    25 x    68              3182400       0.0%    100.0%      0.0%     
- flops    32 x    68 x   126              3290112       0.0%    100.0%      0.0%     
- flops    32 x    70 x   126              3386880       0.0%    100.0%      0.0%     
- flops    25 x    32 x    25              3840000       0.0%    100.0%      0.0%     
- flops    25 x     2 x    25              8080000       0.0%    100.0%      0.0%     
- flops    25 x    25 x    68             15300000       0.0%    100.0%      0.0%     
  flops inhomo. stacks                           0       0.0%      0.0%      0.0%
- flops total                        54.684192E+06       0.0%    100.0%      0.0%
- flops max/rank                     54.684192E+06       0.0%    100.0%      0.0%
+ flops total                         0.000000E+00       0.0%      0.0%      0.0%
+ flops max/rank                      0.000000E+00       0.0%      0.0%      0.0%
  matmuls inhomo. stacks                         0       0.0%      0.0%      0.0%
- matmuls total                              10109       0.0%    100.0%      0.0%
- number of processed stacks                  4395       0.0%    100.0%      0.0%
- average stack size                                     0.0       2.3       0.0
- marketing flops                    48.930384E+06
- -------------------------------------------------------------------------------
- # multiplications                           1438
- max memory usage/rank             474.161152E+06
- # max total images/rank                        1
- # max 3D layers                                1
- # MPI messages exchanged                       0
+ matmuls total                                  0       0.0%      0.0%      0.0%
+ number of processed stacks                     0       0.0%      0.0%      0.0%
+ average stack size                                     0.0       0.0       0.0
+ marketing flops                     0.000000E+00
  -------------------------------------------------------------------------------
  -                                                                             -
  -                      DBCSR MESSAGE PASSING PERFORMANCE                      -
  -                                                                             -
  -------------------------------------------------------------------------------
  ROUTINE             CALLS      AVE VOLUME [Bytes]
- MP_Bcast               36                     12.
- MP_Allreduce         7199                      8.
- MP_Alltoall          5221                   8074.
- MP_ISend             5734                    126.
- MP_IRecv             5734                    126.
+ MP_Bcast                1                     12.
+ MP_Allreduce        12446                      8.
+ MP_Alltoall          5482                  84317.
  -------------------------------------------------------------------------------
 
  -------------------------------------------------------------------------------
@@ -352,16 +246,16 @@
  -                                                                             -
  -------------------------------------------------------------------------------
  LP    KERNEL             BACKEND                              COUNT     PERCENT
- 6     collocate general  CPU                                 181374      26.69%
- 6     integrate general  CPU                                 171828      25.28%
- 5     collocate general  CPU                                 126540      18.62%
- 5     integrate general  CPU                                 119880      17.64%
- 4     collocate general  CPU                                  41097       6.05%
- 4     integrate general  CPU                                  38934       5.73%
+ 6     collocate general  CPU                                 190920      26.65%
+ 6     integrate general  CPU                                 181374      25.32%
+ 5     collocate general  CPU                                 133200      18.59%
+ 5     integrate general  CPU                                 126540      17.66%
+ 4     collocate general  CPU                                  43260       6.04%
+ 4     integrate general  CPU                                  41097       5.74%
  0     collocate general  CPU                                      6       0.00%
  -------------------------------------------------------------------------------
 
- MEMORY| Estimated peak process memory [MiB]                                 453
+ MEMORY| Estimated peak process memory [MiB]                                 646
 
  -------------------------------------------------------------------------------
  -                                                                             -
@@ -371,10 +265,12 @@
 
  ROUTINE             CALLS      AVE VOLUME [Bytes]
  MP_Group                4
- MP_Bcast              462                   1873.
- MP_Allreduce         1685                     54.
- MP_Sync               455
- MP_comm_split          40
+ MP_Bcast              703                      7.
+ MP_Allreduce         6773                     13.
+ MP_Sync               396
+ MP_Wait               570
+ MP_ISend              798                  18150.
+ MP_IRecv              798                  18150.
  -------------------------------------------------------------------------------
 
 
@@ -451,12 +347,6 @@
  The design and implementation of FFTW3.
  https://doi.org/10.1109/JPROC.2004.840301
 
- J. VandeVondele, J. Hutter.
- J. Chem. Phys. 118, 4365-4369 (2003).
- An efficient orbital transformation method for electronic structure 
- calculations.
- https://doi.org/10.1063/1.1543154
-
  C. Hartwigsen, S. Goedecker, J. Hutter.
  Phys. Rev. B 58, 3641-3662 (1998).
  Relativistic separable dual-space Gaussian pseudopotentials from H to Rn.
@@ -485,30 +375,32 @@
  -------------------------------------------------------------------------------
  SUBROUTINE                       CALLS  ASD         SELF TIME        TOTAL TIME
                                 MAXIMUM       AVERAGE  MAXIMUM  AVERAGE  MAXIMUM
- CP2K                                 1  1.0    0.032    0.032   64.910   64.910
- qs_energies                          1  2.0    0.006    0.006   64.696   64.696
- scf_env_do_scf                       1  3.0    0.000    0.000   62.139   62.139
- scf_env_do_scf_inner_loop           18  4.0    0.025    0.025   62.139   62.139
- qs_ks_update_qs_env                 18  5.0    0.000    0.000   33.221   33.221
- rebuild_ks_matrix                   18  6.0    0.000    0.000   33.220   33.220
- qs_ks_build_kohn_sham_matrix        18  7.0    0.006    0.006   33.220   33.220
- sum_up_and_integrate                18  8.0    0.000    0.000   31.048   31.048
- integrate_v_rspace                  18  9.0    0.001    0.001   31.044   31.044
- grid_integrate_task_list            18 10.0   30.900   30.900   30.900   30.900
- qs_rho_update_rho_low               19  5.0    0.000    0.000   29.105   29.105
- calculate_rho_elec                  19  6.0    0.021    0.021   29.105   29.105
- grid_collocate_task_list            19  7.0   28.794   28.794   28.794   28.794
- qs_vxc_create                       18  8.0    0.001    0.001    1.790    1.790
- xc_vxc_pw_create                    18  9.0    0.028    0.028    1.789    1.789
- fft_wrap_pw1pw2                    329 10.0    0.008    0.008    1.351    1.351
- fft_wrap_pw1pw2_200                218 11.3    0.045    0.045    1.304    1.304
+ CP2K                                 1  1.0    0.027    0.027   45.912   45.912
+ qs_energies                          1  2.0    0.008    0.008   45.719   45.719
+ scf_env_do_scf                       1  3.0    0.000    0.000   43.438   43.438
+ scf_env_do_scf_inner_loop           19  4.0    0.030    0.030   43.438   43.438
+ qs_ks_update_qs_env                 19  5.0    0.000    0.000   21.708   21.708
+ rebuild_ks_matrix                   19  6.0    0.000    0.000   21.441   21.441
+ qs_ks_build_kohn_sham_matrix        19  7.0    0.011    0.011   21.441   21.441
+ qs_rho_update_rho_low               20  5.0    0.000    0.000   20.153   20.153
+ calculate_rho_elec                  20  6.0    0.059    0.059   20.153   20.153
+ sum_up_and_integrate                19  8.0    0.000    0.000   19.989   19.989
+ integrate_v_rspace                  19  9.0    0.045    0.045   19.985   19.985
+ grid_collocate_task_list            20  7.0   19.890   19.890   19.890   19.890
+ grid_integrate_task_list            19 10.0   19.852   19.852   19.852   19.852
+ init_scf_run                         1  3.0    0.000    0.000    1.125    1.125
+ scf_env_initial_rho_setup            1  4.0    0.001    0.001    1.125    1.125
+ qs_vxc_create                       19  8.0    0.001    0.001    1.122    1.122
+ xc_vxc_pw_create                    19  9.0    0.028    0.028    1.121    1.121
+ qs_scf_new_mos_kp                   19  5.0    0.001    0.001    0.933    0.933
+ do_general_diag_kp                  19  6.0    0.002    0.002    0.932    0.932
  -------------------------------------------------------------------------------
 
- The number of warnings for this run is : 19
+ The number of warnings for this run is : 1
  
  -------------------------------------------------------------------------------
-  **** **** ******  **  PROGRAM ENDED AT                 2026-07-22 16:36:55.414
- ***** ** ***  *** **   PROGRAM RAN ON                              8d9c3ea14447
+  **** **** ******  **  PROGRAM ENDED AT                 2026-07-22 14:43:03.424
+ ***** ** ***  *** **   PROGRAM RAN ON                              982334617d1e
  **    ****   ******    PROGRAM RAN BY                                 <unknown>
  ***** **    ** ** **   PROGRAM PROCESS ID                                   584
   **** **  *******  **  PROGRAM STOPPED IN                                 /work

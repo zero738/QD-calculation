@@ -1,11 +1,11 @@
 {
-  "output_file": "interface_thickness_prototype/research_lite/runs/cu2te_bulk/output.out",
+  "output_file": "interface_thickness_prototype/research_lite/runs/cu2te_bulk/history/attempt_01_explicit_gamma_kpoints/output.out",
   "exists": true,
   "actually_run": true,
   "cp2k_version": "CP2K version 2024.3",
   "execution_command": "docker run --rm -e OMP_NUM_THREADS=4 -v <run_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k -i input.executed.inp -o output.out",
   "cpu_threads": 4,
-  "wall_time_seconds": 68.13035429999945,
+  "wall_time_seconds": 48.89789759999985,
   "timeout_seconds": 300,
   "timed_out": false,
   "termination_reason": "process_exit_0",
@@ -16,58 +16,27 @@
   "program_completed": true,
   "scf_converged": true,
   "geometry_optimization_converged": null,
-  "scf_steps": 18,
+  "scf_steps": 19,
   "scf_steps_per_run": [
-    18
+    19
   ],
-  "total_energy_hartree": -208.11415857615756,
-  "total_energy_ev": -5663.07475227462,
-  "fermi_energy_hartree": 0.25768275978693,
-  "fermi_energy_ev": 7.0119051054942965,
-  "warning_or_error": null,
+  "total_energy_hartree": -208.1141555686789,
+  "total_energy_ev": -5663.074670436956,
+  "fermi_energy_hartree": 0.25768268823406,
+  "fermi_energy_ev": 7.0119031584415135,
+  "warning_or_error": "Energy is valid, but electronic outputs are missing: PDOS/LDOS",
   "calculation_profile": "research_lite",
   "dos_near_fermi_window_ev": 0.2,
   "substrate_area_angstrom2": null,
   "cu2te_formula_units": 2,
-  "kpoint_mesh": "implicit_gamma",
+  "kpoint_mesh": "explicit_gamma",
   "kpoint_convergence_checked": false,
-  "kpoint_status_warning": "Gamma-only bulk reference; the 2x2x2 energy check has not been run",
+  "kpoint_status_warning": "Historical explicit-Gamma reference; k-point convergence has not been checked",
   "fermi_reference_warning": "Raw CP2K internal potential reference; not a vacuum-aligned work function.",
-  "cp2k_warnings": [],
-  "pdos_files": [
-    {
-      "file": "rl_cu2te_bulk_gamma-k1-1.pdos",
-      "output_kind": "PDOS",
-      "output_index": 1,
-      "group_label": null,
-      "numeric_rows": 70,
-      "fermi_energy_hartree_in_header": 0.257683
-    },
-    {
-      "file": "rl_cu2te_bulk_gamma-k2-1.pdos",
-      "output_kind": "PDOS",
-      "output_index": 2,
-      "group_label": null,
-      "numeric_rows": 70,
-      "fermi_energy_hartree_in_header": 0.257683
-    },
-    {
-      "file": "rl_cu2te_bulk_gamma-list1-1.pdos",
-      "output_kind": "LDOS",
-      "output_index": 1,
-      "group_label": "Cu_bulk",
-      "numeric_rows": 70,
-      "fermi_energy_hartree_in_header": 0.257683
-    },
-    {
-      "file": "rl_cu2te_bulk_gamma-list2-1.pdos",
-      "output_kind": "LDOS",
-      "output_index": 2,
-      "group_label": "Te_bulk",
-      "numeric_rows": 70,
-      "fermi_energy_hartree_in_header": 0.257683
-    }
+  "cp2k_warnings": [
+    "CP2K 2024.3: projected DOS/LDOS is not implemented when KPOINTS is active"
   ],
+  "pdos_files": [],
   "dos_files": [
     {
       "file": "total_dos.dat",
@@ -77,8 +46,8 @@
   "raw_total_dos_near_fermi_mean_bin_density": 0.011025,
   "raw_total_dos_near_fermi_per_ev": 0.22049953304630862,
   "total_dos_near_fermi_per_ev_per_substrate_angstrom2": null,
-  "cu2te_projected_weight_near_fermi_raw": 3.0,
-  "cu2te_projected_dos_near_fermi_per_ev_per_formula_unit": 7.5,
+  "cu2te_projected_weight_near_fermi_raw": null,
+  "cu2te_projected_dos_near_fermi_per_ev_per_formula_unit": null,
   "cu2te_projected_dos_method": "sum of Cu2Te LDOS projection weights in a rectangular EF window, divided by window width and Cu2Te formula units",
   "dos_near_fermi_mean_bin_density": 0.011025,
   "normalized_dos_near_fermi_per_ev": 0.22049953304630862,
@@ -88,11 +57,11 @@
   "electron_density_cube_files": [
     "electron_density.cube"
   ],
-  "ldos_output_present": true,
-  "pdos_output_present": true,
+  "ldos_output_present": false,
+  "pdos_output_present": false,
   "dos_output_present": true,
   "potential_output_present": true,
   "density_output_present": true,
-  "electronic_outputs_complete": true,
-  "research_output_complete": true
+  "electronic_outputs_complete": false,
+  "research_output_complete": false
 }

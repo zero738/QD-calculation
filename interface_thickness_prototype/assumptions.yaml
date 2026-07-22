@@ -63,6 +63,10 @@ coverage_prototype:
   warning: "Coverage is a geometric prototype and is not inferred from experimental morphology."
 cp2k_research_lite:
   purpose: "starting inputs for relative electronic-structure trends, not a converged publication protocol"
+  canonical_result_mapping: "C0 reuses B0; C100 reuses H1; no duplicate C0/B0 or C100/H1 calculation task"
   default_kpoint_mode: "implicit Gamma so CP2K 2024.3 can print PDOS/LDOS"
-  optional_kpoint_check: "2x2x1; CP2K 2024.3 PDOS/LDOS is disabled for this explicit KPOINTS input"
+  optional_bulk_kpoint_check: "2x2x2; not run, so the current bulk Gamma energy is only a reference test value"
+  optional_slab_kpoint_check: "2x2x1; not run"
+  explicit_kpoint_output_limit: "CP2K 2024.3 PDOS/LDOS is disabled when an explicit KPOINTS section is active"
+  dos_near_ef_window: "0.20 eV rectangular window; report raw total DOS plus substrate-area and Cu2Te-formula-unit normalized proxies"
   polar_slab_warning: "Absolute Fermi alignment/work function and barrier values are not reliable for the current thin polar CdTe(111) slab."

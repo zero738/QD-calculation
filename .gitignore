@@ -36,6 +36,8 @@ interface_thickness_prototype/research_lite/runs/**/*.wfn
 # six-atom research_lite run; larger future slab cubes remain ignored.
 !interface_thickness_prototype/research_lite/runs/cu2te_bulk/electron_density.cube
 !interface_thickness_prototype/research_lite/runs/cu2te_bulk/hartree_potential.cube
+!interface_thickness_prototype/research_lite/runs/cu2te_bulk/history/attempt_01_explicit_gamma_kpoints/electron_density.cube
+!interface_thickness_prototype/research_lite/runs/cu2te_bulk/history/attempt_01_explicit_gamma_kpoints/hartree_potential.cube
 
 # Potentially large model runs are not versioned. The three deliberately small
 # smoke-test outputs and curated JSON/CSV evidence remain tracked.
