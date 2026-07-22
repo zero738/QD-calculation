@@ -59,3 +59,14 @@ Linux 把 Python 路径替换为 `.venv/bin/python`。详细 CP2K 运行方式�
 - `EXPLAIN_FOR_BEGINNER_CN.md`：概念和结果解释。
 
 请勿把不同原子数模型的绝对总能量直接相减，也不要由本原型声称得到稳定膜厚、DOS、功函数、器件效率或真实 Cu₂₋ₓTe 相。
+
+## 覆盖度与 research_lite
+
+- `coverage_models/C0`, `C50`, `C100`：0%、50%、100% 覆盖结构及侧/俯视图；C50 只删除完整横向 Cu₂Te 单元。
+- `research_lite/inputs/*`：Gamma 主输入和可选 2×2×1 检查输入；12/12 已通过 CP2K 2024.3 `--check`。
+- `research_lite/runs/cu2te_bulk`：本轮唯一一次真实 research_lite bulk 测试证据。SCF、总 DOS、Fermi 和势输出成功，但已执行输入中的显式 Gamma KPOINTS 触发 CP2K 的 PDOS 不支持警告，所以整套研究输出严格标为不完整；未来 Gamma 输入已修正为隐式 Gamma。
+- `results/coverage_model_summary.csv`：覆盖度、原子数、终止和条带周期性。
+- `results/research_lite_summary.csv`：真实运行状态；未运行模型的能量和 Fermi 保持空白。
+- `results/relative_coverage_formation_energy.csv`：相对覆盖形成能接口；覆盖模型尚未实算，因此最终形成能为空。
+- `results/dft_proxy_summary.csv`：功函数、费米附近 DOS、电荷转移和势垒代理占位；不得以空值或 smoke 能量替代。
+- `results/experiment_data_template.csv`：以后对接膜厚、覆盖度、效率和接触电阻的实验数据表头。

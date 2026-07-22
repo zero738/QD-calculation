@@ -1,0 +1,4 @@
+model_id,coverage_percent,Cu2Te_formula_units_n,substrate_area_angstrom2,E_Ctheta_hartree_research_lite,E_C0_hartree_research_lite,E_bulk_Cu2Te_per_formula_unit_hartree_research_lite,relative_coverage_formation_energy_ev_per_angstrom2,relative_coverage_formation_energy_ev_per_Cu2Te_formula_unit,status,warning
+C0,0.0,0,236.37089524795562,,,-104.05707778433946,,,not_calculated_missing_research_lite_coverage_energies,相对覆盖形成能；不得用 smoke 能量填充，也不是绝对表面能。
+C50,50.0,16,236.37089524795562,,,-104.05707778433946,,,not_calculated_missing_research_lite_coverage_energies,相对覆盖形成能；不得用 smoke 能量填充，也不是绝对表面能。
+C100,100.0,32,236.37089524795562,,,-104.05707778433946,,,not_calculated_missing_research_lite_coverage_energies,相对覆盖形成能；不得用 smoke 能量填充，也不是绝对表面能。

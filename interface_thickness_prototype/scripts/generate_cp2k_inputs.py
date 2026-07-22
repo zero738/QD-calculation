@@ -42,7 +42,8 @@ def render_input(
     fixed_indices_1based: list[int] | None = None,
     scf_profile: str = "diag_smear_smoke",
 ) -> str:
-    cp = config["cp2k"]
+    cp_root = config["cp2k"]
+    cp = cp_root["profiles"]["smoke_ot"]
     coordinates = "\n".join(
         f"      {symbol:2s} {position[0]:16.9f} {position[1]:16.9f} {position[2]:16.9f}"
         for symbol, position in zip(atoms.get_chemical_symbols(), atoms.positions)
@@ -72,13 +73,13 @@ def render_input(
       &END OT"""
     elif scf_profile == "diag_smear_smoke":
         scf_method = f"""      # Cu2Te may be conductive, so retain diagonalization and smearing.
-      ADDED_MOS {cp['added_mos']}
+      ADDED_MOS {cp['added_mos_for_metallic_exception']}
       &DIAGONALIZATION
         ALGORITHM STANDARD
       &END DIAGONALIZATION
       &SMEAR ON
         METHOD FERMI_DIRAC
-        ELECTRONIC_TEMPERATURE [K] {cp['electronic_temperature_k']}
+        ELECTRONIC_TEMPERATURE [K] {cp['electronic_temperature_k_for_metallic_exception']}
       &END SMEAR
       &MIXING ON
         METHOD BROYDEN_MIXING
@@ -90,8 +91,8 @@ def render_input(
     if scf_profile == "ot_low_memory_smoke":
         kpoints = "    # No KPOINTS section: CP2K's default is Gamma-only and remains OT-compatible."
     else:
-        kpoints = """    &KPOINTS
-      SCHEME GAMMA
+        kpoints = f"""    &KPOINTS
+      SCHEME {cp['kpoint_scheme']}
     &END KPOINTS"""
     motion = ""
     if run_type == "GEO_OPT":
@@ -131,19 +132,19 @@ def render_input(
 &GLOBAL
   PROJECT {project}
   RUN_TYPE {run_type}
-  PRINT_LEVEL LOW
+  PRINT_LEVEL {cp['print_level']}
 &END GLOBAL
 
 &FORCE_EVAL
   METHOD QUICKSTEP
   &DFT
-    BASIS_SET_FILE_NAME {cp['basis_file']}
-    POTENTIAL_FILE_NAME {cp['potential_file']}
+    BASIS_SET_FILE_NAME {cp_root['basis_file']}
+    POTENTIAL_FILE_NAME {cp_root['potential_file']}
     CHARGE 0
     MULTIPLICITY 1
     &QS
       METHOD GPW
-      EPS_DEFAULT 1.0E-10
+      EPS_DEFAULT {cp['eps_default']}
     &END QS
     &POISSON
       PERIODIC {periodic}

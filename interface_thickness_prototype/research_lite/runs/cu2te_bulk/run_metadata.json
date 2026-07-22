@@ -1,0 +1,18 @@
+{
+  "calculation_id": "cu2te_bulk",
+  "calculation_profile": "research_lite",
+  "attempted": true,
+  "started_at_utc": "2026-07-22T14:42:14.969168+00:00",
+  "finished_at_utc": "2026-07-22T14:43:03.873650+00:00",
+  "execution_command": "docker run --rm -e OMP_NUM_THREADS=4 -v <run_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k -i input.executed.inp -o output.out",
+  "cp2k_version": "CP2K version 2024.3",
+  "docker_image": "cp2k/cp2k:2024.3",
+  "cpu_threads": 4,
+  "timeout_seconds": 300,
+  "timed_out": false,
+  "return_code": 0,
+  "termination_reason": "process_exit_0",
+  "confirmed_stop_cause": "CP2K/Docker process exited normally",
+  "wall_time_seconds": 48.89789759999985,
+  "input_sha256": "08f856b9d681028b0f154c8dab611438822332877f6231fd3ce35a3aa236a0ff"
+}

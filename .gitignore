@@ -1,6 +1,8 @@
 .venv/
+node_modules/
 __pycache__/
 .pytest_cache/
+.pytest-tmp/
 *.pyc
 
 # Editor and operating-system files
@@ -26,6 +28,14 @@ slurm-*.out
 *.cube
 *.molden
 *.molden.input
+interface_thickness_prototype/research_lite/runs/**/*.cube
+interface_thickness_prototype/research_lite/runs/**/*-RESTART.kp
+interface_thickness_prototype/research_lite/runs/**/*.wfn
+
+# Keep only the two small (about 117 kB each) cubes from the one audited
+# six-atom research_lite run; larger future slab cubes remain ignored.
+!interface_thickness_prototype/research_lite/runs/cu2te_bulk/electron_density.cube
+!interface_thickness_prototype/research_lite/runs/cu2te_bulk/hartree_potential.cube
 
 # Potentially large model runs are not versioned. The three deliberately small
 # smoke-test outputs and curated JSON/CSV evidence remain tracked.

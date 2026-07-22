@@ -1,6 +1,7 @@
 project_name: CdTe_Cu2Te_interface_thickness_prototype
 active_model_ids: [B0, H1, H2]
 legacy_model_ids: [T0, T1, T2]
+coverage_model_ids: [C0, C50, C100]
 cdte:
   lattice_a_angstrom: 6.48
   miller_index: [1, 1, 1]
@@ -27,20 +28,48 @@ validation:
 cp2k:
   basis_file: BASIS_MOLOPT
   potential_file: GTH_POTENTIALS
-  # Deliberately low-cost smoke profile; none of these values is converged for research use.
-  cutoff_ry: 300
-  rel_cutoff_ry: 40
-  eps_scf: 1.0e-4
-  max_scf: 100
-  added_mos: 12
-  electronic_temperature_k: 500
-  geo_opt_test_max_iter: 5
   local_max_threads: 4
   slurm_cpus: 8
   slurm_time: "02:00:00"
   docker_image: "cp2k/cp2k:2024.3"
-  basis_profile: "smoke_dzvp"
-  optional_production_basis_profile: "tzvp_ucl_not_generated_by_default"
+  profiles:
+    smoke_ot:
+      # Preserves the already-run low-cost smoke settings. Not research-converged.
+      cutoff_ry: 300
+      rel_cutoff_ry: 40
+      eps_default: 1.0e-10
+      eps_scf: 1.0e-4
+      max_scf: 100
+      added_mos_for_metallic_exception: 12
+      electronic_temperature_k_for_metallic_exception: 500
+      geo_opt_test_max_iter: 5
+      print_level: LOW
+      kpoint_scheme: GAMMA
+    research_lite:
+      # Trend-oriented starting point only; convergence tests remain mandatory.
+      run_type: ENERGY
+      scf_method: DIAGONALIZATION
+      xc_functional: PBE
+      cutoff_ry: 400
+      rel_cutoff_ry: 60
+      eps_default: 1.0e-12
+      eps_scf: 1.0e-6
+      max_scf: 150
+      added_mos: 40
+      electronic_temperature_k: 500
+      mixing_method: BROYDEN_MIXING
+      mixing_alpha: 0.15
+      mixing_nbroyden: 8
+      print_level: LOW
+      # Implicit Gamma (no KPOINTS section) is required for CP2K 2024.3 PDOS/LDOS.
+      gamma_kpoints: implicit
+      optional_kpoint_check: [2, 2, 1]
+      pdos_nlumo: 40
+      # CP2K 2024.3 DOS/DELTA_E is unitless in input and interpreted in hartree.
+      dos_delta_e_hartree: 0.00183747  # approximately 0.05 eV
+      potential_cube_stride: [4, 4, 2]
+      save_restart_wfn: true
+      bulk_test_timeout_seconds: 300
 smoke_tests:
   ordered_calculation_ids:
     - 01_cdte_bulk_sp

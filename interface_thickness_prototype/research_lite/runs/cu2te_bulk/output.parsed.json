@@ -1,0 +1,52 @@
+{
+  "output_file": "interface_thickness_prototype/research_lite/runs/cu2te_bulk/output.out",
+  "exists": true,
+  "actually_run": true,
+  "cp2k_version": "CP2K version 2024.3",
+  "execution_command": "docker run --rm -e OMP_NUM_THREADS=4 -v <run_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k -i input.executed.inp -o output.out",
+  "cpu_threads": 4,
+  "wall_time_seconds": 48.89789759999985,
+  "timeout_seconds": 300,
+  "timed_out": false,
+  "termination_reason": "process_exit_0",
+  "confirmed_stop_cause": "CP2K/Docker process exited normally",
+  "return_code": 0,
+  "normal_program_end": true,
+  "program_completed": true,
+  "scf_converged": true,
+  "geometry_optimization_converged": null,
+  "scf_steps": 19,
+  "scf_steps_per_run": [
+    19
+  ],
+  "total_energy_hartree": -208.1141555686789,
+  "total_energy_ev": -5663.074670436956,
+  "fermi_energy_hartree": 0.25768268823406,
+  "fermi_energy_ev": 7.0119031584415135,
+  "warning_or_error": "CP2K ended successfully, but research outputs are missing: PDOS/LDOS",
+  "calculation_profile": "research_lite",
+  "fermi_reference_warning": "Raw CP2K internal potential reference; not a vacuum-aligned work function.",
+  "cp2k_warnings": [
+    "CP2K 2024.3: projected DOS/LDOS is not implemented when KPOINTS is active"
+  ],
+  "pdos_files": [],
+  "dos_files": [
+    {
+      "file": "total_dos.dat",
+      "numeric_rows": 952
+    }
+  ],
+  "dos_near_fermi_mean_bin_density": 0.011025,
+  "normalized_dos_near_fermi_per_ev": 0.22049953304630862,
+  "hartree_potential_cube_files": [
+    "hartree_potential.cube"
+  ],
+  "electron_density_cube_files": [
+    "electron_density.cube"
+  ],
+  "pdos_output_present": false,
+  "dos_output_present": true,
+  "potential_output_present": true,
+  "density_output_present": true,
+  "research_output_complete": false
+}

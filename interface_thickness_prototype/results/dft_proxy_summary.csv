@@ -1,0 +1,6 @@
+model_id,coverage_percent,research_lite_actually_run,work_function_ev,normalized_DOS_near_EF_per_ev,interface_charge_transfer_e,potential_barrier_proxy_ev,status,warning
+B0,0,False,,,,,not_calculated,极性 CdTe(111) 薄片仅可用于收敛后相对趋势；当前不得解释为接触电阻或器件效率。
+C50,50.0,False,,,,,not_calculated,极性 CdTe(111) 薄片仅可用于收敛后相对趋势；当前不得解释为接触电阻或器件效率。
+C100,100.0,False,,,,,not_calculated,极性 CdTe(111) 薄片仅可用于收敛后相对趋势；当前不得解释为接触电阻或器件效率。
+H1,100,False,,,,,not_calculated,极性 CdTe(111) 薄片仅可用于收敛后相对趋势；当前不得解释为接触电阻或器件效率。
+H2,100,False,,,,,not_calculated,极性 CdTe(111) 薄片仅可用于收敛后相对趋势；当前不得解释为接触电阻或器件效率。

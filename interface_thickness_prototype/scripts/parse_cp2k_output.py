@@ -9,6 +9,7 @@ HARTREE_TO_EV = 27.211386245988
 ENERGY_RE = re.compile(r"ENERGY\|.*?energy\s*\[a\.u\.\]\s*:\s*([-+0-9.Ee]+)", re.I)
 SCF_CONVERGED_RE = re.compile(r"SCF\s+run\s+converged\s+in\s+(\d+)\s+steps", re.I)
 VERSION_RE = re.compile(r"CP2K\|\s*version string:\s*(.+)", re.I)
+FERMI_RE = re.compile(r"Fermi\s+energy\s*:\s*([-+0-9.Ee]+)", re.I)
 
 
 def _read_metadata(path: Path | None) -> dict:
@@ -49,6 +50,8 @@ def parse_output(
         "scf_steps_per_run": [],
         "total_energy_hartree": None,
         "total_energy_ev": None,
+        "fermi_energy_hartree": None,
+        "fermi_energy_ev": None,
         "warning_or_error": None,
     }
     if not path.is_file():
@@ -82,6 +85,11 @@ def parse_output(
         energy = float(energies[-1])
         result["total_energy_hartree"] = energy
         result["total_energy_ev"] = energy * HARTREE_TO_EV
+    fermi_values = FERMI_RE.findall(text)
+    if fermi_values:
+        fermi = float(fermi_values[-1])
+        result["fermi_energy_hartree"] = fermi
+        result["fermi_energy_ev"] = fermi * HARTREE_TO_EV
 
     is_geo = False
     if input_path and input_path.is_file():

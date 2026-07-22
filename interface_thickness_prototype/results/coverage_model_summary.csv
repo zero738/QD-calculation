@@ -1,0 +1,4 @@
+model_id,coverage_percent,Cd_atoms,Te_atoms,Cu_atoms,total_atoms,Cu2Te_repeat_count,Cu2Te_atomic_plane_count,Cu2Te_z_span_angstrom,top_termination,interface_contact_elements,interface_minimum_distance_angstrom,minimum_distance_angstrom,substrate_area_angstrom2,lateral_units_present,lateral_units_total,film_morphology,stripe_edge_direction,stripe_periodicity,prototype_only
+C0,0.0,39,39,0,78,0,0,0.0,none,none,,2.8059222995099127,236.37089524795562,0,16,none,not applicable,not applicable,True
+C50,50.0,39,55,32,126,1,4,4.92796487,Cu,Te(CdTe)/Cu(Cu2Te),2.6000000000000014,2.3845754235169645,236.37089524795562,8,16,periodic half-area stripe,parallel to lateral cell vector B,continuous/periodic along B; stripe and vacuum gap repeat along A,True
+C100,100.0,39,71,64,174,1,4,4.92796487,Cu,Te(CdTe)/Cu(Cu2Te),2.6000000000000014,2.3845754235169636,236.37089524795562,16,16,continuous full film,not applicable,not applicable,True

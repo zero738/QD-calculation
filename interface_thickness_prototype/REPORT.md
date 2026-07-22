@@ -116,3 +116,23 @@ CdTe bulk → Cu2Te bulk → B0 slab → H1 single point → H1 5-step geometry 
 ## 10. 下一步最小建议
 
 本轮核心已跑通，不要继续自动运行几何优化或 H2。下一步最小工作应先由实验确认 Cu₂₋ₓTe 晶相和 x；若要进入科研计算，再为可能导电的 H1 建立对角化+展宽配置并做 cutoff、SCF、k 点、真空和 slab 厚度收敛，而不是解释当前 OT smoke 总能量。
+
+## 11. 覆盖度与 research_lite 最小论文框架（2026-07-22）
+
+本轮没有改写或重跑既有 B0/H1 smoke 证据。`smoke_tests/` 中的输入、输出、metadata、历史失败归档和成功结果保持原样；smoke 总能量仍只能证明管线可运行。
+
+新增覆盖度系列使用同一个 CdTe 基底和横向晶胞：C0 是 B0 的精确副本（78 原子，0%）；C50 保留 H1 中相邻两列、共 8/16 个完整横向 Cu₄Te₂ 单元（126 原子，50%）；C100 是 H1 的精确副本（174 原子，100%）。C50 薄膜为沿晶胞 B 矢量连续并周期重复的半面积条带，薄膜仍是一个完整 c 重复、Cu:Te=2:1，界面距离、应变、首接触 Cu 层和顶部 Cu 终止与 C100 相同。数据见 `results/coverage_model_summary.csv`，侧视/俯视图见 `coverage_models/C*/preview_*.png`。
+
+CP2K 配置现在明确分成 `smoke_ot` 与 `research_lite`。后者采用 PBE、当前 DZVP-MOLOPT-SR-GTH/GTH-PBE、400/60 Ry、`EPS_SCF=1e-6`、最多 150 步、标准对角化、500 K Fermi–Dirac 展宽、40 个未占据轨道和 Broyden mixing。默认 Gamma 输入故意不写 `KPOINTS` 段，以保留 CP2K 2024.3 的 PDOS/LDOS 功能；可选 2×2×1 输入用于以后检查 k 点趋势，但由于 CP2K 2024.3 明确不支持 KPOINTS 模式下的 PDOS，该可选输入只输出总 DOS 和势/密度，不伪装成可输出 PDOS。最终 12 个输入均通过 CP2K 2024.3 `--check`，证据在 `research_lite/cp2k_input_checks.json`。
+
+本轮只真实运行了一次 6 原子 Cu₂Te bulk research_lite 测试。CP2K 2024.3 在 4 线程下 48.897898 s 正常结束，SCF 19 步收敛，总能量 -208.1141555686789 Ha，输出中 Fermi energy 为 0.25768268823406 Ha。该 Fermi 数值采用 CP2K 内部势零点，不能直接当作真空对齐的功函数。总 DOS、电子密度 cube 和 Hartree 势 cube 已生成，势的平面平均 CSV 也已生成；但已执行快照含显式 Gamma `KPOINTS` 段，CP2K 给出“PDOS 对 k 点未实现”的警告，因此没有生成 PDOS/LDOS，严格状态为 `program_completed=true`、`research_output_complete=false`。这次部分成功证据完整保留在 `research_lite/runs/cu2te_bulk/`，没有为掩盖问题进行第二次实算；未来输入已改成 CP2K 2024.3 兼容的隐式 Gamma。
+
+`results/relative_coverage_formation_energy.csv` 已实现“相对覆盖形成能”接口：
+
+```text
+[E(Cθ) - E(C0) - n Ebulk(Cu2Te/formula unit)] / substrate area
+```
+
+同时预留每个 Cu₂Te 化学式单位的值。因为 C0/C50/C100 尚未运行 research_lite，两列形成能均保持空白；没有使用 smoke 能量填充。`results/dft_proxy_summary.csv` 中功函数、界面电荷转移和势垒代理也保持空白。极性、很薄的 CdTe(111) slab 目前只能支持将来完成收敛后的相对趋势，不能据此得出绝对功函数、接触电阻、最佳覆盖度、最佳膜厚或器件效率结论。
+
+最终自动测试结果为 `28 passed`；另有 12 条 ASE/NumPy 上游弃用提醒，不是结构或 CP2K 验证失败。
