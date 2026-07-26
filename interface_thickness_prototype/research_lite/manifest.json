@@ -15,8 +15,8 @@
       2,
       2
     ],
-    "kpoint_convergence_status": "not_run",
-    "gamma_reference_scope": "Gamma-only bulk reference; the 2x2x2 energy check has not been run",
+    "kpoint_convergence_status": "runtime_result_recorded_separately",
+    "gamma_reference_scope": "Gamma-only bulk starting point; use the separate 2x2x2 minimum-check result before comparison",
     "dos_near_fermi_window_ev": 0.2,
     "gamma_capabilities": [
       "Fermi energy",
@@ -26,12 +26,10 @@
       "electron density"
     ],
     "optional_kpoint_check_capabilities": [
-      "Fermi energy",
-      "DOS",
-      "Hartree potential",
-      "electron density"
+      "total energy",
+      "SCF convergence"
     ],
-    "optional_kpoint_check_limitation": "CP2K 2024.3 does not implement PDOS/LDOS when a KPOINTS section is active",
+    "optional_kpoint_check_limitation": "Energy-only minimum k-point check; no DOS/PDOS/LDOS or cube outputs are requested",
     "ldos_groups": [
       {
         "label": "Cu_bulk",
@@ -71,8 +69,8 @@
       2,
       1
     ],
-    "kpoint_convergence_status": "not_run",
-    "gamma_reference_scope": "Gamma-only slab starting point; the 2x2x1 energy check has not been run",
+    "kpoint_convergence_status": "runtime_result_recorded_separately",
+    "gamma_reference_scope": "Gamma-only slab starting point; any separate 2x2x1 check is outside this generated-input manifest",
     "dos_near_fermi_window_ev": 0.2,
     "gamma_capabilities": [
       "Fermi energy",
@@ -82,12 +80,10 @@
       "electron density"
     ],
     "optional_kpoint_check_capabilities": [
-      "Fermi energy",
-      "DOS",
-      "Hartree potential",
-      "electron density"
+      "total energy",
+      "SCF convergence"
     ],
-    "optional_kpoint_check_limitation": "CP2K 2024.3 does not implement PDOS/LDOS when a KPOINTS section is active",
+    "optional_kpoint_check_limitation": "Energy-only minimum k-point check; no DOS/PDOS/LDOS or cube outputs are requested",
     "ldos_groups": [
       {
         "label": "CdTe_substrate",
@@ -171,10 +167,29 @@
           77,
           78
         ]
+      },
+      {
+        "label": "CdTe_interface_top_Te",
+        "region_selector": "region == interface_cdte_surface and element == Te",
+        "indices_1based": [
+          6,
+          12,
+          18,
+          24,
+          30,
+          36,
+          42,
+          48,
+          54,
+          60,
+          66,
+          72,
+          78
+        ]
       }
     ],
-    "actually_run": false,
-    "run_directory": null
+    "actually_run": true,
+    "run_directory": "research_lite/runs/B0"
   },
   {
     "calculation_id": "C50",
@@ -192,8 +207,8 @@
       2,
       1
     ],
-    "kpoint_convergence_status": "not_run",
-    "gamma_reference_scope": "Gamma-only slab starting point; the 2x2x1 energy check has not been run",
+    "kpoint_convergence_status": "runtime_result_recorded_separately",
+    "gamma_reference_scope": "Gamma-only slab starting point; any separate 2x2x1 check is outside this generated-input manifest",
     "dos_near_fermi_window_ev": 0.2,
     "gamma_capabilities": [
       "Fermi energy",
@@ -203,12 +218,10 @@
       "electron density"
     ],
     "optional_kpoint_check_capabilities": [
-      "Fermi energy",
-      "DOS",
-      "Hartree potential",
-      "electron density"
+      "total energy",
+      "SCF convergence"
     ],
-    "optional_kpoint_check_limitation": "CP2K 2024.3 does not implement PDOS/LDOS when a KPOINTS section is active",
+    "optional_kpoint_check_limitation": "Energy-only minimum k-point check; no DOS/PDOS/LDOS or cube outputs are requested",
     "ldos_groups": [
       {
         "label": "CdTe_substrate",
@@ -345,10 +358,51 @@
           125,
           126
         ]
+      },
+      {
+        "label": "CdTe_interface_top_Te",
+        "region_selector": "region == interface_cdte_surface and element == Te",
+        "indices_1based": [
+          6,
+          12,
+          18,
+          24,
+          30,
+          36,
+          42,
+          48,
+          54,
+          60,
+          66,
+          72,
+          78
+        ]
+      },
+      {
+        "label": "Cu2Te_interface_bottom_Cu",
+        "region_selector": "region == interface_cu2te_contact and element == Cu",
+        "indices_1based": [
+          79,
+          80,
+          85,
+          86,
+          91,
+          92,
+          97,
+          98,
+          103,
+          104,
+          109,
+          110,
+          115,
+          116,
+          121,
+          122
+        ]
       }
     ],
-    "actually_run": false,
-    "run_directory": null
+    "actually_run": true,
+    "run_directory": "research_lite/runs/C50"
   },
   {
     "calculation_id": "H1",
@@ -368,8 +422,8 @@
       2,
       1
     ],
-    "kpoint_convergence_status": "not_run",
-    "gamma_reference_scope": "Gamma-only slab starting point; the 2x2x1 energy check has not been run",
+    "kpoint_convergence_status": "runtime_result_recorded_separately",
+    "gamma_reference_scope": "Gamma-only slab starting point; any separate 2x2x1 check is outside this generated-input manifest",
     "dos_near_fermi_window_ev": 0.2,
     "gamma_capabilities": [
       "Fermi energy",
@@ -379,12 +433,10 @@
       "electron density"
     ],
     "optional_kpoint_check_capabilities": [
-      "Fermi energy",
-      "DOS",
-      "Hartree potential",
-      "electron density"
+      "total energy",
+      "SCF convergence"
     ],
-    "optional_kpoint_check_limitation": "CP2K 2024.3 does not implement PDOS/LDOS when a KPOINTS section is active",
+    "optional_kpoint_check_limitation": "Energy-only minimum k-point check; no DOS/PDOS/LDOS or cube outputs are requested",
     "ldos_groups": [
       {
         "label": "CdTe_substrate",
@@ -569,10 +621,67 @@
           173,
           174
         ]
+      },
+      {
+        "label": "CdTe_interface_top_Te",
+        "region_selector": "region == interface_cdte_surface and element == Te",
+        "indices_1based": [
+          6,
+          12,
+          18,
+          24,
+          30,
+          36,
+          42,
+          48,
+          54,
+          60,
+          66,
+          72,
+          78
+        ]
+      },
+      {
+        "label": "Cu2Te_interface_bottom_Cu",
+        "region_selector": "region == interface_cu2te_contact and element == Cu",
+        "indices_1based": [
+          79,
+          80,
+          85,
+          86,
+          91,
+          92,
+          97,
+          98,
+          103,
+          104,
+          109,
+          110,
+          115,
+          116,
+          121,
+          122,
+          127,
+          128,
+          133,
+          134,
+          139,
+          140,
+          145,
+          146,
+          151,
+          152,
+          157,
+          158,
+          163,
+          164,
+          169,
+          170
+        ]
       }
     ],
-    "actually_run": false,
-    "run_directory": null
+    "actually_run": true,
+    "run_directory": "research_lite/runs/H1"
   },
   {
     "calculation_id": "H2",
@@ -590,8 +699,8 @@
       2,
       1
     ],
-    "kpoint_convergence_status": "not_run",
-    "gamma_reference_scope": "Gamma-only slab starting point; the 2x2x1 energy check has not been run",
+    "kpoint_convergence_status": "runtime_result_recorded_separately",
+    "gamma_reference_scope": "Gamma-only slab starting point; any separate 2x2x1 check is outside this generated-input manifest",
     "dos_near_fermi_window_ev": 0.2,
     "gamma_capabilities": [
       "Fermi energy",
@@ -601,12 +710,10 @@
       "electron density"
     ],
     "optional_kpoint_check_capabilities": [
-      "Fermi energy",
-      "DOS",
-      "Hartree potential",
-      "electron density"
+      "total energy",
+      "SCF convergence"
     ],
-    "optional_kpoint_check_limitation": "CP2K 2024.3 does not implement PDOS/LDOS when a KPOINTS section is active",
+    "optional_kpoint_check_limitation": "Energy-only minimum k-point check; no DOS/PDOS/LDOS or cube outputs are requested",
     "ldos_groups": [
       {
         "label": "CdTe_substrate",
@@ -886,6 +993,63 @@
           268,
           269,
           270
+        ]
+      },
+      {
+        "label": "CdTe_interface_top_Te",
+        "region_selector": "region == interface_cdte_surface and element == Te",
+        "indices_1based": [
+          6,
+          12,
+          18,
+          24,
+          30,
+          36,
+          42,
+          48,
+          54,
+          60,
+          66,
+          72,
+          78
+        ]
+      },
+      {
+        "label": "Cu2Te_interface_bottom_Cu",
+        "region_selector": "region == interface_cu2te_contact and element == Cu",
+        "indices_1based": [
+          79,
+          80,
+          91,
+          92,
+          103,
+          104,
+          115,
+          116,
+          127,
+          128,
+          139,
+          140,
+          151,
+          152,
+          163,
+          164,
+          175,
+          176,
+          187,
+          188,
+          199,
+          200,
+          211,
+          212,
+          223,
+          224,
+          235,
+          236,
+          247,
+          248,
+          259,
+          260
         ]
       }
     ],

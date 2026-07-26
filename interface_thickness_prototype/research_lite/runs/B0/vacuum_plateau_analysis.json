@@ -1,0 +1,29 @@
+{
+  "method": "continuous low-density, low-slope xy-planar-average plateau; CP2K V_HARTREE sign inverted and hartree converted to eV",
+  "top": {
+    "side": "top",
+    "detection_status": "unreliable_or_not_found",
+    "plateau_width_angstrom": null,
+    "plateau_mean_ev": null,
+    "plateau_std_ev": null,
+    "z_start_angstrom": null,
+    "z_end_angstrom": null,
+    "grid_point_count": 0
+  },
+  "bottom": {
+    "side": "bottom",
+    "detection_status": "unreliable_or_not_found",
+    "plateau_width_angstrom": null,
+    "plateau_mean_ev": null,
+    "plateau_std_ev": null,
+    "z_start_angstrom": null,
+    "z_end_angstrom": null,
+    "grid_point_count": 0
+  },
+  "vacuum_level_top_ev": null,
+  "vacuum_level_bottom_ev": null,
+  "work_function_top_ev": null,
+  "work_function_bottom_ev": null,
+  "work_function_scope_warning": "Top/bottom values are prototype slab proxies. The polar CdTe(111) model and fixed initial geometry do not establish an absolute work function.",
+  "analysis_status": "one_or_more_plateaus_unreliable"
+}

@@ -129,7 +129,10 @@ def main() -> int:
         "input_sha256": _sha256(input_snapshot),
         "kpoint_mesh": "implicit_gamma",
         "kpoint_convergence_checked": False,
-        "kpoint_status_warning": "Gamma-only bulk reference; the 2x2x2 energy check has not been run",
+        "kpoint_status_warning": (
+            "Gamma-only bulk reference; any separate 2x2x2 minimum-check "
+            "result must be reviewed independently"
+        ),
         "dos_near_fermi_window_ev": cp["dos_near_fermi_window_ev"],
         "substrate_area_angstrom2": task["substrate_area_angstrom2"],
         "cu2te_formula_units": task["cu2te_formula_units"],

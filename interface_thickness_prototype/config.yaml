@@ -67,11 +67,29 @@ cp2k:
       optional_slab_kpoint_check: [2, 2, 1]
       pdos_nlumo: 40
       dos_near_fermi_window_ev: 0.20
+      gaussian_broadening_fwhm_ev: 0.10
+      spectral_grid_min_ev: -20.0
+      spectral_grid_max_ev: 45.0
+      spectral_grid_step_ev: 0.01
+      pdos_eigenvalue_tolerance_hartree: 1.0e-6
+      pdos_fermi_tolerance_hartree: 1.0e-6
+      spectral_integral_relative_tolerance: 5.0e-4
       # CP2K 2024.3 DOS/DELTA_E is unitless in input and interpreted in hartree.
       dos_delta_e_hartree: 0.00183747  # approximately 0.05 eV
       potential_cube_stride: [4, 4, 2]
+      vacuum_density_threshold_au: 1.0e-6
+      vacuum_min_plateau_width_angstrom: 2.0
+      vacuum_max_plateau_std_ev: 0.10
+      vacuum_max_local_slope_ev_per_angstrom: 0.05
+      vacuum_atom_exclusion_angstrom: 1.5
       save_restart_wfn: true
       bulk_test_timeout_seconds: 300
+      task_timeout_seconds:
+        cu2te_bulk_k222: 1200
+        B0: 2400
+        C50: 5400
+        H1: 7200
+        H2: 10800
 smoke_tests:
   ordered_calculation_ids:
     - 01_cdte_bulk_sp

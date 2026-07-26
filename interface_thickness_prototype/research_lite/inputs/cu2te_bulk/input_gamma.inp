@@ -54,6 +54,8 @@
     &END XC
     # Implicit Gamma: no KPOINTS section, preserving CP2K 2024.3 PDOS/LDOS support.
     &PRINT
+      # CP2K DOS Density is a normalized histogram fraction, not a raw total
+      # number of KS orbitals. Comparable spectra are rebuilt from unique MOs.
       &DOS ON
         DELTA_E 0.00183747
         FILENAME =total_dos.dat
@@ -72,8 +74,8 @@
         COMPONENTS
       &END LDOS
       &END PDOS
-      # CP2K's V_HARTREE_CUBE contains the electron+ion electrostatic potential
-      # with the opposite sign to the conventional physical potential.
+      # CP2K V_HARTREE_CUBE has the opposite sign to the conventional
+      # electrostatic potential used by the post-processing code.
       &V_HARTREE_CUBE ON
         FILENAME =hartree_potential.cube
         STRIDE 4 4 2

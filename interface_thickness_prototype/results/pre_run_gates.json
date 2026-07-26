@@ -1,0 +1,52 @@
+{
+  "checked_at_utc": "2026-07-26T04:48:09.617331+00:00",
+  "all_gates_passed": true,
+  "checks": [
+    {
+      "gate": "all_automated_tests_pass",
+      "passed": true,
+      "evidence": "31 passed, 12 warnings in 3.09s"
+    },
+    {
+      "gate": "synthetic_pdos_ldos_consistency_test_pass",
+      "passed": true,
+      "evidence": "covered by test_research_lite.py mismatch and consistent-artifact tests"
+    },
+    {
+      "gate": "synthetic_size_doubling_test_pass",
+      "passed": true,
+      "evidence": "covered by test_size_doubling_spectral_normalization_and_cp2k_histogram_semantics"
+    },
+    {
+      "gate": "existing_bulk_warning_count_is_19",
+      "passed": true,
+      "evidence": "count=19; messages=['WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed']"
+    },
+    {
+      "gate": "C0_and_C100_are_aliases_only",
+      "passed": true,
+      "evidence": "C0->B0 and C100->H1"
+    },
+    {
+      "gate": "H1_H2_interface_group_counts_match",
+      "passed": true,
+      "evidence": "H1={'CdTe_substrate': 78, 'Cu2Te_film': 96, 'CdTe_interface_top_Te': 13, 'Cu2Te_interface_bottom_Cu': 32}; H2={'CdTe_substrate': 78, 'Cu2Te_film': 192, 'CdTe_interface_top_Te': 13, 'Cu2Te_interface_bottom_Cu': 32}"
+    },
+    {
+      "gate": "C50_interface_groups_nonempty",
+      "passed": true,
+      "evidence": "C50={'CdTe_substrate': 78, 'Cu2Te_film': 48, 'CdTe_interface_top_Te': 13, 'Cu2Te_interface_bottom_Cu': 16}"
+    },
+    {
+      "gate": "unrun_research_values_remain_absent",
+      "passed": true,
+      "evidence": "B0/C50/H1/H2 have no research_lite parsed outputs before the run"
+    },
+    {
+      "gate": "all_inputs_pass_cp2k_2024_3_check",
+      "passed": true,
+      "evidence": "10/10 checks; hashes_current=True"
+    }
+  ],
+  "warning": "Passing these gates validates the pipeline prerequisites only; it does not establish physical convergence or scientific validity."
+}

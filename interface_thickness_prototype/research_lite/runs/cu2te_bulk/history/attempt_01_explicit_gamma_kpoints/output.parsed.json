@@ -24,44 +24,89 @@
   "total_energy_ev": -5663.074670436956,
   "fermi_energy_hartree": 0.25768268823406,
   "fermi_energy_ev": 7.0119031584415135,
-  "warning_or_error": "Energy is valid, but electronic outputs are missing: PDOS/LDOS",
+  "cp2k_warning_count": 1,
+  "unique_warning_messages": [
+    "WARNING in qs_scf_post_gpw.F:1781 :: Projected density of states (pDOS) is not implemented for k points"
+  ],
+  "warning_message_counts": {
+    "WARNING in qs_scf_post_gpw.F:1781 :: Projected density of states (pDOS) is not implemented for k points": 1
+  },
+  "warning_review_required": true,
+  "fatal_warning_detected": false,
+  "warning_or_error": "Energy is valid, but electronic outputs are incomplete: consistent PDOS/LDOS, Gaussian spectral integral check",
+  "last_MO_smearing_warning_count": 0,
+  "last_MO_smearing_warning_persistent": false,
+  "last_MO_smearing_warning_interpretation": "Persistent occupation of the highest available MO makes the requested electronic spectrum incomplete; a transient early-SCF warning remains reviewable but does not invalidate a later clean converged spectrum.",
+  "calculation_id": "cu2te_bulk",
   "calculation_profile": "research_lite",
   "dos_near_fermi_window_ev": 0.2,
   "substrate_area_angstrom2": null,
   "cu2te_formula_units": 2,
   "kpoint_mesh": "explicit_gamma",
   "kpoint_convergence_checked": false,
-  "kpoint_status_warning": "Historical explicit-Gamma reference; k-point convergence has not been checked",
-  "fermi_reference_warning": "Raw CP2K internal potential reference; not a vacuum-aligned work function.",
-  "cp2k_warnings": [
-    "CP2K 2024.3: projected DOS/LDOS is not implemented when KPOINTS is active"
-  ],
+  "kpoint_status_warning": "Gamma-only bulk reference; the 2x2x2 energy check has not been run",
+  "fermi_reference_warning": "Raw CP2K Fermi energy uses the calculation's internal reference. Only E-EF spectral shapes or vacuum-aligned slab proxies are compared.",
+  "expected_electronic_outputs": true,
+  "ldos_group_atom_counts": {
+    "Cu_bulk": 4,
+    "Te_bulk": 2
+  },
   "pdos_files": [],
+  "pdos_consistency_valid": false,
+  "pdos_consistency_errors": [
+    "no kind-PDOS file is present; a unique MO list cannot be built"
+  ],
+  "ldos_output_present": false,
+  "pdos_output_present": false,
+  "unique_MO_count": null,
   "dos_files": [
     {
       "file": "total_dos.dat",
       "numeric_rows": 952
     }
   ],
-  "raw_total_dos_near_fermi_mean_bin_density": 0.011025,
-  "raw_total_dos_near_fermi_per_ev": 0.22049953304630862,
-  "total_dos_near_fermi_per_ev_per_substrate_angstrom2": null,
-  "cu2te_projected_weight_near_fermi_raw": null,
-  "cu2te_projected_dos_near_fermi_per_ev_per_formula_unit": null,
-  "cu2te_projected_dos_method": "sum of Cu2Te LDOS projection weights in a rectangular EF window, divided by window width and Cu2Te formula units",
-  "dos_near_fermi_mean_bin_density": 0.011025,
-  "normalized_dos_near_fermi_per_ev": 0.22049953304630862,
+  "dos_output_present": true,
+  "cp2k_normalized_histogram_fraction_near_EF_per_ev": 0.22049953304630862,
+  "cp2k_normalized_histogram_definition": "CP2K 2024.3 DOS Density is normalized over all histogram bins; this field is a spectral-shape fraction per eV, not total KS-orbital DOS.",
+  "KS_orbital_count_near_EF_in_window": null,
+  "KS_orbital_density_near_EF_per_ev": null,
+  "KS_orbital_density_near_EF_per_ev_per_substrate_area": null,
+  "Cu2Te_projected_spectral_weight_near_EF_per_ev_per_formula_unit": null,
+  "CdTe_interface_projected_spectral_weight_near_EF_per_ev_per_atom": null,
+  "Cu2Te_interface_projected_spectral_weight_near_EF_per_ev_per_atom": null,
+  "spectral_integral_KS_orbitals": null,
+  "spectral_integral_expected_KS_orbitals": null,
+  "spectral_integral_valid": false,
+  "gaussian_broadening_fwhm_ev": 0.1,
+  "spectral_energy_reference": "E_minus_EF",
+  "spectral_proxy_file": null,
   "hartree_potential_cube_files": [
     "hartree_potential.cube"
   ],
   "electron_density_cube_files": [
     "electron_density.cube"
   ],
-  "ldos_output_present": false,
-  "pdos_output_present": false,
-  "dos_output_present": true,
   "potential_output_present": true,
   "density_output_present": true,
+  "vacuum_plateau_analysis": {
+    "method": "continuous low-density, low-slope xy-planar-average plateau; CP2K V_HARTREE sign inverted and hartree converted to eV",
+    "top": {
+      "detection_status": "not_analyzed"
+    },
+    "bottom": {
+      "detection_status": "not_analyzed"
+    },
+    "vacuum_level_top_ev": null,
+    "vacuum_level_bottom_ev": null,
+    "work_function_top_ev": null,
+    "work_function_bottom_ev": null,
+    "work_function_scope_warning": "Top/bottom values are prototype slab proxies. The polar CdTe(111) model and fixed initial geometry do not establish an absolute work function.",
+    "analysis_status": "missing_cube_or_structure"
+  },
+  "vacuum_level_top_ev": null,
+  "vacuum_level_bottom_ev": null,
+  "work_function_top_ev": null,
+  "work_function_bottom_ev": null,
   "electronic_outputs_complete": false,
   "research_output_complete": false
 }

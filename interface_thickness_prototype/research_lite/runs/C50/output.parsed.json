@@ -1,0 +1,189 @@
+{
+  "output_file": "interface_thickness_prototype/research_lite/runs/C50/output.out",
+  "exists": true,
+  "actually_run": true,
+  "cp2k_version": "CP2K version 2024.3",
+  "execution_command": "docker run --rm -e OMP_NUM_THREADS=4 -v <run_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k -i input.executed.inp -o output.out",
+  "cpu_threads": 4,
+  "wall_time_seconds": 5137.1112399,
+  "timeout_seconds": 5400,
+  "timed_out": false,
+  "termination_reason": "strict_success",
+  "confirmed_stop_cause": "normal CP2K end marker, explicit SCF convergence, valid energy, and complete requested electronic outputs",
+  "return_code": 0,
+  "normal_program_end": true,
+  "energy_valid": true,
+  "program_completed": true,
+  "scf_converged": true,
+  "geometry_optimization_converged": null,
+  "scf_steps": 84,
+  "scf_steps_per_run": [
+    84
+  ],
+  "scf_iterations_observed": 84,
+  "last_scf_iteration_index": 84,
+  "total_energy_hartree": -3790.704643344517,
+  "total_energy_ev": -103150.32819450783,
+  "fermi_energy_hartree": -0.00300924863473,
+  "fermi_energy_ev": -0.08188582690985008,
+  "cp2k_warning_count": 243,
+  "unique_warning_messages": [
+    "WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed",
+    "WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes the last MO => Add more MOs for proper smearing."
+  ],
+  "warning_message_counts": {
+    "WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed": 241,
+    "WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes the last MO => Add more MOs for proper smearing.": 2
+  },
+  "warning_review_required": true,
+  "fatal_warning_detected": false,
+  "warning_or_error": null,
+  "last_MO_smearing_warning_count": 2,
+  "last_MO_smearing_warning_persistent": false,
+  "last_MO_smearing_warning_interpretation": "Persistent occupation of the highest available MO makes the requested electronic spectrum incomplete; a transient early-SCF warning remains reviewable but does not invalidate a later clean converged spectrum.",
+  "calculation_id": "C50",
+  "calculation_profile": "research_lite",
+  "dos_near_fermi_window_ev": 0.2,
+  "substrate_area_angstrom2": 236.37089524795562,
+  "cu2te_formula_units": 16,
+  "kpoint_mesh": "implicit_gamma",
+  "kpoint_convergence_checked": false,
+  "kpoint_status_warning": "Gamma-only slab starting point; the 2x2x1 energy check has not been run",
+  "fermi_reference_warning": "Raw CP2K Fermi energy uses the calculation's internal reference. Only E-EF spectral shapes or vacuum-aligned slab proxies are compared.",
+  "expected_electronic_outputs": true,
+  "ldos_group_atom_counts": {
+    "CdTe_substrate": 78,
+    "Cu2Te_film": 48,
+    "CdTe_interface_top_Te": 13,
+    "Cu2Te_interface_bottom_Cu": 16
+  },
+  "pdos_files": [
+    {
+      "file": "rl_c50_gamma-k1-1.pdos",
+      "output_kind": "PDOS",
+      "output_index": 1,
+      "group_label": null,
+      "numeric_rows": 640,
+      "fermi_energy_hartree_in_header": -0.003009
+    },
+    {
+      "file": "rl_c50_gamma-k2-1.pdos",
+      "output_kind": "PDOS",
+      "output_index": 2,
+      "group_label": null,
+      "numeric_rows": 640,
+      "fermi_energy_hartree_in_header": -0.003009
+    },
+    {
+      "file": "rl_c50_gamma-k3-1.pdos",
+      "output_kind": "PDOS",
+      "output_index": 3,
+      "group_label": null,
+      "numeric_rows": 640,
+      "fermi_energy_hartree_in_header": -0.003009
+    },
+    {
+      "file": "rl_c50_gamma-list1-1.pdos",
+      "output_kind": "LDOS",
+      "output_index": 1,
+      "group_label": "CdTe_substrate",
+      "numeric_rows": 640,
+      "fermi_energy_hartree_in_header": -0.003009
+    },
+    {
+      "file": "rl_c50_gamma-list2-1.pdos",
+      "output_kind": "LDOS",
+      "output_index": 2,
+      "group_label": "Cu2Te_film",
+      "numeric_rows": 640,
+      "fermi_energy_hartree_in_header": -0.003009
+    },
+    {
+      "file": "rl_c50_gamma-list3-1.pdos",
+      "output_kind": "LDOS",
+      "output_index": 3,
+      "group_label": "CdTe_interface_top_Te",
+      "numeric_rows": 640,
+      "fermi_energy_hartree_in_header": -0.003009
+    },
+    {
+      "file": "rl_c50_gamma-list4-1.pdos",
+      "output_kind": "LDOS",
+      "output_index": 4,
+      "group_label": "Cu2Te_interface_bottom_Cu",
+      "numeric_rows": 640,
+      "fermi_energy_hartree_in_header": -0.003009
+    }
+  ],
+  "pdos_consistency_valid": true,
+  "pdos_consistency_errors": [],
+  "ldos_output_present": true,
+  "pdos_output_present": true,
+  "unique_MO_count": 640,
+  "dos_files": [
+    {
+      "file": "total_dos.dat",
+      "numeric_rows": 306
+    }
+  ],
+  "dos_output_present": true,
+  "cp2k_normalized_histogram_fraction_near_EF_per_ev": 0.07349984434876843,
+  "cp2k_normalized_histogram_definition": "CP2K 2024.3 DOS Density is normalized over all histogram bins; this field is a spectral-shape fraction per eV, not total KS-orbital DOS.",
+  "KS_orbital_count_near_EF_in_window": 8,
+  "KS_orbital_density_near_EF_per_ev": 46.64643475364271,
+  "KS_orbital_density_near_EF_per_ev_per_substrate_area": 0.19734424030805525,
+  "Cu2Te_projected_spectral_weight_near_EF_per_ev_per_formula_unit": 1.035793054125215,
+  "CdTe_interface_projected_spectral_weight_near_EF_per_ev_per_atom": 1.5218202439214086,
+  "Cu2Te_interface_projected_spectral_weight_near_EF_per_ev_per_atom": 0.21771065840835505,
+  "spectral_integral_KS_orbitals": 640.0,
+  "spectral_integral_expected_KS_orbitals": 640,
+  "spectral_integral_valid": true,
+  "gaussian_broadening_fwhm_ev": 0.1,
+  "spectral_energy_reference": "E_minus_EF",
+  "spectral_proxy_file": "spectral_proxies.csv",
+  "KS_orbital_density_method": "externally Gaussian-broadened unique kind-PDOS MO list; window-average over E-EF and no assumed spin degeneracy",
+  "projected_spectral_weight_method": "atomic-orbital projected spectral-weight proxy using the same 0.10 eV FWHM Gaussian and E-EF grid; not an exact total state count",
+  "hartree_potential_cube_files": [
+    "hartree_potential.cube"
+  ],
+  "electron_density_cube_files": [
+    "electron_density.cube"
+  ],
+  "potential_output_present": true,
+  "density_output_present": true,
+  "vacuum_plateau_analysis": {
+    "method": "continuous low-density, low-slope xy-planar-average plateau; CP2K V_HARTREE sign inverted and hartree converted to eV",
+    "top": {
+      "side": "top",
+      "detection_status": "unreliable_or_not_found",
+      "plateau_width_angstrom": null,
+      "plateau_mean_ev": null,
+      "plateau_std_ev": null,
+      "z_start_angstrom": null,
+      "z_end_angstrom": null,
+      "grid_point_count": 0
+    },
+    "bottom": {
+      "side": "bottom",
+      "detection_status": "unreliable_or_not_found",
+      "plateau_width_angstrom": null,
+      "plateau_mean_ev": null,
+      "plateau_std_ev": null,
+      "z_start_angstrom": null,
+      "z_end_angstrom": null,
+      "grid_point_count": 0
+    },
+    "vacuum_level_top_ev": null,
+    "vacuum_level_bottom_ev": null,
+    "work_function_top_ev": null,
+    "work_function_bottom_ev": null,
+    "work_function_scope_warning": "Top/bottom values are prototype slab proxies. The polar CdTe(111) model and fixed initial geometry do not establish an absolute work function.",
+    "analysis_status": "one_or_more_plateaus_unreliable"
+  },
+  "vacuum_level_top_ev": null,
+  "vacuum_level_bottom_ev": null,
+  "work_function_top_ev": null,
+  "work_function_bottom_ev": null,
+  "electronic_outputs_complete": true,
+  "research_output_complete": true
+}

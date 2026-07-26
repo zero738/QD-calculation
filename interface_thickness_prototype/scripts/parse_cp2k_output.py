@@ -3,13 +3,28 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from collections import Counter
 from pathlib import Path
 
 HARTREE_TO_EV = 27.211386245988
 ENERGY_RE = re.compile(r"ENERGY\|.*?energy\s*\[a\.u\.\]\s*:\s*([-+0-9.Ee]+)", re.I)
 SCF_CONVERGED_RE = re.compile(r"SCF\s+run\s+converged\s+in\s+(\d+)\s+steps", re.I)
+SCF_ITERATION_RE = re.compile(
+    r"^\s*(\d+)\s+(?:NoMix|Broy\.)/Diag\.", re.I | re.M
+)
 VERSION_RE = re.compile(r"CP2K\|\s*version string:\s*(.+)", re.I)
 FERMI_RE = re.compile(r"Fermi\s+energy\s*:\s*([-+0-9.Ee]+)", re.I)
+CP2K_WARNING_LINE_RE = re.compile(
+    r"^\s*\*{3}\s*(WARNING\s+in\s+.*?)\s*\*{3}\s*$", re.I
+)
+CP2K_WARNING_CONTINUATION_RE = re.compile(
+    r"^\s*\*{3}\s*(?!WARNING\b)(.*?)\s*\*{3}\s*$", re.I
+)
+FATAL_WARNING_TOKENS = (
+    "scf run not converged",
+    "projected density of states is not implemented for k points",
+    "requested electronic output was not written",
+)
 
 
 def _read_metadata(path: Path | None) -> dict:
@@ -19,6 +34,30 @@ def _read_metadata(path: Path | None) -> dict:
         return json.loads(path.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return {}
+
+
+def _extract_cp2k_warnings(text: str) -> list[str]:
+    lines = text.splitlines()
+    warnings: list[str] = []
+    index = 0
+    while index < len(lines):
+        match = CP2K_WARNING_LINE_RE.match(lines[index])
+        if not match:
+            index += 1
+            continue
+        parts = [" ".join(match.group(1).split())]
+        cursor = index + 1
+        while cursor < len(lines):
+            continuation = CP2K_WARNING_CONTINUATION_RE.match(lines[cursor])
+            if not continuation:
+                break
+            content = " ".join(continuation.group(1).split())
+            if content:
+                parts.append(content)
+            cursor += 1
+        warnings.append(" ".join(parts))
+        index = cursor
+    return warnings
 
 
 def parse_output(
@@ -49,10 +88,17 @@ def parse_output(
         "geometry_optimization_converged": None,
         "scf_steps": None,
         "scf_steps_per_run": [],
+        "scf_iterations_observed": 0,
+        "last_scf_iteration_index": None,
         "total_energy_hartree": None,
         "total_energy_ev": None,
         "fermi_energy_hartree": None,
         "fermi_energy_ev": None,
+        "cp2k_warning_count": 0,
+        "unique_warning_messages": [],
+        "warning_message_counts": {},
+        "warning_review_required": False,
+        "fatal_warning_detected": False,
         "warning_or_error": None,
     }
     if not path.is_file():
@@ -61,6 +107,22 @@ def parse_output(
 
     text = path.read_text(encoding="utf-8", errors="replace")
     upper = text.upper()
+    warning_messages = _extract_cp2k_warnings(text)
+    warning_counts = Counter(warning_messages)
+    fatal_warning_detected = any(
+        token in message.lower()
+        for message in warning_messages
+        for token in FATAL_WARNING_TOKENS
+    )
+    result.update(
+        {
+            "cp2k_warning_count": len(warning_messages),
+            "unique_warning_messages": list(warning_counts),
+            "warning_message_counts": dict(warning_counts),
+            "warning_review_required": bool(warning_messages),
+            "fatal_warning_detected": fatal_warning_detected,
+        }
+    )
     # A normal CP2K footer contains "PROGRAM STOPPED IN <directory>" even on
     # success, so that phrase must never be treated as an abort marker.
     aborted = any(
@@ -75,8 +137,13 @@ def parse_output(
     )
     result["normal_program_end"] = "PROGRAM ENDED AT" in upper
     step_counts = [int(value) for value in SCF_CONVERGED_RE.findall(text)]
+    iteration_indices = [int(value) for value in SCF_ITERATION_RE.findall(text)]
     result["scf_steps_per_run"] = step_counts
     result["scf_steps"] = sum(step_counts) if step_counts else None
+    result["scf_iterations_observed"] = len(iteration_indices)
+    result["last_scf_iteration_index"] = (
+        iteration_indices[-1] if iteration_indices else None
+    )
     result["scf_converged"] = bool(step_counts) and not aborted
     versions = VERSION_RE.findall(text)
     if versions and not result["cp2k_version"]:
@@ -110,6 +177,7 @@ def parse_output(
         and result["normal_program_end"]
         and result["scf_converged"]
         and not aborted
+        and not fatal_warning_detected
         and energies
     )
     result["program_completed"] = bool(result["energy_valid"] and geo_ok)
@@ -120,6 +188,10 @@ def parse_output(
         )
     elif aborted:
         result["warning_or_error"] = "CP2K reported an abort, stop, or unconverged SCF"
+    elif fatal_warning_detected:
+        result["warning_or_error"] = (
+            "CP2K emitted a warning classified as fatal for the requested outputs"
+        )
     elif metadata_present and result["return_code"] is None:
         result["warning_or_error"] = (
             "run metadata has no final return code; termination is not confirmed"

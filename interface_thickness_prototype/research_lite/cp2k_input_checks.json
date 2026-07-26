@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-07-22T16:35:11.413330+00:00",
+  "checked_at_utc": "2026-07-26T04:47:01.221793+00:00",
   "cp2k_version": "CP2K version 2024.3",
   "docker_image": "cp2k/cp2k:2024.3",
   "check_command": "docker run --rm -v <input_dir>:/work -w /work cp2k/cp2k:2024.3 cp2k --check -i <input>",
@@ -9,7 +9,7 @@
       "calculation_id": "cu2te_bulk",
       "input_kind": "gamma",
       "input_file": "research_lite/inputs/cu2te_bulk/input_gamma.inp",
-      "input_sha256": "2c68baff6381f94d7124b1ea3f446a4f1fab9a2b1e2730421c390dd0a09b5dd9",
+      "input_sha256": "f007addd8e2265af8d02a2625941f081d93f2478fce4c5e9807a5ab70ded8200",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -18,7 +18,7 @@
       "calculation_id": "cu2te_bulk",
       "input_kind": "optional_kpoint_check",
       "input_file": "research_lite/inputs/cu2te_bulk/input_k222_check.inp",
-      "input_sha256": "50a3a87c5acfbd748056d7d17e5e8721cc673e0cb9a13dafc1fd6875f8f8dfb1",
+      "input_sha256": "d71ad9188dcff853a780defdb08f6b6a1ffbbf20f7ceda264a062eda2a6eeb34",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -27,7 +27,7 @@
       "calculation_id": "B0",
       "input_kind": "gamma",
       "input_file": "research_lite/inputs/B0/input_gamma.inp",
-      "input_sha256": "48d474f702f6e0b9a5049a3e0accb717dafb1d1984c535ba372588662daba6dd",
+      "input_sha256": "8e352443b4df0e2730a854501319fd9cf54a71b81f209be8640b11a92859facd",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -36,7 +36,7 @@
       "calculation_id": "B0",
       "input_kind": "optional_kpoint_check",
       "input_file": "research_lite/inputs/B0/input_k221_check.inp",
-      "input_sha256": "54fedb67e9c8d9d65d24a759e8a9983a76a453671c2820d82ab2b1f98d47e8fc",
+      "input_sha256": "b73f762c1ed4a1189f208c4291280ad6d812e5cb33821417aaa6171c752bfd3e",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -45,7 +45,7 @@
       "calculation_id": "C50",
       "input_kind": "gamma",
       "input_file": "research_lite/inputs/C50/input_gamma.inp",
-      "input_sha256": "cd039dfb8bea18b96294d68046ce1379c0fd100acd7c68c7be67a6a18ed96cc5",
+      "input_sha256": "438f4cde72142323b97ac197c30504611a437134b689a574480068c562fe1a42",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -54,7 +54,7 @@
       "calculation_id": "C50",
       "input_kind": "optional_kpoint_check",
       "input_file": "research_lite/inputs/C50/input_k221_check.inp",
-      "input_sha256": "6ff65bf8c562e430a89198a47eeea0da9a5efca97d5d3b3c04de30f26da512b3",
+      "input_sha256": "609ad20f8ca06492cd1b9a16cda51b4bd08b61e25df5d8cef6a6cee22c611c34",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -63,7 +63,7 @@
       "calculation_id": "H1",
       "input_kind": "gamma",
       "input_file": "research_lite/inputs/H1/input_gamma.inp",
-      "input_sha256": "e5ca370cd7ca250de7199d5b43b101348f6221ef6a2f02fe1a8330345e729509",
+      "input_sha256": "421be0c157c8a093263a5c67c07920bceb957cb0451f7cf2fc4af709f691c608",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -72,7 +72,7 @@
       "calculation_id": "H1",
       "input_kind": "optional_kpoint_check",
       "input_file": "research_lite/inputs/H1/input_k221_check.inp",
-      "input_sha256": "1a9a120ce779fe7eb9e186463040d0437894891c7d4b95c0c64f162b6e6a5416",
+      "input_sha256": "9398da106919c0f1b130e71c22fc76ae7d8e716f383161aa9d064765eb575e32",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -81,7 +81,7 @@
       "calculation_id": "H2",
       "input_kind": "gamma",
       "input_file": "research_lite/inputs/H2/input_gamma.inp",
-      "input_sha256": "ce71342fe9f776a609a8f48a3c655deef190731246a153f5591241af93bc8465",
+      "input_sha256": "0aa61888cccfeb855809965f37d8ec1122b0b28b37eca38fa7552efeb0a85d15",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"
@@ -90,7 +90,7 @@
       "calculation_id": "H2",
       "input_kind": "optional_kpoint_check",
       "input_file": "research_lite/inputs/H2/input_k221_check.inp",
-      "input_sha256": "7563f15a720945dfc3418d9ea6708214775f4211a5f66f80f41625f07895cbec",
+      "input_sha256": "7f71faed19a58fadad0ad76a2584c2669cbd9d6644614bba507805fb7b327051",
       "return_code": 0,
       "check_passed": true,
       "message": "         or will run successfully"

@@ -1,0 +1,173 @@
+{
+  "audit_rounds": {
+    "round_1_code_tests_and_pre_run_gates": [
+      {
+        "name": "pre_run_hard_gates",
+        "passed": true,
+        "detail": "The recorded pre-run gate file must report every hard gate passed."
+      },
+      {
+        "name": "cp2k_check_all_inputs",
+        "passed": true,
+        "detail": "All generated research_lite inputs must pass CP2K 2024.3 --check."
+      },
+      {
+        "name": "existing_bulk_warning_gate",
+        "passed": true,
+        "detail": "The existing implicit-Gamma Cu2Te bulk output must reparse to 19 warnings."
+      }
+    ],
+    "round_2_raw_outputs_vs_csv": [
+      {
+        "name": "cu2te_bulk_fresh_parse_matches_stored",
+        "passed": true,
+        "detail": "Fresh strict parsing of the raw CP2K evidence must match output.parsed.json."
+      },
+      {
+        "name": "cu2te_bulk_raw_parse_matches_final_csv",
+        "passed": true,
+        "detail": "Raw-output strict status, SCF count, energy and warning count must match final_model_status.csv."
+      },
+      {
+        "name": "cu2te_bulk_k222_fresh_parse_matches_stored",
+        "passed": true,
+        "detail": "Fresh strict parsing of the raw CP2K evidence must match output.parsed.json."
+      },
+      {
+        "name": "cu2te_bulk_k222_raw_parse_matches_final_csv",
+        "passed": true,
+        "detail": "Raw-output strict status, SCF count, energy and warning count must match final_model_status.csv."
+      },
+      {
+        "name": "B0_fresh_parse_matches_stored",
+        "passed": true,
+        "detail": "Fresh strict parsing of the raw CP2K evidence must match output.parsed.json."
+      },
+      {
+        "name": "B0_raw_parse_matches_final_csv",
+        "passed": true,
+        "detail": "Raw-output strict status, SCF count, energy and warning count must match final_model_status.csv."
+      },
+      {
+        "name": "C50_fresh_parse_matches_stored",
+        "passed": true,
+        "detail": "Fresh strict parsing of the raw CP2K evidence must match output.parsed.json."
+      },
+      {
+        "name": "C50_raw_parse_matches_final_csv",
+        "passed": true,
+        "detail": "Raw-output strict status, SCF count, energy and warning count must match final_model_status.csv."
+      },
+      {
+        "name": "H1_fresh_parse_matches_stored",
+        "passed": true,
+        "detail": "Fresh strict parsing of the raw CP2K evidence must match output.parsed.json."
+      },
+      {
+        "name": "H1_raw_parse_matches_final_csv",
+        "passed": true,
+        "detail": "Raw-output strict status, SCF count, energy and warning count must match final_model_status.csv."
+      },
+      {
+        "name": "H2_unrun_has_no_invented_result",
+        "passed": true,
+        "detail": "An unattempted task must have no SCF count or energy in the final CSV."
+      }
+    ],
+    "round_3_scientific_dimensions_normalization_references_and_claims": [
+      {
+        "name": "no_raw_total_dos_comparison_field",
+        "passed": true,
+        "detail": "The cross-model proxy table must not expose a raw total-DOS comparison field."
+      },
+      {
+        "name": "B0_cu2te_projections_are_blank",
+        "passed": true,
+        "detail": "The bare CdTe model has no Cu2Te formula units or Cu interface atoms, so both fields must be blank."
+      },
+      {
+        "name": "aliases_are_unique",
+        "passed": true,
+        "detail": "C0 must reference only B0 and C100 must reference only H1."
+      },
+      {
+        "name": "C0_formation_energy_validity_gate",
+        "passed": true,
+        "detail": "A formation-energy value is allowed only when the slab, B0 and 2x2x2 bulk reference energies are valid."
+      },
+      {
+        "name": "C50_formation_energy_validity_gate",
+        "passed": true,
+        "detail": "A formation-energy value is allowed only when the slab, B0 and 2x2x2 bulk reference energies are valid."
+      },
+      {
+        "name": "C100_formation_energy_validity_gate",
+        "passed": true,
+        "detail": "A formation-energy value is allowed only when the slab, B0 and 2x2x2 bulk reference energies are valid."
+      },
+      {
+        "name": "formation_reference_and_dimensions_are_explicit",
+        "passed": true,
+        "detail": "The minimum bulk reference mesh and per-area dimensions must be explicit."
+      },
+      {
+        "name": "bulk_kpoint_difference_is_per_formula_unit_and_reproducible",
+        "passed": true,
+        "detail": "The Gamma-to-2x2x2 bulk difference must use two Cu2Te formula units and remain labelled as a minimum check."
+      },
+      {
+        "name": "C0_per_formula_unit_value_is_undefined_not_zero",
+        "passed": true,
+        "detail": "C0 has zero Cu2Te formula units, so a per-formula-unit quotient is undefined and must remain blank."
+      },
+      {
+        "name": "B0_work_function_reliability_gate",
+        "passed": true,
+        "detail": "A top work-function proxy is allowed only when the continuous vacuum plateau is reliable."
+      },
+      {
+        "name": "B0_normalized_spectrum_completeness_gate",
+        "passed": true,
+        "detail": "The size-normalized KS spectral metric must be present exactly for complete electronic outputs."
+      },
+      {
+        "name": "C50_work_function_reliability_gate",
+        "passed": true,
+        "detail": "A top work-function proxy is allowed only when the continuous vacuum plateau is reliable."
+      },
+      {
+        "name": "C50_normalized_spectrum_completeness_gate",
+        "passed": true,
+        "detail": "The size-normalized KS spectral metric must be present exactly for complete electronic outputs."
+      },
+      {
+        "name": "H1_work_function_reliability_gate",
+        "passed": true,
+        "detail": "A top work-function proxy is allowed only when the continuous vacuum plateau is reliable."
+      },
+      {
+        "name": "H1_normalized_spectrum_completeness_gate",
+        "passed": true,
+        "detail": "The size-normalized KS spectral metric must be present exactly for complete electronic outputs."
+      },
+      {
+        "name": "H2_work_function_reliability_gate",
+        "passed": true,
+        "detail": "A top work-function proxy is allowed only when the continuous vacuum plateau is reliable."
+      },
+      {
+        "name": "H2_normalized_spectrum_completeness_gate",
+        "passed": true,
+        "detail": "The size-normalized KS spectral metric must be present exactly for complete electronic outputs."
+      },
+      {
+        "name": "paper_summary_keeps_claim_boundary",
+        "passed": true,
+        "detail": "The paper-facing summary must explicitly prohibit unsupported resistance, optimum-thickness and phase claims."
+      }
+    ]
+  },
+  "check_count": 32,
+  "passed_count": 32,
+  "all_passed": true
+}

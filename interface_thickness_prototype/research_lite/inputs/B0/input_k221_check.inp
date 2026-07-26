@@ -56,24 +56,8 @@
     &KPOINTS
       SCHEME MONKHORST-PACK 2 2 1
     &END KPOINTS
-    &PRINT
-      &DOS ON
-        DELTA_E 0.00183747
-        FILENAME =total_dos.dat
-      &END DOS
-      # PDOS/LDOS intentionally omitted for this explicit k-point check:
-      # CP2K 2024.3 reports that projected DOS is not implemented for KPOINTS.
-      # CP2K's V_HARTREE_CUBE contains the electron+ion electrostatic potential
-      # with the opposite sign to the conventional physical potential.
-      &V_HARTREE_CUBE ON
-        FILENAME =hartree_potential.cube
-        STRIDE 4 4 2
-      &END V_HARTREE_CUBE
-      &E_DENSITY_CUBE ON
-        FILENAME =electron_density.cube
-        STRIDE 4 4 2
-      &END E_DENSITY_CUBE
-    &END PRINT
+    # Energy-only k-point check:
+    # DOS/PDOS/LDOS and cube outputs are deliberately omitted.
   &END DFT
   &SUBSYS
     &CELL

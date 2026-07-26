@@ -1,0 +1,730 @@
+ DBCSR| CPU Multiplication driver                                           XSMM (U)
+ DBCSR| Multrec recursion limit                                              512 (U)
+ DBCSR| Multiplication stack size                                           1000 (D)
+ DBCSR| Maximum elements for images                                    UNLIMITED (U)
+ DBCSR| Multiplicative factor virtual images                                   1 (U)
+ DBCSR| Use multiplication densification                                       T (D)
+ DBCSR| Multiplication size stacks                                             3 (U)
+ DBCSR| Use memory pool for CPU allocation                                     F (U)
+ DBCSR| Number of 3D layers                                               SINGLE (U)
+ DBCSR| Use MPI memory allocation                                              F (U)
+ DBCSR| Use RMA algorithm                                                      F (U)
+ DBCSR| Use Communication thread                                               T (U)
+ DBCSR| Communication thread load                                             75 (D)
+ DBCSR| MPI: My process id                                                     0
+ DBCSR| MPI: Number of processes                                               1
+ DBCSR| OMP: Current number of threads                                         4
+ DBCSR| OMP: Max number of threads                                             4
+ DBCSR| Split modifier for TAS multiplication algorithm                  1.0E+00 (U)
+
+
+  **** **** ******  **  PROGRAM STARTED AT               2026-07-26 06:45:03.483
+ ***** ** ***  *** **   PROGRAM STARTED ON                          8b853e689791
+ **    ****   ******    PROGRAM STARTED BY                             <unknown>
+ ***** **    ** ** **   PROGRAM PROCESS ID                                   585
+  **** **  *******  **  PROGRAM STARTED IN                                 /work
+
+ CP2K| version string:                                       CP2K version 2024.3
+ CP2K| source code revision number:                                  git:6712648
+ CP2K| cp2kflags: omp libint fftw3 libxc libgrpp pexsi elpa parallel scalapack c
+ CP2K|            osma quip xsmm plumed2 spglib libdftd4 sirius libvori libbqb l
+ CP2K|            libtorch libvdwxc hdf5
+ CP2K| is freely available from                            https://www.cp2k.org/
+ CP2K| Program compiled at                          Mon Sep  9 14:39:12 UTC 2024
+ CP2K| Program compiled on                                          5c005b387e2b
+ CP2K| Program compiled for                                                local
+ CP2K| Data directory path                                        /opt/cp2k/data
+ CP2K| Input file name                                        input.executed.inp
+
+ GLOBAL| Force Environment number                                              1
+ GLOBAL| Basis set file name                                        BASIS_MOLOPT
+ GLOBAL| Potential file name                                      GTH_POTENTIALS
+ GLOBAL| MM Potential file name                                     MM_POTENTIAL
+ GLOBAL| Coordinate file name                                      __STD_INPUT__
+ GLOBAL| Method name                                                        CP2K
+ GLOBAL| Project name                                                rl_h1_gamma
+ GLOBAL| Run type                                                         ENERGY
+ GLOBAL| FFT library                                                       FFTW3
+ GLOBAL| Diagonalization library                                            ELPA
+ GLOBAL| DGEMM library                                                      BLAS
+ GLOBAL| Minimum number of eigenvectors for ELPA usage                        16
+ GLOBAL| Orthonormality check for eigenvectors                          DISABLED
+ GLOBAL| Matrix multiplication library                                     COSMA
+ GLOBAL| All-to-all communication in single precision                          F
+ GLOBAL| FFTs using library dependent lengths                                  F
+ GLOBAL| Grid backend                                                       AUTO
+ GLOBAL| Global print level                                                  LOW
+ GLOBAL| MPI I/O enabled                                                       T
+ GLOBAL| Total number of message passing processes                             1
+ GLOBAL| Number of threads for this process                                    4
+ GLOBAL| This output is from process                                           0
+ GLOBAL| Stack size for threads created by OpenMP (OMP_STACKSIZE)            16M
+ GLOBAL| CPU model name                AMD Ryzen 7 8845H w/ Radeon 780M Graphics
+ GLOBAL| CPUID                                                              1003
+ GLOBAL| Compiled for CPUID                                                    0
+
+ *** HINT in environment.F:921 :: The compiler target flags (generic) used ***
+ *** to build this binary cannot exploit all extensions of this CPU model  ***
+ *** (x86_avx512). Consider compiler target flags as part of FCFLAGS and   ***
+ *** CFLAGS (ARCH file).                                                   ***
+
+
+ MEMORY| system memory details [Kb]
+ MEMORY|                        rank 0           min           max       average
+ MEMORY| MemTotal             14211256      14211256      14211256      14211256
+ MEMORY| MemFree              12531492      12531492      12531492      12531492
+ MEMORY| Buffers                144844        144844        144844        144844
+ MEMORY| Cached                 890744        890744        890744        890744
+ MEMORY| Slab                    98624         98624         98624         98624
+ MEMORY| SReclaimable            23960         23960         23960         23960
+ MEMORY| MemLikelyFree        13591040      13591040      13591040      13591040
+
+
+ GENERATE|  Preliminary Number of Bonds generated:                             0
+ GENERATE|  Achieved consistency in connectivity generation.
+
+ *******************************************************************************
+ *******************************************************************************
+ **                                                                           **
+ **     #####                         ##              ##                      **
+ **    ##   ##            ##          ##              ##                      **
+ **   ##     ##                       ##            ######                    **
+ **   ##     ##  ##   ##  ##   #####  ##  ##   ####   ##    #####    #####    **
+ **   ##     ##  ##   ##  ##  ##      ## ##   ##      ##   ##   ##  ##   ##   **
+ **   ##  ## ##  ##   ##  ##  ##      ####     ###    ##   ######   ######    **
+ **    ##  ###   ##   ##  ##  ##      ## ##      ##   ##   ##       ##        **
+ **     #######   #####   ##   #####  ##  ##  ####    ##    #####   ##        **
+ **           ##                                                    ##        **
+ **                                                                           **
+ **                                                ... make the atoms dance   **
+ **                                                                           **
+ **            Copyright (C) by CP2K developers group (2000-2024)             **
+ **                      J. Chem. Phys. 152, 194103 (2020)                    **
+ **                                                                           **
+ *******************************************************************************
+
+
+ TOTAL NUMBERS AND MAXIMUM NUMBERS
+
+  Total number of            - Atomic kinds:                                   3
+                             - Atoms:                                        174
+                             - Shell sets:                                   174
+                             - Shells:                                      1076
+                             - Primitive Cartesian functions:                934
+                             - Cartesian basis functions:                   4084
+                             - Spherical basis functions:                   3498
+
+  Maximum angular momentum of- Orbital basis functions:                        3
+                             - Local part of the GTH pseudopotential:          0
+                             - Non-local part of the GTH pseudopotential:      4
+
+
+ SCF PARAMETERS         Density guess:                                    ATOMIC
+                        --------------------------------------------------------
+                        max_scf:                                             150
+                        max_scf_history:                                       0
+                        max_diis:                                              4
+                        --------------------------------------------------------
+                        eps_scf:                                        1.00E-06
+                        eps_scf_history:                                0.00E+00
+                        eps_diis:                                       1.00E-01
+                        eps_eigval:                                     1.00E-05
+                        --------------------------------------------------------
+                        level_shift [a.u.]:                             0.000000
+                        added MOs                                        40    0
+                        --------------------------------------------------------
+                        Mixing method:                            BROYDEN_MIXING
+                                                charge density mixing in g-space
+                        --------------------------------------------------------
+                        Smear method:                                FERMI_DIRAC
+                        Electronic temperature [K]:                        500.0
+                        Electronic temperature [a.u.]:                  1.58E-03
+                        Accuracy threshold:                             1.00E-10
+                        --------------------------------------------------------
+                        No outer SCF
+
+ Number of electrons:                                                       1598
+ Number of occupied orbitals:                                                799
+ Number of molecular orbitals:                                               839
+
+ Number of orbital functions:                                               3498
+ Number of independent orbital functions:                                   3498
+
+ Extrapolation method: initial_guess
+
+
+ SCF WAVEFUNCTION OPTIMIZATION
+
+  Step     Update method      Time    Convergence         Total energy    Change
+  ------------------------------------------------------------------------------
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+     1 NoMix/Diag. 0.15E+00   46.8     1.99581640     -5469.5100732096 -5.47E+03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+     2 Broy./Diag. 0.15E+00  106.9     2.22699543     -5911.5530266179 -4.42E+02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+     3 Broy./Diag. 0.15E+00  101.1     2.34202929     -5549.3722188975  3.62E+02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     4 Broy./Diag. 0.15E+00   96.8     2.14723484     -5567.0991971905 -1.77E+01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     5 Broy./Diag. 0.15E+00  100.9     0.07791923     -5348.6260433996  2.18E+02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+     6 Broy./Diag. 0.15E+00  103.1     1.19688111     -5398.4762556772 -4.99E+01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+     7 Broy./Diag. 0.15E+00  102.7     0.50898822     -5494.4658403277 -9.60E+01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+     8 Broy./Diag. 0.15E+00  102.4     0.42694527     -5466.2981295037  2.82E+01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+     9 Broy./Diag. 0.15E+00  100.9     0.10734552     -5484.4795864744 -1.82E+01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    10 Broy./Diag. 0.15E+00  105.1     0.29336279     -5492.5417951783 -8.06E+00
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    11 Broy./Diag. 0.15E+00  100.1     0.37028636     -5506.5794078577 -1.40E+01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    12 Broy./Diag. 0.15E+00  100.7     0.16662340     -5489.9473259629  1.66E+01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    13 Broy./Diag. 0.15E+00   99.4     0.08744635     -5476.1931415508  1.38E+01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    14 Broy./Diag. 0.15E+00  102.2     0.09913151     -5474.0264931742  2.17E+00
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    15 Broy./Diag. 0.15E+00  101.3     0.03299316     -5476.0261364533 -2.00E+00
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    16 Broy./Diag. 0.15E+00  100.5     0.03447400     -5472.7305942730  3.30E+00
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    17 Broy./Diag. 0.15E+00  101.3     0.03481124     -5471.2565547408  1.47E+00
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    18 Broy./Diag. 0.15E+00  100.8     0.00944103     -5470.2742573153  9.82E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    19 Broy./Diag. 0.15E+00   99.3     0.02975799     -5470.8605956824 -5.86E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    20 Broy./Diag. 0.15E+00   99.5     0.02794654     -5471.9657032085 -1.11E+00
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    21 Broy./Diag. 0.15E+00   99.8     0.00801567     -5472.1914773545 -2.26E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    22 Broy./Diag. 0.15E+00   99.5     0.00742127     -5471.5875046335  6.04E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    23 Broy./Diag. 0.15E+00   99.7     0.00749446     -5471.1564643783  4.31E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    24 Broy./Diag. 0.15E+00  100.4     0.00990454     -5471.0498075242  1.07E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    25 Broy./Diag. 0.15E+00   99.6     0.02384116     -5471.1792336240 -1.29E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    26 Broy./Diag. 0.15E+00   98.8     0.01552241     -5471.1245526048  5.47E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    27 Broy./Diag. 0.15E+00   99.7     0.05784493     -5471.2673327774 -1.43E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    28 Broy./Diag. 0.15E+00   99.2     0.02176668     -5470.6366608417  6.31E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    29 Broy./Diag. 0.15E+00   99.0     0.04529399     -5470.6627033794 -2.60E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    30 Broy./Diag. 0.15E+00   99.5     0.01250140     -5471.8085575346 -1.15E+00
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    31 Broy./Diag. 0.15E+00   98.7     0.05706651     -5471.2730050377  5.36E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    32 Broy./Diag. 0.15E+00   99.4     0.05074211     -5470.5299314151  7.43E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    33 Broy./Diag. 0.15E+00   98.6     0.00766062     -5471.3859046991 -8.56E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    34 Broy./Diag. 0.15E+00  100.2     0.01910229     -5470.9499459677  4.36E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    35 Broy./Diag. 0.15E+00   99.4     0.00568661     -5470.5981459236  3.52E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    36 Broy./Diag. 0.15E+00   98.6     0.00760628     -5470.4616083320  1.37E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    37 Broy./Diag. 0.15E+00   96.6     0.00691378     -5470.5402899268 -7.87E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    38 Broy./Diag. 0.15E+00   95.2     0.00452123     -5470.3837579486  1.57E-01
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    39 Broy./Diag. 0.15E+00   96.4     0.00178578     -5470.4002715578 -1.65E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    40 Broy./Diag. 0.15E+00   96.7     0.00182983     -5470.4627100445 -6.24E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    41 Broy./Diag. 0.15E+00   95.5     0.00093698     -5470.4520170293  1.07E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    42 Broy./Diag. 0.15E+00   95.6     0.00322594     -5470.4884507268 -3.64E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    43 Broy./Diag. 0.15E+00   95.1     0.00200632     -5470.5042601478 -1.58E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    44 Broy./Diag. 0.15E+00   95.4     0.00137146     -5470.4637413807  4.05E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    45 Broy./Diag. 0.15E+00   95.1     0.00071780     -5470.5043654307 -4.06E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    46 Broy./Diag. 0.15E+00   95.6     0.00093822     -5470.5440669422 -3.97E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    47 Broy./Diag. 0.15E+00   95.2     0.00110583     -5470.5305731616  1.35E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    48 Broy./Diag. 0.15E+00   94.9     0.00051862     -5470.5718324100 -4.13E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    49 Broy./Diag. 0.15E+00   95.5     0.00077420     -5470.5458372464  2.60E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    50 Broy./Diag. 0.15E+00   95.4     0.00025417     -5470.5509851507 -5.15E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    51 Broy./Diag. 0.15E+00   95.3     0.00047132     -5470.5469108274  4.07E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    52 Broy./Diag. 0.15E+00   97.8     0.00034764     -5470.5573038921 -1.04E-02
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    53 Broy./Diag. 0.15E+00   96.3     0.00039524     -5470.5491003947  8.20E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    54 Broy./Diag. 0.15E+00   96.3     0.00022254     -5470.5460639337  3.04E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    55 Broy./Diag. 0.15E+00   96.4     0.00016384     -5470.5513087947 -5.24E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    56 Broy./Diag. 0.15E+00   95.4     0.00021340     -5470.5461622165  5.15E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    57 Broy./Diag. 0.15E+00   95.3     0.00031140     -5470.5431686308  2.99E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    58 Broy./Diag. 0.15E+00   95.4     0.00016259     -5470.5413570373  1.81E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    59 Broy./Diag. 0.15E+00   96.2     0.00023213     -5470.5408241003  5.33E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    60 Broy./Diag. 0.15E+00   95.7     0.00048136     -5470.5487317261 -7.91E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    61 Broy./Diag. 0.15E+00   95.3     0.00028238     -5470.5484247197  3.07E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    62 Broy./Diag. 0.15E+00   95.4     0.00014874     -5470.5527221888 -4.30E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    63 Broy./Diag. 0.15E+00   95.3     0.00016987     -5470.5534598689 -7.38E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    64 Broy./Diag. 0.15E+00   99.8     0.00031908     -5470.5541131607 -6.53E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    65 Broy./Diag. 0.15E+00   98.8     0.00010909     -5470.5575273241 -3.41E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    66 Broy./Diag. 0.15E+00   97.2     0.00024503     -5470.5531298041  4.40E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    67 Broy./Diag. 0.15E+00   98.7     0.00008368     -5470.5521218528  1.01E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    68 Broy./Diag. 0.15E+00   97.5     0.00007889     -5470.5500389694  2.08E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    69 Broy./Diag. 0.15E+00   97.1     0.00007598     -5470.5496132293  4.26E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    70 Broy./Diag. 0.15E+00   98.0     0.00007227     -5470.5494805277  1.33E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    71 Broy./Diag. 0.15E+00   99.9     0.00010986     -5470.5485900591  8.90E-04
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+
+    72 Broy./Diag. 0.15E+00   98.4     0.00005040     -5470.5508705531 -2.28E-03
+
+ *** WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed ***
+
+
+ *** WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes ***
+ *** the last MO => Add more MOs for proper smearing.                   ***
+

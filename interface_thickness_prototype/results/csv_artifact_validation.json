@@ -1,0 +1,291 @@
+{
+  "validator": "@oai/artifact-tool Workbook.fromCSV + inspect",
+  "all_loaded": true,
+  "files": [
+    {
+      "file": "final_model_status.csv",
+      "loaded": true,
+      "inspection": {
+        "ndjson": "{\"kind\":\"table\",\"sheet\":\"final_model_status\",\"address\":\"A1:Z12\",\"rows\":12,\"cols\":26,\"values\":[[\"canonical_model_id\",\"aliases\",\"atom_count\",\"coverage_percent\",\"Cu2Te_repeat_count\",\"Cu2Te_thickness_angstrom\",\"actually_run\",\"return_code\",\"timed_out\",\"normal_program_end\",\"SCF_converged\",\"energy_valid\",\"electronic_outputs_complete\",\"SCF_steps\",\"SCF_iterations_observed\",\"last_SCF_iteration_index\",\"total_energy_hartree\",\"cp2k_warning_count\",\"unique_warning_messages\",\"warning_message_counts_json\",\"kpoint_mesh\",\"kpoint_status\",\"wall_time_seconds\",\"termination_reason\",\"confirmed_stop_cause\",\"warning_or_error\"],[\"cu2te_bulk\",\"\",\"6\",\"\",\"\",\"\",\"True\",\"0\",\"False\",\"True\",\"True\",\"True\",\"True\",\"18\",\"18\",\"18\",\"-208.11415857615756\",\"19\",\"WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed\",\"{\\\"WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed\\\": 19}\",\"implicit_gamma\",\"Gamma-only bulk reference; a separate 2x2x2 minimum check completed and differs strongly, so neither mesh is a k-point-converged reference.\",\"68.13035429999945\",\"process_exit_0\",\"CP2K/Docker process exited normally\",\"\"],[\"cu2te_bulk_k222\",\"\",\"6\",\"\",\"\",\"\",\"True\",\"0\",\"False\",\"True\",\"True\",\"True\",\"False\",\"16\",\"16\",\"16\",\"-208.78700897722052\",\"0\",\"\",\"{}\",\"2x2x2\",\"Minimum 2x2x2 bulk k-point energy check only; this single comparison does not establish k-point convergence.\",\"51.13710970000011\",\"strict_success\",\"normal CP2K end marker, explicit SCF convergence, valid energy\",\"\"],[\"B0\",\"C0\",\"78\",\"0.0\",\"0\",\"0.0\",\"True\",\"0\",\"False\",\"True\",\"True\",\"True\",\"True\",\"38\",\"38\",\"38\",\"-2114.6564982875375\",\"39\",\"WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed\",\"{\\\"WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed\\\": 39}\",\"implicit_gamma\",\"Gamma-only slab starting point; the 2x2x1 energy check has not been run\",\"1459.6106648999998\",\"strict_success\",\"normal CP2K end marker, explicit SCF convergence, valid energy, and complete requested electronic outputs\",\"\"],[\"C50\",\"\",\"126\",\"50.0\",\"1\",\"4.92796487\",\"True\",\"0\",\"False\",\"True\",\"True\",\"True\",\"True\",\"84\",\"84\",\"84\",\"-3790.704643344517\",\"243\",\"WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed | WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes the last MO => Add more MOs for proper smearing.\",\"{\\\"WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed\\\": 241, \\\"WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes the last MO => Add more MOs for proper smearing.\\\": 2}\",\"implicit_gamma\",\"Gamma-only slab starting point; the 2x2x1 energy check has not been run\",\"5137.1112399\",\"strict_success\",\"normal CP2K end marker, explicit SCF convergence, valid energy, and complete requested electronic outputs\",\"\"],[\"H1\",\"C100\",\"174\",\"100.0\",\"1\",\"4.927964875599997\",\"True\",\"137\",\"True\",\"False\",\"False\",\"False\",\"False\",\"\",\"72\",\"72\",\"\",\"143\",\"WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed | WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes the last MO => Add more MOs for proper smearing.\",\"{\\\"WARNING in fm/cp_fm_elpa.F:522 :: Setting real_kernel for ELPA failed\\\": 73, \\\"WARNING in qs_mo_occupation.F:592 :: Fermi-Dirac smearing includes the last MO => Add more MOs for proper smearing.\\\": 70}\",\"implicit_gamma\",\"Gamma-only slab starting point; the 2x2x1 energy check has not been run\",\"7210.8324794\",\"runner_timeout\",\"runner enforced the configured 7200-second hard limit\",\"runner-enforced timeout after 7200 seconds\"],[\"H2\",\"\",\"270\",\"100.0\",\"2\",\"12.1749720456\",\"False\",\"\",\"False\",\"False\",\"False\",\"False\",\"False\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"not_run\",\"\",\"\"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]}",
+        "truncated": false,
+        "metadata": {
+          "revision": "m7j80v",
+          "target": {
+            "id": "wb/ackk5b",
+            "beforeLines": 0,
+            "afterLines": 0
+          },
+          "kind": {
+            "requested": "table",
+            "tokens": [
+              "table"
+            ]
+          },
+          "include": {
+            "requested": "values",
+            "tokens": [
+              "values"
+            ]
+          },
+          "exclude": {
+            "tokens": []
+          },
+          "notices": []
+        }
+      },
+      "formula_or_cell_errors": {
+        "ndjson": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}",
+        "truncated": false,
+        "metadata": {
+          "revision": "gvipp7",
+          "target": {
+            "id": "wb/fekz3u",
+            "beforeLines": 0,
+            "afterLines": 0
+          },
+          "kind": {
+            "requested": "match",
+            "tokens": [
+              "match"
+            ]
+          },
+          "include": {
+            "tokens": []
+          },
+          "exclude": {
+            "tokens": []
+          },
+          "notices": []
+        }
+      }
+    },
+    {
+      "file": "coverage_model_summary.csv",
+      "loaded": true,
+      "inspection": {
+        "ndjson": "{\"kind\":\"table\",\"sheet\":\"coverage_model_summary\",\"address\":\"A1:Z12\",\"rows\":12,\"cols\":26,\"values\":[[\"model_id\",\"canonical_calculation_id\",\"coverage_percent\",\"Cd_atoms\",\"Te_atoms\",\"Cu_atoms\",\"total_atoms\",\"Cu2Te_formula_units\",\"Cu2Te_repeat_count\",\"Cu2Te_atomic_plane_count\",\"Cu2Te_z_span_angstrom\",\"top_termination\",\"interface_contact_elements\",\"substrate_area_angstrom2\",\"prototype_only\",null,null,null,null,null,null,null,null,null,null,null],[\"C0\",\"B0\",\"0.0\",\"39\",\"39\",\"0\",\"78\",\"0\",\"0\",\"0\",\"0.0\",\"none\",\"none\",\"236.37089524795562\",\"True\",null,null,null,null,null,null,null,null,null,null,null],[\"C50\",\"C50\",\"50.0\",\"39\",\"55\",\"32\",\"126\",\"16\",\"1\",\"4\",\"4.92796487\",\"Cu\",\"Te(CdTe)/Cu(Cu2Te)\",\"236.37089524795562\",\"True\",null,null,null,null,null,null,null,null,null,null,null],[\"C100\",\"H1\",\"100.0\",\"39\",\"71\",\"64\",\"174\",\"32\",\"1\",\"4\",\"4.92796487\",\"Cu\",\"Te(CdTe)/Cu(Cu2Te)\",\"236.37089524795562\",\"True\",null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]}",
+        "truncated": false,
+        "metadata": {
+          "revision": "4j16qs",
+          "target": {
+            "id": "wb/0wqjcp",
+            "beforeLines": 0,
+            "afterLines": 0
+          },
+          "kind": {
+            "requested": "table",
+            "tokens": [
+              "table"
+            ]
+          },
+          "include": {
+            "requested": "values",
+            "tokens": [
+              "values"
+            ]
+          },
+          "exclude": {
+            "tokens": []
+          },
+          "notices": []
+        }
+      },
+      "formula_or_cell_errors": {
+        "ndjson": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}",
+        "truncated": false,
+        "metadata": {
+          "revision": "puy8n3",
+          "target": {
+            "id": "wb/eyfngl",
+            "beforeLines": 0,
+            "afterLines": 0
+          },
+          "kind": {
+            "requested": "match",
+            "tokens": [
+              "match"
+            ]
+          },
+          "include": {
+            "tokens": []
+          },
+          "exclude": {
+            "tokens": []
+          },
+          "notices": []
+        }
+      }
+    },
+    {
+      "file": "kpoint_reference_check.csv",
+      "loaded": true,
+      "inspection": {
+        "ndjson": "{\"kind\":\"table\",\"sheet\":\"kpoint_reference_check\",\"address\":\"A1:Z12\",\"rows\":12,\"cols\":26,\"values\":[[\"reference_id\",\"formula_units_in_cell\",\"gamma_energy_hartree\",\"k222_energy_hartree\",\"delta_E_k222_minus_gamma_hartree_per_Cu2Te_formula_unit\",\"delta_E_k222_minus_gamma_ev_per_Cu2Te_formula_unit\",\"gamma_energy_valid\",\"k222_energy_valid\",\"status\",\"limitations\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[\"Cu2Te_bulk_same_6_atom_cell\",\"2\",\"-208.11415857615756\",\"-208.78700897722052\",\"-0.3364252005314796\",\"-9.15459607454606\",\"True\",\"True\",\"minimum_kpoint_difference_computed\",\"Single Gamma-to-2x2x2 comparison at fixed bulk geometry; it is not a k-point convergence study. A large difference warns that Gamma bulk and Gamma slab energies are not a converged common reference.\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]}",
+        "truncated": false,
+        "metadata": {
+          "revision": "e0m0my",
+          "target": {
+            "id": "wb/t34aqb",
+            "beforeLines": 0,
+            "afterLines": 0
+          },
+          "kind": {
+            "requested": "table",
+            "tokens": [
+              "table"
+            ]
+          },
+          "include": {
+            "requested": "values",
+            "tokens": [
+              "values"
+            ]
+          },
+          "exclude": {
+            "tokens": []
+          },
+          "notices": []
+        }
+      },
+      "formula_or_cell_errors": {
+        "ndjson": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}",
+        "truncated": false,
+        "metadata": {
+          "revision": "q2adoj",
+          "target": {
+            "id": "wb/81347j",
+            "beforeLines": 0,
+            "afterLines": 0
+          },
+          "kind": {
+            "requested": "match",
+            "tokens": [
+              "match"
+            ]
+          },
+          "include": {
+            "tokens": []
+          },
+          "exclude": {
+            "tokens": []
+          },
+          "notices": []
+        }
+      }
+    },
+    {
+      "file": "relative_coverage_formation_energy.csv",
+      "loaded": true,
+      "inspection": {
+        "ndjson": "{\"kind\":\"table\",\"sheet\":\"relative_coverage_formation_ene\",\"address\":\"A1:Z12\",\"rows\":12,\"cols\":26,\"values\":[[\"model_id\",\"canonical_calculation_id\",\"coverage_percent\",\"Cu2Te_formula_units_n\",\"substrate_area_angstrom2\",\"E_Ctheta_hartree_research_lite\",\"E_B0_hartree_research_lite\",\"E_bulk_Cu2Te_per_formula_unit_hartree_research_lite\",\"E_bulk_reference_kpoint_mesh\",\"slab_kpoint_mesh\",\"fixed_geometry_relative_coverage_formation_energy_ev_per_angstrom2\",\"fixed_geometry_relative_coverage_formation_energy_ev_per_Cu2Te_formula_unit\",\"energy_valid\",\"status\",\"limitations\",null,null,null,null,null,null,null,null,null,null,null],[\"C0\",\"B0\",\"0.0\",\"0\",\"236.37089524795562\",\"-2114.6564982875375\",\"-2114.6564982875375\",\"-104.39350448861026\",\"2x2x2\",\"implicit_gamma\",\"0.0\",\"\",\"True\",\"computed_from_real_converged_research_lite_energies\",\"固定初始几何相对覆盖形成能，不是绝对表面能；界面未弛豫。Cu2Te 参考仅做 2x2x2 最小检查，薄片仍为 Gamma；极性 CdTe(111) 和原型晶相都未完成科研级收敛验证。\",null,null,null,null,null,null,null,null,null,null,null],[\"C50\",\"C50\",\"50.0\",\"16\",\"236.37089524795562\",\"-3790.704643344517\",\"-2114.6564982875375\",\"-104.39350448861026\",\"2x2x2\",\"implicit_gamma\",\"-0.6621876456630102\",\"-9.782617914218859\",\"True\",\"computed_from_real_converged_research_lite_energies\",\"固定初始几何相对覆盖形成能，不是绝对表面能；界面未弛豫。Cu2Te 参考仅做 2x2x2 最小检查，薄片仍为 Gamma；极性 CdTe(111) 和原型晶相都未完成科研级收敛验证。\",null,null,null,null,null,null,null,null,null,null,null],[\"C100\",\"H1\",\"100.0\",\"32\",\"236.37089524795562\",\"\",\"-2114.6564982875375\",\"-104.39350448861026\",\"2x2x2\",\"implicit_gamma\",\"\",\"\",\"False\",\"blank_missing_one_or_more_valid_research_lite_energies\",\"固定初始几何相对覆盖形成能，不是绝对表面能；界面未弛豫。Cu2Te 参考仅做 2x2x2 最小检查，薄片仍为 Gamma；极性 CdTe(111) 和原型晶相都未完成科研级收敛验证。\",null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]}",
+        "truncated": false,
+        "metadata": {
+          "revision": "rrvdyb",
+          "target": {
+            "id": "wb/d2cu7m",
+            "beforeLines": 0,
+            "afterLines": 0
+          },
+          "kind": {
+            "requested": "table",
+            "tokens": [
+              "table"
+            ]
+          },
+          "include": {
+            "requested": "values",
+            "tokens": [
+              "values"
+            ]
+          },
+          "exclude": {
+            "tokens": []
+          },
+          "notices": []
+        }
+      },
+      "formula_or_cell_errors": {
+        "ndjson": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}",
+        "truncated": false,
+        "metadata": {
+          "revision": "rf5cwj",
+          "target": {
+            "id": "wb/ku6ocw",
+            "beforeLines": 0,
+            "afterLines": 0
+          },
+          "kind": {
+            "requested": "match",
+            "tokens": [
+              "match"
+            ]
+          },
+          "include": {
+            "tokens": []
+          },
+          "exclude": {
+            "tokens": []
+          },
+          "notices": []
+        }
+      }
+    },
+    {
+      "file": "dft_proxy_summary.csv",
+      "loaded": true,
+      "inspection": {
+        "ndjson": "{\"kind\":\"table\",\"sheet\":\"dft_proxy_summary\",\"address\":\"A1:Z12\",\"rows\":12,\"cols\":26,\"values\":[[\"model_id\",\"aliases\",\"coverage_percent\",\"Cu2Te_repeat_count\",\"energy_valid\",\"electronic_outputs_complete\",\"KS_orbital_count_near_EF_in_window\",\"KS_orbital_density_near_EF_per_ev_per_substrate_area\",\"Cu2Te_projected_spectral_weight_near_EF_per_ev_per_formula_unit\",\"CdTe_interface_projected_spectral_weight_near_EF_per_ev_per_atom\",\"Cu2Te_interface_projected_spectral_weight_near_EF_per_ev_per_atom\",\"cp2k_normalized_histogram_fraction_near_EF_per_ev\",\"vacuum_level_top_ev\",\"vacuum_level_bottom_ev\",\"top_surface_work_function_proxy_ev\",\"bottom_work_function_diagnostic_ev\",\"top_vacuum_plateau_status\",\"bottom_vacuum_plateau_status\",\"cp2k_warning_count\",\"last_MO_smearing_warning_count\",\"last_MO_smearing_warning_persistent\",\"warning_review_required\",\"fatal_warning_detected\",\"termination_reason\",\"limitations\",null],[\"B0\",\"C0\",\"0.0\",\"0\",\"True\",\"True\",\"6\",\"0.1314420294061955\",\"\",\"0.6445039994790195\",\"\",\"0.07649983799565693\",\"\",\"\",\"\",\"\",\"unreliable_or_not_found\",\"unreliable_or_not_found\",\"39\",\"0\",\"False\",\"True\",\"False\",\"strict_success\",\"E-EF only for spectra; projected values are AO spectral-weight proxies. Work-function values require a reliable continuous vacuum plateau. No DFT contact resistance is calculated.\",null],[\"C50\",\"\",\"50.0\",\"1\",\"True\",\"True\",\"8\",\"0.19734424030805525\",\"1.035793054125215\",\"1.5218202439214086\",\"0.21771065840835505\",\"0.07349984434876843\",\"\",\"\",\"\",\"\",\"unreliable_or_not_found\",\"unreliable_or_not_found\",\"243\",\"2\",\"False\",\"True\",\"False\",\"strict_success\",\"E-EF only for spectra; projected values are AO spectral-weight proxies. Work-function values require a reliable continuous vacuum plateau. No DFT contact resistance is calculated.\",null],[\"H1\",\"C100\",\"100.0\",\"1\",\"False\",\"False\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"not_analyzed\",\"not_analyzed\",\"143\",\"70\",\"True\",\"True\",\"False\",\"runner_timeout\",\"E-EF only for spectra; projected values are AO spectral-weight proxies. Work-function values require a reliable continuous vacuum plateau. No DFT contact resistance is calculated.\",null],[\"H2\",\"\",\"100.0\",\"2\",\"False\",\"False\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"not_run\",\"not_run\",\"\",\"\",\"False\",\"False\",\"False\",\"not_run\",\"E-EF only for spectra; projected values are AO spectral-weight proxies. Work-function values require a reliable continuous vacuum plateau. No DFT contact resistance is calculated.\",null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]}",
+        "truncated": false,
+        "metadata": {
+          "revision": "jlrpt1",
+          "target": {
+            "id": "wb/57pog7",
+            "beforeLines": 0,
+            "afterLines": 0
+          },
+          "kind": {
+            "requested": "table",
+            "tokens": [
+              "table"
+            ]
+          },
+          "include": {
+            "requested": "values",
+            "tokens": [
+              "values"
+            ]
+          },
+          "exclude": {
+            "tokens": []
+          },
+          "notices": []
+        }
+      },
+      "formula_or_cell_errors": {
+        "ndjson": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}",
+        "truncated": false,
+        "metadata": {
+          "revision": "73ipl8",
+          "target": {
+            "id": "wb/sulyt0",
+            "beforeLines": 0,
+            "afterLines": 0
+          },
+          "kind": {
+            "requested": "match",
+            "tokens": [
+              "match"
+            ]
+          },
+          "include": {
+            "tokens": []
+          },
+          "exclude": {
+            "tokens": []
+          },
+          "notices": []
+        }
+      }
+    }
+  ]
+}

@@ -117,24 +117,50 @@ CdTe bulk → Cu2Te bulk → B0 slab → H1 single point → H1 5-step geometry 
 
 本轮核心已跑通，不要继续自动运行几何优化或 H2。下一步最小工作应先由实验确认 Cu₂₋ₓTe 晶相和 x；若要进入科研计算，再为可能导电的 H1 建立对角化+展宽配置并做 cutoff、SCF、k 点、真空和 slab 厚度收敛，而不是解释当前 OT smoke 总能量。
 
-## 11. 覆盖度与 research_lite 最小论文框架（更新至 2026-07-23）
+## 11. 覆盖度与 research_lite 严格框架（更新至 2026-07-26）
 
-本轮没有改写或重跑既有 B0/H1 smoke 证据。`smoke_tests/` 中的输入、输出、metadata、历史失败归档和成功结果保持原样；smoke 总能量仍只能证明管线可运行。
+本轮没有改写或重跑既有 B0/H1 smoke 证据。`smoke_tests/` 中的低成本 OT 输入、原始输出、metadata 和历史失败归档保持原样；这些 smoke 总能量继续只作为管线证据，不参与 research_lite 覆盖能或电子结构比较。
 
-新增覆盖度系列使用同一个 CdTe 基底和横向晶胞：C0 是 B0 的精确副本（78 原子，0%）；C50 保留 H1 中相邻两列、共 8/16 个完整横向 Cu₄Te₂ 单元（126 原子，50%）；C100 是 H1 的精确副本（174 原子，100%）。C50 薄膜为沿晶胞 B 矢量连续并周期重复的半面积条带，薄膜仍是一个完整 c 重复、Cu:Te=2:1，界面距离、应变、首接触 Cu 层和顶部 Cu 终止与 C100 相同。数据见 `results/coverage_model_summary.csv`，侧视/俯视图见 `coverage_models/C*/preview_*.png`。
+覆盖度系列仍使用同一个 CdTe 基底和横向晶胞：C0 是 B0 的精确别名（78 原子，0%）；C50 是由 8/16 个完整横向 Cu₄Te₂ 单元构成的连续半面积条带（126 原子，50%）；C100 是 H1 的精确别名（174 原子，100%）。C50 与 H1 使用同一个完整 Cu₂Te c 重复、相同应变、相同初始界面距离、Cu 首接触层和 Cu 顶部终止。不存在独立 C0/C100 计算任务。
 
-CP2K 配置明确分成 `smoke_ot` 与 `research_lite`。后者采用 PBE、当前 DZVP-MOLOPT-SR-GTH/GTH-PBE、400/60 Ry、`EPS_SCF=1e-6`、最多 150 步、标准对角化、500 K Fermi–Dirac 展宽、40 个未占据轨道和 Broyden mixing。研究任务现在只有 Cu₂Te bulk、B0、C50、H1、H2；C0 唯一引用 B0，C100 唯一引用 H1，不再创建重复任务。默认 Gamma 输入不写 `KPOINTS`；bulk 的可选检查为 2×2×2，XY 薄片为 2×2×1。10/10 个输入通过 CP2K 2024.3 `--check`。显式 k 点输入按 CP2K 2024.3 限制不请求 PDOS/LDOS。
+`research_lite` 采用 PBE、DZVP-MOLOPT-SR-GTH/GTH-PBE、400/60 Ry、`EPS_SCF=1e-6`、最多 150 步、标准对角化、500 K Fermi–Dirac 展宽、40 个附加 MO 和 Broyden mixing。主输入为隐式 Gamma；Cu₂Te bulk 的最低 k 点检查为 2×2×2，XY 薄片的可选检查为 2×2×1。显式 k 点检查只计算能量，不请求 CP2K 2024.3 不支持的当前 PDOS/LDOS 组合。10/10 个输入均通过同版本 CP2K 的 `--check`。
 
-按本轮要求，只重新运行了一次 6 原子 Cu₂Te bulk 隐式 Gamma 测试。CP2K 2024.3 使用 4 线程，在 300 s 硬上限内以返回码 0 正常结束：SCF 18 步收敛，墙钟时间 68.130354 s，总能量 -208.11415857615756 Ha，Fermi energy 为 0.25768275978693 Ha。DOS、Cu/Te kind PDOS、两个区域 LDOS、电子密度 cube、Hartree 势 cube 与平面平均势均真实生成；严格状态为 `energy_valid=true`、`electronic_outputs_complete=true`。旧显式 Gamma/KPOINTS 运行完整保存在 `research_lite/runs/cu2te_bulk/history/attempt_01_explicit_gamma_kpoints/`，其能量有效但电子输出不完整。
-
-当前 raw 总 DOS 代理为 EF 附近 0.20 eV 窗口内平均 bin density 0.011025，对应按 bin 宽换算的 0.2204995330 /eV；Cu₂Te 区域 LDOS 投影权重按两个 Cu₂Te 化学式单位归一化后为 7.5 /eV/formula-unit。前者仍是 CP2K 原始归一化直方图代理，不能单独比较不同原子数模型。bulk 没有“基底面积”，所以面积归一化 DOS 合理保持空值。2×2×2 能量检查没有实跑，因此当前 Gamma bulk 能量明确只是未完成 k 点检查的参考测试值。
-
-`results/relative_coverage_formation_energy.csv` 已实现“相对覆盖形成能”接口：
+真实运行顺序和硬上限为：
 
 ```text
-[E(Cθ) - E(C0) - n Ebulk(Cu2Te/formula unit)] / substrate area
+Cu2Te bulk 2×2×2 (1200 s)
+→ B0/C0 (2400 s)
+→ C50 (5400 s)
+→ H1/C100 (7200 s)
+→ H2 (10800 s)
 ```
 
-形成能现在只依赖 `energy_valid`，不会因 PDOS 缺失而丢弃真实有效能量；电子文件完整性由独立的 `electronic_outputs_complete` 表示。因为 B0/C50/H1 尚未运行 research_lite，覆盖形成能仍保持空白；没有使用 smoke 能量填充。`results/dft_proxy_summary.csv` 明确分列 raw DOS、按基底面积归一化 DOS、按 Cu₂Te 化学式单位归一化投影 DOS；功函数、界面电荷转移和势垒代理仍为空。极性、很薄的 CdTe(111) slab 只能支持未来完成收敛后的相对趋势。
+任一步只要超时、返回码异常、SCF 未明确收敛或要求的电子输出不完整，后续任务就不启动。没有运行几何优化。
 
-最终自动测试结果为 `29 passed`；另有 12 条 ASE/NumPy 上游弃用提醒，不是结构或 CP2K 验证失败。
+## 12. DOS、投影谱与功函数的定义修正
+
+CP2K 2024.3 `PRINT%DOS` 的 `Density` 是按全部直方图 bin 归一化的谱形。它只以 `cp2k_normalized_histogram_fraction_near_EF_per_ev` 保留为证据，不再称为 raw total DOS，也不再除以面积冒充 KS 轨道数密度。
+
+跨尺寸比较改为从全部 kind-PDOS 严格一致的唯一 MO 编号/本征值列表出发。全部 kind-PDOS 和 LDOS 必须具有相同 MO 行数、编号、本征值和 Fermi energy；任一不一致都会使电子输出失败。离散 MO 在统一的 `E−EF` 网格上使用 0.10 eV FWHM 高斯展宽，并检查谱积分等于纳入的 KS 轨道数。输出量分别为：
+
+- KS 轨道数/固定 EF 窗口；
+- KS 轨道谱/eV；
+- KS 轨道谱/(eV·Å²)；
+- 整个 Cu₂Te 投影谱权重/(eV·化学式单位)；
+- CdTe 顶部 Te 和 Cu₂Te 底部 Cu 界面投影谱权重/(eV·界面原子)。
+
+投影量是原子轨道投影谱权重代理，不是精确总态数，也不等于界面电导或接触电阻。`E−EF` 仅用于谱形比较，不是真空对齐。
+
+界面原子组来自 `structure.extxyz` 的 `region` 标签，不手写编号：`CdTe_interface_top_Te` 对应 `interface_cdte_surface`，`Cu2Te_interface_bottom_Cu` 对应 `interface_cu2te_contact`。H1/H2 的对应界面组分别保持 13 个 Te 和 32 个 Cu；C50 实际接触组为 13 个 Te 和 16 个 Cu。
+
+Hartree 势按 CP2K 文档要求反转 `V_HARTREE_CUBE` 的符号，再从 Ha 转为 eV。顶部/底部真空值只在连续、低电子密度、低斜率且标准差足够小的平台存在时输出；否则真空能级和功函数代理保持空白。官方关键词说明见 [CP2K V_HARTREE_CUBE 文档](https://manual.cp2k.org/trunk/CP2K_INPUT/FORCE_EVAL/DFT/PRINT/V_HARTREE_CUBE.html)。
+
+## 13. 最终证据位置
+
+- `results/final_model_status.csv`：逐任务真实运行、返回码、超时、正常结束、SCF、能量、电子输出、警告和停止原因；
+- `results/relative_coverage_formation_energy.csv`：只使用有效 research_lite 能量的固定初始几何相对覆盖形成能；
+- `results/dft_proxy_summary.csv`：规范化电子结构与真空平台代理；
+- `results/final_audit.json`：程序/门禁、原始输出对 CSV、科学量纲与结论范围三轮审计；
+- `PAPER_RESULTS_SUMMARY.md`：可陈述结果、合理解释、待验证推断和禁止结论。
+
+实际最终数值、失败/未运行任务及自动测试结果以这些由最新原始输出生成的文件为准。当前 CdTe(111) 薄片很薄、有极性且未弛豫，Cu₂Te 相/取向也只是有来源的原型假设；任何数值都不能直接解释为实验最佳膜厚、绝对表面能、真实接触电阻或器件效率。

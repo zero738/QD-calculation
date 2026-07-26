@@ -1,0 +1,10 @@
+{
+  "recorded_at": "2026-07-26T16:59:09+08:00",
+  "command": ".venv/Scripts/python.exe -m pytest interface_thickness_prototype/tests -q",
+  "exit_code": 0,
+  "passed": 33,
+  "failed": 0,
+  "warnings": 12,
+  "duration_seconds": 2.90,
+  "warning_summary": "12 ASE/NumPy deprecation warnings; no test failures"
+}
