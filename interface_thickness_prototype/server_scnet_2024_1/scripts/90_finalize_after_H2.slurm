@@ -8,6 +8,7 @@
 #SBATCH --output=scnet_finalize_H2-%j.out
 #SBATCH --error=scnet_finalize_H2-%j.err
 set -euo pipefail
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PACKAGE_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+PACKAGE_ROOT="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+source "$PACKAGE_ROOT/env_scnet.sh"
+scnet_activate_environment
 python3 "$PACKAGE_ROOT/finalize_pipeline.py" --mode after-h2

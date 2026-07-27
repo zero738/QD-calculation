@@ -8,6 +8,7 @@ SCNET_CP2K_DATA_DIR=/public/software/apps/cp2k/2024.1/data
 
 scnet_activate_environment() {
     module purge >/dev/null 2>&1 || true
+    module load python/3.8.10
     module load compiler/gnu/9.3.0
     module load compiler/intel/2021.3.0
     module load mpi/intelmpi/2021.3.0

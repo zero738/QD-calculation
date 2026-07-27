@@ -9,8 +9,7 @@
 #SBATCH --error=cu2te_k333-%j.err
 
 set -euo pipefail
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PACKAGE_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+PACKAGE_ROOT="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 source "$PACKAGE_ROOT/env_scnet.sh"
 scnet_activate_environment
 TASK_ID=cu2te_bulk_k333

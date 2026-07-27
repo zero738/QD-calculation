@@ -30,6 +30,17 @@ def test_no_slurm_recursively_calls_sbatch(path):
     assert "sbatch" not in path.read_text(encoding="utf-8")
 
 
+@pytest.mark.parametrize("path", sorted((PACKAGE / "scripts").glob("*.slurm")))
+def test_slurm_resolves_package_from_submit_directory(path):
+    text = path.read_text(encoding="utf-8")
+    assert 'PACKAGE_ROOT="${SLURM_SUBMIT_DIR:-' in text
+
+
+def test_server_environment_loads_supported_python():
+    text = (PACKAGE / "env_scnet.sh").read_text(encoding="utf-8")
+    assert "module load python/3.8.10" in text
+
+
 def test_submit_pipeline_is_only_controlled_sbatch_owner():
     text = (PACKAGE / "submit_pipeline.sh").read_text(encoding="utf-8")
     assert "sbatch --parsable" in text
