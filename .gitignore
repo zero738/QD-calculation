@@ -35,6 +35,13 @@ interface_thickness_prototype/research_lite/runs/**/*.wfn
 # SCNet package runtime evidence is produced only after manual server jobs and
 # must not be confused with the unrun package committed in this PR.
 interface_thickness_prototype/server_scnet_2024_1/runs/
+interface_thickness_prototype/server_scnet_2024_1/pipeline_jobs.json
+interface_thickness_prototype/server_scnet_2024_1/scnet_results_bundle.tar.gz
+interface_thickness_prototype/server_scnet_2024_1/large_optional_files_manifest.txt
+interface_thickness_prototype/server_scnet_2024_1/results/bundle_sha256.txt
+interface_thickness_prototype/server_scnet_2024_1/results/.finalize_lock/
+interface_thickness_prototype/scnet_upload_bundle.zip
+interface_thickness_prototype/.scnet_bundle_stage/
 interface_thickness_prototype/server_scnet_2024_1/*.out
 
 # Keep only the two small (about 117 kB each) cubes from the one audited

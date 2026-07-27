@@ -1,0 +1,11 @@
+{
+  "status": "complete",
+  "plots": {
+    "coverage_formation_energy.png": "generated_missing_state_placeholder",
+    "coverage_curvature_proxy.png": "generated_missing_state_placeholder",
+    "coverage_electronic_proxies.png": "generated_missing_state_placeholder",
+    "thickness_H1_H2_proxies.png": "generated_missing_state_placeholder",
+    "relative_fermi_alignment.png": "generated_missing_state_placeholder",
+    "work_function_status.png": "generated_missing_state_placeholder"
+  }
+}

@@ -21,7 +21,7 @@ scnet_record_environment "$PACKAGE_ROOT" "$INPUT_FILE" "$RUN_DIR"
 STARTED_AT="$(date --iso-8601=seconds)"; START_EPOCH="$(date +%s)"
 scnet_write_metadata "$RUN_DIR" "$TASK_ID" "$INPUT_FILE" "$STARTED_AT" "" "" "pending" "false" "2x2x2"
 set +e
-srun --mpi=pmix_v3 "$SCNET_CP2K_EXE" -i "$INPUT_FILE" -o "$RUN_DIR/output.out"
+scnet_run_cp2k "$RUN_DIR"
 RC=$?
 set -e
 FINISHED_AT="$(date --iso-8601=seconds)"; WALL_SECONDS=$(( $(date +%s) - START_EPOCH ))

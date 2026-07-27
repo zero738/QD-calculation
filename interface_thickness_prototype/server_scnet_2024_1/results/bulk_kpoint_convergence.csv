@@ -1,5 +1,5 @@
-task_id,kpoint_mesh,energy_valid,total_energy_hartree,energy_hartree_per_Cu2Te_formula_unit,delta_from_previous_ev_per_Cu2Te_formula_unit,adjacent_difference_below_0p01_ev,status,next_step
-cu2te_bulk_gamma,Gamma,False,,,,,not_converged_or_not_available,
-cu2te_bulk_k222,2x2x2,False,,,,,not_converged_or_not_available,
-cu2te_bulk_k333,3x3x3,False,,,,,not_converged_or_not_available,
-cu2te_bulk_k444,4x4x4,False,,,,,not_converged_or_not_available,
+task_id,kpoint_mesh,total_energy_hartree,energy_hartree_per_formula_unit,adjacent_delta_ev_per_formula_unit,adjacent_delta_below_0p01_ev,status,energy_semantics
+cu2te_bulk_gamma,Gamma,,,,,not_run_or_not_converged,"fixed geometry, unified 500 K electronic smearing energy proxy"
+cu2te_bulk_k222,2x2x2,,,,,not_run_or_not_converged,"fixed geometry, unified 500 K electronic smearing energy proxy"
+cu2te_bulk_k333,3x3x3,,,,,not_run_or_not_converged,"fixed geometry, unified 500 K electronic smearing energy proxy"
+cu2te_bulk_k444,4x4x4,,,,,not_run_or_not_converged,"fixed geometry, unified 500 K electronic smearing energy proxy"

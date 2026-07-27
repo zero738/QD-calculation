@@ -32,6 +32,13 @@ def test_scnet_package_has_ascii_server_paths_and_required_files():
         "upload_manifest.txt",
         "collect_results.sh",
         "verify_server_outputs.py",
+        "server_analysis.py",
+        "check_server_inputs.py",
+        "run_h1_controlled.py",
+        "prepare_h2_input.py",
+        "submit_pipeline.sh",
+        "monitor_pipeline.sh",
+        "cancel_pipeline.sh",
         "scripts/00_check_environment.slurm",
         "scripts/01_cu2te_bulk_gamma.slurm",
         "scripts/02_cu2te_bulk_k222.slurm",
@@ -68,7 +75,7 @@ def test_scnet_task_scope_and_budget_are_fixed():
         "H1",
         "H2",
     }
-    assert config["maximum_requested_cpu_hours"] <= 2000
+    assert config["maximum_requested_cpu_hours"] < 1800
     assert config["resources"]["H2"] == {"ntasks": 24, "hours": 24.0}
     assert config["server_calculations_actually_run"] is False
 
@@ -156,7 +163,7 @@ def test_bulk_kpoint_ladder_is_energy_only_and_finite():
     assert not (PACKAGE / "inputs/cu2te_bulk/input_k555.inp").exists()
 
 
-def test_slurm_jobs_are_one_node_manual_pure_mpi_jobs():
+def test_slurm_jobs_are_one_node_dependency_pipeline_jobs():
     for path in (PACKAGE / "scripts").glob("*.slurm"):
         text = path.read_text(encoding="utf-8")
         assert "#SBATCH --partition=kshctest02" in text
@@ -165,13 +172,15 @@ def test_slurm_jobs_are_one_node_manual_pure_mpi_jobs():
         assert "--exclusive" not in text
         assert "module load apps/cp2k" not in text
         assert "sbatch" not in text
-        if not path.name.startswith("00_"):
-            assert 'srun --mpi=pmix_v3 "$SCNET_CP2K_EXE"' in text
+    env = (PACKAGE / "env_scnet.sh").read_text(encoding="utf-8")
+    assert 'srun --mpi=pmix_v3 "$SCNET_CP2K_EXE"' in env
+    submit = (PACKAGE / "submit_pipeline.sh").read_text(encoding="utf-8")
+    assert "sbatch --parsable" in submit
 
 
 def test_h2_gate_is_before_h2_srun_and_blocks_initial_package():
     text = (PACKAGE / "scripts/40_H2.slurm").read_text(encoding="utf-8")
-    assert 0 <= text.index("--gate-h2") < text.index("srun --mpi=pmix_v3")
+    assert 0 <= text.index("--gate-h2") < text.index("scnet_run_cp2k")
     allowed, detail = gate_h2(read_config())
     assert allowed is False
     assert detail["h1_strict_success"] is False

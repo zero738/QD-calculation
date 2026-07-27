@@ -1,0 +1,12 @@
+task_id,ntasks,requested_hours,maximum_cpu_hours,recorded_wall_time_seconds
+00_check_environment,1,0.16666666666666666,0.16666666666666666,
+cu2te_bulk_gamma,4,0.5,2.0,
+cu2te_bulk_k222,4,0.5,2.0,
+cu2te_bulk_k333,4,1.0,4.0,
+cu2te_bulk_k444,4,1.0,4.0,
+B0,16,6.0,96.0,
+C50,16,10.0,160.0,
+H1,16,16.0,256.0,
+H2,24,24.0,576.0,
+90_finalize_after_H2,1,1.0,1.0,
+91_finalize_if_H1_failed,1,1.0,1.0,

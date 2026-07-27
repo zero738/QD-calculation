@@ -1,0 +1,2 @@
+metric_name,value_hartree,value_ev,value_ev_per_angstrom2,status,interpretation
+coverage_curvature_E_H1_plus_E_B0_minus_2E_C50,,,,not_ready_for_paper,Cu2Te chemical potential cancels; deviation of current periodic C50 stripe from endpoint linear interpolation; not an absolute surface energy or all 50% morphologies

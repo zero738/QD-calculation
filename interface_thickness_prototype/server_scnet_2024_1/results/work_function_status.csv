@@ -1,0 +1,5 @@
+model_id,top_status,bottom_status,vacuum_level_top_ev,vacuum_level_bottom_ev,work_function_top_ev,work_function_bottom_ev,top_std_ev,bottom_std_ev,top_slope_ev_per_angstrom,bottom_slope_ev_per_angstrom,scope_warning
+B0,not_run,not_run,,,,,,,,,
+C50,not_run,not_run,,,,,,,,,
+H1,not_run,not_run,,,,,,,,,
+H2,not_run,not_run,,,,,,,,,

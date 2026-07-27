@@ -1,0 +1,9 @@
+{
+  "target_cp2k_version": "2024.1",
+  "version_check_passed": false,
+  "all_inputs_passed": false,
+  "input_count": 8,
+  "results": [],
+  "status": "not_run",
+  "scope": "Placeholder only. The real CP2K 2024.1 --check runs inside 00_check_environment.slurm on SCNet."
+}

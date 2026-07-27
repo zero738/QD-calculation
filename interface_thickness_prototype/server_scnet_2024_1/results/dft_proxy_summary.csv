@@ -1,0 +1,5 @@
+model_id,status,KS_orbital_count_near_EF_in_window,KS_orbital_density_near_EF_per_ev,KS_orbital_density_near_EF_per_ev_per_substrate_area,Cu2Te_projected_spectral_weight_near_EF_per_ev_per_formula_unit,CdTe_interface_projected_spectral_weight_near_EF_per_ev_per_atom,Cu2Te_interface_projected_spectral_weight_near_EF_per_ev_per_atom,spectral_integral_valid,contact_scope
+B0,not_run,,,,,,,,DFT proxy only; no theoretical contact resistance in ohm*cm2
+C50,not_run,,,,,,,,DFT proxy only; no theoretical contact resistance in ohm*cm2
+H1,not_run,,,,,,,,DFT proxy only; no theoretical contact resistance in ohm*cm2
+H2,not_run,,,,,,,,DFT proxy only; no theoretical contact resistance in ohm*cm2

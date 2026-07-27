@@ -40,6 +40,7 @@ fi
 }
 python3 --version
 sha256sum -c "$PACKAGE_ROOT/upload_manifest.txt"
+python3 "$PACKAGE_ROOT/check_server_inputs.py" --cp2k "$SCNET_CP2K_EXE"
 git -C "$PACKAGE_ROOT/../.." rev-parse HEAD 2>/dev/null || echo "git_commit=unavailable"
 ulimit -a
 grep -E 'MemTotal|MemAvailable' /proc/meminfo || true

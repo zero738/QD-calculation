@@ -1,113 +1,94 @@
-# 国家超算互联网运行说明（CP2K 2024.1）
+# SCNet 华东一区昆山一键运行说明（CP2K 2024.1）
 
-本目录只用于国家超算互联网华东一区昆山、分区 `kshctest02`。服务器建议路径为：
+本包用于 `kshctest02` 分区，上传建议目录：
 
 ```text
 ~/QD-calculation/interface_thickness_prototype/server_scnet_2024_1
 ```
 
-所有服务器文件名和相对路径均为 ASCII 且不含空格。附件同时要求中文 README 文件名和“所有路径无中文”，两者冲突，因此本文件采用服务器安全名称 `README_SCNET_CN.md`，正文仍为中文。
+服务器目录及文件名全部使用 ASCII、无空格。要求中的中文 README 文件名与该约束冲突，因此采用 `README_SCNET_CN.md`，正文为中文。
 
-## 1. 科学状态
-
-- 本包中的服务器任务尚未运行；`runs/` 和 `results/` 初始状态只会显示 `not_run`。
-- 旧 CP2K 2024.3 B0/C50 是历史原型和管线证据，不是 CP2K 2024.1 论文基线。
-- 旧 C50 `-0.662188 eV/Å²` 不得进入论文结论；统一版本重跑和 Cu₂Te 体相 k 点检查完成前，覆盖形成能状态为 `not_ready_for_paper`。
-- 功函数没有可靠连续真空平台时必须为空；`E−EF` 只能比较相对谱形。
-- 普通 DFT 不直接给出真实接触电阻，也不能据此确定最佳膜厚、浓度或器件效率。
-- C50 是沿 B 方向连续、沿 A 方向周期重复的半面积条带，不代表所有 50% 岛状形貌。
-
-## 2. 环境与上传检查
-
-不要加载有缺陷的 `apps/cp2k/2024.1/intel2021` 模块，也不要在登录节点直接运行 CP2K。先在本地确认上传完整；服务器进入本目录后运行：
+## 最小用户操作
 
 ```bash
+cd ~/QD-calculation/interface_thickness_prototype/server_scnet_2024_1
 sha256sum -c upload_manifest.txt
-sbatch scripts/00_check_environment.slurm
+bash submit_pipeline.sh
+bash monitor_pipeline.sh
 ```
 
-环境作业应确认：分区为 `kshctest02`、单节点、`cp2k.popt` 显示 CP2K 2024.1、数据目录存在、动态库无缺失，并可找到 `python3`。环境脚本手动加载 GNU 9.3.0、Intel 2021.3.0 和 Intel MPI 2021.3.0，不加载 CP2K 模块。
+完成后下载：
 
-## 3. 手动运行顺序
+```text
+scnet_results_bundle.tar.gz
+```
 
-本包不含任何自动 `sbatch` 或自动依赖提交命令。每一步完成后运行 `./collect_results.sh` 并检查 CSV，再手动提交下一步。
+`submit_pipeline.sh` 只在登录节点调用 `sbatch` 建立依赖，不在登录节点运行 CP2K。任何 `.slurm` 计算脚本都不会再次调用 `sbatch`。用户不需要逐项提交，也不需要修改 CP2K 输入。不要把账号、密码或 Token 写入脚本。
+
+## 依赖流水线
+
+```text
+environment + CP2K 2024.1 --check (8 inputs)
+  -> bulk Gamma -> 2x2x2 -> 3x3x3 -> 4x4x4
+  -> B0 -> C50 -> H1 -> H2
+```
+
+主链均为 `afterok`。环境作业会用服务器真实
+`/public/software/apps/cp2k/2024.1/exe/local/cp2k.popt --check`
+检查 8 份输入；任一失败，后续大任务不会启动。
+
+H1 在同一个 16 核、16 小时作业内最多运行两次：
+
+- `attempt_A`：`ADDED_MOS=100`、`NLUMO=100`、`ALPHA=0.08`、`NBROYDEN=12`，内部硬上限 7 小时；
+- 只有持续最高 MO 占据警告时，`attempt_B` 改为 `ADDED_MOS/NLUMO=160`；
+- 只有没有持续最高 MO 警告但残差振荡时，`attempt_B` 改为 `ALPHA=0.05`、`NBROYDEN=16`；
+- 语法、基组、赝势、MPI、动态库、哈希或 CP2K ABORT 等硬配置错误不重试；
+- `EPS_SCF` 始终为 `1e-6`，不使用 OT，不改变结构、晶胞、真空、电荷或多重度。
+
+只有 H1 返回码、正常结束、SCF、能量、CP2K 2024.1、哈希、最高 MO 警告、DOS/PDOS/LDOS、两类 cube、MO 列表和谱积分全部通过，才生成 `H1_SUCCESS.flag/json`。H2 会重新验证 H1，并动态继承实际成功 attempt 的 SCF signature；H1 失败时 H2 自动阻断。失败证据仍由独立 finalizer 整理，不会伪装成功。
+
+## 环境和资源
+
+脚本禁止加载损坏的 `apps/cp2k/2024.1/intel2021` module，使用：
 
 ```bash
-sbatch scripts/01_cu2te_bulk_gamma.slurm
-sbatch scripts/02_cu2te_bulk_k222.slurm
-sbatch scripts/03_cu2te_bulk_k333.slurm
-sbatch scripts/04_cu2te_bulk_k444.slurm
-./collect_results.sh
-
-sbatch scripts/10_B0.slurm
-./collect_results.sh
-sbatch scripts/20_C50.slurm
-./collect_results.sh
-sbatch scripts/30_H1.slurm
-./collect_results.sh
+module purge >/dev/null 2>&1 || true
+module load compiler/gnu/9.3.0
+module load compiler/intel/2021.3.0
+module load mpi/intelmpi/2021.3.0
 ```
 
-只有以下命令返回 0，才允许手动提交 H2：
+CP2K：`/public/software/apps/cp2k/2024.1/exe/local/cp2k.popt`；数据目录：`/public/software/apps/cp2k/2024.1/data`；启动方式：`srun --mpi=pmix_v3`。全部单节点、无 `--exclusive`，线程库均固定为 1。资源预算由 `pipeline_state.py` 直接解析 Slurm 文件复算，不能只相信配置文件手写总数；当前硬上限约 1102.17 CPU·h，小于 1800 CPU·h。
+
+## 输出目录修复
+
+每个普通任务都在 `runs/<task_id>/` 内 `cd` 后，用相对路径运行：
 
 ```bash
-python3 verify_server_outputs.py --gate-h2
-sbatch scripts/40_H2.slurm
+srun --mpi=pmix_v3 cp2k.popt -i input.executed.inp -o output.out
 ```
 
-`40_H2.slurm` 在执行 `srun` 前还会再次运行同一门控。不要同时提交 H1 和 H2。
+因此 DOS、PDOS、LDOS、cube、WFN、restart 不会落到包根目录，也不会被其他任务覆盖。H1 使用互相隔离的 `runs/H1/attempt_A` 和 `attempt_B`。
 
-## 4. H1 最小修正与严格成功条件
+## 监控与取消
 
-H1 不改变结构、晶胞、真空、终止、电荷、多重度、PBE、基组/赝势、400/60 Ry、Gamma、标准对角化、500 K 展宽或 `EPS_SCF=1e-6`。只修改：
+`bash monitor_pipeline.sh` 显示 `squeue`、`sacct`、任务依赖、H1 两次尝试、门控和结果路径。
 
-- `ADDED_MOS=100`；
-- `PDOS NLUMO=100`；
-- `MIXING ALPHA=0.08`；
-- `NBROYDEN=12`；
-- `MAX_SCF=250`。
+`bash cancel_pipeline.sh` 只读取当前 `pipeline_jobs.json` 中的 job ID，打印后要求输入 `CANCEL_CURRENT_PIPELINE`，不会取消用户其他作业，也不会删除证据。
 
-H1 只有在返回码 0、CP2K 正常结束、SCF 明确收敛、有总能量、最高 MO 占据警告不再持续、DOS/PDOS/LDOS/cube 完整、MO 列表一致且谱积分检查通过时才算严格成功。不能把超时、部分输出或单纯出现能量行当作成功。
+## 科学边界
 
-H2 使用与成功 H1 相同的 SCF 参数。门控还会比较 H1 实际执行输入和 H2 输入的关键 SCF 参数；若 H1 后续受控修改过而 H2 未同步，门控会拒绝运行。
+- 服务器初始 8 个计算任务均为 `not_run`，能量为空；本地 CP2K 2024.3 的 8/8 `--check` 只是语法预检，不能替代服务器 2024.1 检查。
+- 旧 CP2K 2024.3 B0/C50 是 `historical_prototype_evidence`；旧 C50 `-0.662188 eV/Å²` 继续为 `not_ready_for_paper`。
+- 能量称为“固定几何、统一 500 K 电子展宽下的能量代理”；覆盖能只能称“固定初始几何相对覆盖形成能”，不是绝对表面能。
+- Cu2Te bulk 必须满足 3x3x3 到 4x4x4 差值小于 `0.01 eV/Cu2Te formula unit`，否则形成能为空，只提示以后可能需要 5x5x5。
+- CP2K `total_dos.dat` 只称归一化直方图谱形，不是 raw total DOS 或 states/eV。外部 KS 谱来自唯一 kind-PDOS MO 列表、0.10 eV FWHM、无自旋简并乘数。
+- 原始 CP2K Fermi energy 不跨模型比较；只在可靠时给出 CdTe 内部参考势对齐的相对费米能级代理。
+- 顶部/底部真空平台各自不满足密度、宽度、标准差和斜率门槛时，功函数字段保持空白。
+- CdTe(111) 为极性薄片且几何未弛豫；C50 是周期性条带，不代表全部 50% 岛状形貌。
+- DFT 指标只是界面电荷输运、能级匹配和接触势垒变化的理论代理；真实接触电阻仍需实验 TLM、串联电阻或其他电学测试。
+- H1/H2 只能称较薄与较厚模型对比，不能称连续厚度函数、最佳膜厚或最佳浓度。
 
-## 5. 资源上限
+## 结果包
 
-| 任务 | MPI tasks | 时间上限 | 最大核时 |
-|---|---:|---:|---:|
-| 环境检查 | 1 | 00:10 | 0.17 |
-| 4个 Cu₂Te bulk 任务合计 | 4/任务 | 3 h合计 | 12 |
-| B0 | 16 | 06:00 | 96 |
-| C50 | 16 | 10:00 | 160 |
-| H1 | 16 | 12:00 | 192 |
-| H2 | 24 | 24:00 | 576 |
-
-全部作业的硬上限合计约 `1036.17 CPU·h`，低于 2000 核时免费额度。H2 选择 24 MPI tasks，是因为它有 270 个原子、明显大于 H1 的 174 个原子，同时保留 8 个节点核心和内存余量；仍为单节点。表中是最坏请求上限，不是实际消耗预测。
-
-## 6. 结果文件
-
-每个任务写入独立目录 `runs/<task_id>/`，不会覆盖 `research_lite/runs/`。至少保留：
-
-- `input.executed.inp`：真实执行输入；
-- `output.out`：CP2K 原始输出；
-- `environment.txt`：日期、主机、作业号、分区、模块、版本、SHA256、Git提交、ulimit和内存；
-- `run_metadata.tsv`：返回码、墙钟时间、任务数和输入哈希；
-- WFN/restart、DOS/PDOS/LDOS和cube（任务要求时）。
-
-`collect_results.sh` 生成：
-
-- `results/server_task_status.csv`；
-- `results/bulk_kpoint_convergence.csv`；
-- `results/server_coverage_metrics.csv`；
-- `results/server_verification.json`。
-
-Cu₂Te k 点初筛只有当相邻网格差值小于 `0.01 eV/Cu₂Te formula unit` 才标记通过。若 3×3×3 到 4×4×4 仍未通过，只记录“以后需要 5×5×5”；本包不会自动生成或提交 5×5×5。
-
-覆盖曲率代理定义为 `E(H1)+E(B0)-2E(C50)`。只有 B0、C50、H1 均为 CP2K 2024.1、同一主要物理参数且严格成功时才输出；该组合抵消 Cu₂Te 体相化学势，但仍只是固定初始几何、周期性条带构型的代理。
-
-## 7. 失败处理
-
-- `return_code != 0`：先看 Slurm `.err` 和 `output.out`，不能填写能量结论。
-- 缺少正常结束或 SCF 收敛标记：计算失败。
-- H1 仍持续出现最高 MO 占据警告：不要启动 H2；保留整个 H1 目录后再讨论受控修正。
-- 作业被调度器杀死但 `run_metadata.tsv` 未写完：验证器会判失败，不能自行猜测是 OOM 或人为停止。
-- 真空平台不可靠：功函数字段必须保持空白，不放宽阈值强行取值。
+`collect_results.sh` 或 finalizer 会生成 CSV、JSON、Markdown、可用时的图片，以及 `scnet_results_bundle.tar.gz`。默认 tar 包不包含 WFN、restart、Hartree cube 和 density cube，也不会删除它们；这些大文件记录在 `large_optional_files_manifest.txt`，包含绝对/相对路径、大小、SHA256、任务和 attempt。服务器没有 matplotlib 时，核心 CSV/JSON/Markdown 仍完成，图片状态为 `pending_local_plot`，可在本地运行 `python plot_results.py`。

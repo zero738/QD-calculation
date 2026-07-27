@@ -107,3 +107,14 @@ scnet_write_metadata() {
         printf 'kpoint_mesh\t%s\n' "$kpoint_mesh"
     } > "$run_dir/run_metadata.tsv"
 }
+
+# Run with the task directory as the process working directory.  CP2K writes
+# DOS/PDOS/LDOS/cubes/WFN/restart relative to cwd, so absolute -i/-o paths are
+# not a substitute for this cd.
+scnet_run_cp2k() {
+    local run_dir="$1"
+    (
+        cd "$run_dir"
+        srun --mpi=pmix_v3 "$SCNET_CP2K_EXE" -i input.executed.inp -o output.out
+    )
+}

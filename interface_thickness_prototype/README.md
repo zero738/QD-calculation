@@ -75,14 +75,16 @@ Linux 把 Python 路径替换为 `.venv/bin/python`。详细 CP2K 运行方式�
 
 ## 超算互联网 CP2K 2024.1 运行包
 
-`server_scnet_2024_1/` 是国家超算互联网华东一区昆山 `kshctest02` 分区的独立运行包。它不会覆盖 `research_lite/runs/`，也没有自动提交命令。服务器任务当前全部为 `not_run`；本地只完成了静态检查和 CP2K 2024.3 `--check` 语法预检。
+`server_scnet_2024_1/` 是国家超算互联网华东一区昆山 `kshctest02` 分区的独立运行包。它不会覆盖 `research_lite/runs/`。上传后运行一次 `bash submit_pipeline.sh` 即建立受控 Slurm 依赖链；只有这个登录节点包装脚本调用 `sbatch`，计算脚本不会递归提交。服务器任务当前全部为 `not_run`；本地只完成静态检查和 CP2K 2024.3 `--check` 语法预检。
 
-- `server_scnet_2024_1/README_SCNET_CN.md`：上传、环境检查、手动顺序、资源和失败处理；
+- `server_scnet_2024_1/README_SCNET_CN.md`：一键提交、监控、取消、资源和失败处理；
 - `server_scnet_2024_1/env_scnet.sh`：绕过有缺陷 CP2K 模块，手动加载 GNU/Intel/Intel MPI 并使用 `cp2k.popt`；
-- `server_scnet_2024_1/scripts/`：Gamma→2×2×2→3×3×3→4×4×4、B0、C50、H1、H2 的单节点纯 MPI 作业；
+- `server_scnet_2024_1/scripts/`：服务器 2024.1 输入检查、Gamma→2×2×2→3×3×3→4×4×4、B0、C50、H1、H2 和两条 finalizer 的单节点作业；
 - `server_scnet_2024_1/verify_server_outputs.py`：严格解析返回码、版本、SCF、能量、PDOS/LDOS、cube、谱积分和最高 MO 警告；
 - `server_scnet_2024_1/results/`：初始空白状态、静态审计及本地语法预检证据。
 
-H1 只做最小 SCF 修正：`ADDED_MOS/NLUMO=100`、`ALPHA=0.08`、`NBROYDEN=12`、`MAX_SCF=250`；`EPS_SCF` 仍为 `1e-6`，结构和主要物理参数不变。H2 脚本在 `srun` 前强制验证 H1 严格成功并检查 H1/H2 SCF 参数一致；H1 未成功时不能提交 H2。
+H1 在一个 16 小时作业内最多运行 attempt_A 和一次受控 attempt_B。持续最高 MO 警告只增加 `ADDED_MOS/NLUMO` 到 160；无该警告但残差振荡只把 `ALPHA/NBROYDEN` 改为 0.05/16；硬配置错误不重试。`EPS_SCF=1e-6`、结构和物理模型不变。H2 在 `srun` 前重新验证 H1，并从 `H1_SUCCESS.json` 动态继承实际成功参数；H1 未成功时自动阻断。
 
-全部作业硬上限合计约 1036.17 CPU·h，低于 2000 核时额度。详细边界、8/8 输入语法预检和 33/33 静态审计分别见运行包 README、`results/syntax_precheck_cp2k_2024_3.json` 与 `results/static_audit.json`。本地 2024.3 语法通过不代表服务器 2024.1 已运行或一定收敛。
+资源由 Slurm 文件自动复算，全部作业硬上限约 1102.17 CPU·h，低于 1800 CPU·h 门槛。详细边界、8/8 输入语法预检和 59/59 静态审计分别见运行包 README、`results/syntax_precheck_cp2k_2024_3.json` 与 `results/static_audit.json`。本地 2024.3 语法通过不代表服务器 2024.1 已运行或一定收敛。
+
+Windows 上传包可在 `interface_thickness_prototype` 目录运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\make_scnet_bundle.ps1` 生成 `scnet_upload_bundle.zip`；脚本会校验 SHA256，并排除 `.git`、虚拟环境、缓存、旧 runs、WFN、restart 和 cube。

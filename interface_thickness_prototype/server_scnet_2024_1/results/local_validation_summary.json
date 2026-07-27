@@ -1,22 +1,22 @@
 {
-  "recorded_at": "2026-07-27T13:34:06+08:00",
+  "recorded_at": "2026-07-27T15:20:00+08:00",
   "server_cp2k_calculations_actually_run": false,
   "python_tests": {
-    "passed": 46,
+    "passed": 100,
     "failed": 0,
     "warnings": 12,
-    "duration_seconds": 3.43,
+    "duration_seconds": 4.68,
     "warning_scope": "ASE/NumPy deprecation warnings"
   },
   "static_package_audit": {
-    "passed": 33,
-    "total": 33,
+    "passed": 59,
+    "total": 59,
     "evidence": "static_audit.json"
   },
   "shell_syntax": {
-    "command": "bash -n env_scnet.sh collect_results.sh scripts/*.slurm",
+    "command": "bash -n server_scnet_2024_1/*.sh server_scnet_2024_1/scripts/*.slurm",
     "exit_code": 0,
-    "checked_files": 11
+    "checked_files": 16
   },
   "cp2k_input_syntax_precheck": {
     "passed": 8,
@@ -26,5 +26,10 @@
     "evidence": "syntax_precheck_cp2k_2024_3.json",
     "scope": "syntax only; not a server run and not evidence of SCF convergence"
   },
-  "h2_gate_initial_state": "blocked because H1 has not run successfully on the server"
+  "powershell_static_parse": {
+    "script": "../make_scnet_bundle.ps1",
+    "parse_errors": 0
+  },
+  "h2_gate_initial_state": "blocked because H1 has not run successfully on the server",
+  "important_limitation": "Static checks and local CP2K 2024.3 --check cannot prove SCNet CP2K 2024.1 runtime success or H1/H2 SCF convergence."
 }

@@ -5,3 +5,4 @@ interface_thickness_prototype/smoke_tests/**/input.executed.inp text eol=lf
 interface_thickness_prototype/research_lite/**/*.inp text eol=lf
 interface_thickness_prototype/research_lite/**/*.out text eol=lf whitespace=-trailing-space
 interface_thickness_prototype/server_scnet_2024_1/** text eol=lf
+interface_thickness_prototype/server_scnet_2024_1/plots/*.png binary

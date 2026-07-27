@@ -62,6 +62,8 @@ TASKS = {
         "expected_electronic_outputs": True,
         "formula_units": 0,
         "substrate_area_angstrom2": 236.37089524795562,
+        "ldos_groups": ["CdTe_substrate", "CdTe_interface_top_Te"],
+        "expected_kind_pdos_count": 2,
     },
     "C50": {
         "source": "C50/input_gamma.inp",
@@ -72,6 +74,11 @@ TASKS = {
         "expected_electronic_outputs": True,
         "formula_units": 16,
         "substrate_area_angstrom2": 236.37089524795562,
+        "ldos_groups": [
+            "CdTe_substrate", "Cu2Te_film", "CdTe_interface_top_Te",
+            "Cu2Te_interface_bottom_Cu",
+        ],
+        "expected_kind_pdos_count": 3,
     },
     "H1": {
         "source": "H1/input_gamma.inp",
@@ -82,6 +89,11 @@ TASKS = {
         "expected_electronic_outputs": True,
         "formula_units": 32,
         "substrate_area_angstrom2": 236.37089524795562,
+        "ldos_groups": [
+            "CdTe_substrate", "Cu2Te_film", "CdTe_interface_top_Te",
+            "Cu2Te_interface_bottom_Cu",
+        ],
+        "expected_kind_pdos_count": 3,
     },
     "H2": {
         "source": "H2/input_gamma.inp",
@@ -92,6 +104,11 @@ TASKS = {
         "expected_electronic_outputs": True,
         "formula_units": 64,
         "substrate_area_angstrom2": 236.37089524795562,
+        "ldos_groups": [
+            "CdTe_substrate", "Cu2Te_film", "CdTe_interface_top_Te",
+            "Cu2Te_interface_bottom_Cu",
+        ],
+        "expected_kind_pdos_count": 3,
     },
 }
 
@@ -103,8 +120,10 @@ RESOURCES = {
     "cu2te_bulk_k444": {"ntasks": 4, "hours": 1.0},
     "B0": {"ntasks": 16, "hours": 6.0},
     "C50": {"ntasks": 16, "hours": 10.0},
-    "H1": {"ntasks": 16, "hours": 12.0},
+    "H1": {"ntasks": 16, "hours": 16.0},
     "H2": {"ntasks": 24, "hours": 24.0},
+    "90_finalize_after_H2": {"ntasks": 1, "hours": 1.0},
+    "91_finalize_if_H1_failed": {"ntasks": 1, "hours": 1.0},
 }
 
 
@@ -238,6 +257,45 @@ def write_package_config() -> None:
             "eps_scf": 1.0e-6,
             "electronic_temperature_K": 500,
             "method": "standard diagonalization",
+        },
+        "h1_controlled_retry": {
+            "maximum_attempts": 2,
+            "attempt_A_timeout_hours": 7,
+            "attempt_B_timeout_hours": 8,
+            "persistent_last_mo_warning_fraction": 0.8,
+            "attempt_B_more_unoccupied": {
+                "added_mos": 160,
+                "pdos_nlumo": 160,
+                "mixing_alpha": 0.08,
+                "nbroyden": 12,
+            },
+            "attempt_B_gentler_mixing": {
+                "added_mos": 100,
+                "pdos_nlumo": 100,
+                "mixing_alpha": 0.05,
+                "nbroyden": 16,
+            },
+            "eps_scf": 1.0e-6,
+        },
+        "spectral_analysis": {
+            "fwhm_ev": 0.10,
+            "near_fermi_half_width_ev": 0.10,
+            "comparison_min_ev": -5.0,
+            "comparison_max_ev": 5.0,
+            "integral_relative_tolerance": 5.0e-4,
+            "pdos_ldos_tolerance_hartree": 1.0e-6,
+        },
+        "potential_analysis": {
+            "layer_clustering_tolerance_angstrom": 0.20,
+            "minimum_reference_width_angstrom": 2.0,
+            "minimum_reference_grid_points": 5,
+            "maximum_reference_std_ev": 0.10,
+            "maximum_reference_slope_ev_per_angstrom": 0.05,
+            "vacuum_atom_exclusion_angstrom": 1.5,
+            "vacuum_density_threshold_au": 1.0e-6,
+            "vacuum_minimum_width_angstrom": 2.0,
+            "vacuum_maximum_std_ev": 0.10,
+            "vacuum_maximum_slope_ev_per_angstrom": 0.05,
         },
         "kpoint_convergence_threshold_ev_per_formula_unit": 0.01,
         "coverage_curvature_definition": "E(H1)+E(B0)-2*E(C50)",

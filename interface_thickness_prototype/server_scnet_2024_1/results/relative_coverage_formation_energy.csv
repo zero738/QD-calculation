@@ -1,0 +1,3 @@
+model_id,metric_name,value_hartree,value_ev,value_ev_per_angstrom2,value_ev_per_Cu2Te_formula_unit,status,limitations
+C50,fixed_initial_geometry_relative_coverage_formation_energy,,,,,not_ready_for_paper,not absolute surface energy; fixed geometry; polar slab; C50 is a periodic stripe
+H1,fixed_initial_geometry_relative_coverage_formation_energy,,,,,not_ready_for_paper,not absolute surface energy; fixed geometry; polar slab; C50 is a periodic stripe

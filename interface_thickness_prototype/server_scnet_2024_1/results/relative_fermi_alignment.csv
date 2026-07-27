@@ -1,0 +1,5 @@
+model_id,status,EF_minus_CdTe_reference_potential_ev,reference_z_start,reference_z_end,selected_layers,atom_count,grid_point_count,potential_mean_ev,potential_std_ev,slope_ev_per_angstrom
+B0,not_run,,,,,,,,,
+C50,not_run,,,,,,,,,
+H1,not_run,,,,,,,,,
+H2,not_run,,,,,,,,,

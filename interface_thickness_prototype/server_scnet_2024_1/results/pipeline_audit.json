@@ -1,0 +1,18 @@
+{
+  "status": "not_run",
+  "checks": {
+    "server_tasks_actually_run": false,
+    "all_required_tasks_strict_success": false,
+    "paper_ready": false,
+    "paper_ready_reason": "prototype structures and convergence gates; server tasks are initially not run",
+    "bulk_reference_converged": false,
+    "H2_blocked_by_H1": true,
+    "forbidden_claims": [
+      "absolute surface energy",
+      "true contact resistance",
+      "optimal thickness",
+      "optimal concentration",
+      "unique experimental Cu2-xTe phase"
+    ]
+  }
+}
