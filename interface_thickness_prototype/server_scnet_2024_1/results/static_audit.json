@@ -1,0 +1,173 @@
+{
+  "check_count": 33,
+  "passed_count": 33,
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "required_package_files",
+      "passed": true,
+      "detail": "All required ASCII server package entry points must exist."
+    },
+    {
+      "name": "ascii_paths_without_spaces",
+      "passed": true,
+      "detail": "bad_paths=[]"
+    },
+    {
+      "name": "fixed_model_scope",
+      "passed": true,
+      "detail": "task_ids=['B0', 'C50', 'H1', 'H2', 'cu2te_bulk_gamma', 'cu2te_bulk_k222', 'cu2te_bulk_k333', 'cu2te_bulk_k444']"
+    },
+    {
+      "name": "no_forbidden_extension_models",
+      "passed": true,
+      "detail": "No H3/H4/C25/C75/Au/NEGF/HSE06 model path may exist."
+    },
+    {
+      "name": "exact_scnet_environment",
+      "passed": true,
+      "detail": "Use the verified manual 2024.1 environment and never load the broken CP2K module."
+    },
+    {
+      "name": "slurm_directives",
+      "passed": true,
+      "detail": "Every job is one-node kshctest02 with explicit resources and log files."
+    },
+    {
+      "name": "pure_mpi_srun",
+      "passed": true,
+      "detail": "Every compute job uses cp2k.popt through srun/pmix_v3."
+    },
+    {
+      "name": "no_automatic_submission",
+      "passed": true,
+      "detail": "Executable scripts must never submit another job."
+    },
+    {
+      "name": "h2_strict_h1_gate_before_srun",
+      "passed": true,
+      "detail": "H2 must verify strict H1 success before any H2 srun command."
+    },
+    {
+      "name": "cpu_hour_budget",
+      "passed": true,
+      "detail": "maximum_requested_cpu_hours=1036.1666666666667"
+    },
+    {
+      "name": "h2_resource_choice",
+      "passed": true,
+      "detail": "H2 uses 24 MPI tasks for 24 h: 576 CPU h on one 32-core node."
+    },
+    {
+      "name": "B0_structure_unchanged",
+      "passed": true,
+      "detail": "Server structure text must equal the audited research_lite structure independent of platform line endings."
+    },
+    {
+      "name": "B0_cell_and_coordinates_unchanged",
+      "passed": true,
+      "detail": "CELL and COORD blocks must be byte-equivalent after whitespace normalization."
+    },
+    {
+      "name": "C50_structure_unchanged",
+      "passed": true,
+      "detail": "Server structure text must equal the audited research_lite structure independent of platform line endings."
+    },
+    {
+      "name": "C50_cell_and_coordinates_unchanged",
+      "passed": true,
+      "detail": "CELL and COORD blocks must be byte-equivalent after whitespace normalization."
+    },
+    {
+      "name": "H1_structure_unchanged",
+      "passed": true,
+      "detail": "Server structure text must equal the audited research_lite structure independent of platform line endings."
+    },
+    {
+      "name": "H1_cell_and_coordinates_unchanged",
+      "passed": true,
+      "detail": "CELL and COORD blocks must be byte-equivalent after whitespace normalization."
+    },
+    {
+      "name": "H2_structure_unchanged",
+      "passed": true,
+      "detail": "Server structure text must equal the audited research_lite structure independent of platform line endings."
+    },
+    {
+      "name": "H2_cell_and_coordinates_unchanged",
+      "passed": true,
+      "detail": "CELL and COORD blocks must be byte-equivalent after whitespace normalization."
+    },
+    {
+      "name": "B0_baseline_parameters",
+      "passed": true,
+      "detail": "settings={'eps_scf': '1e-06', 'max_scf': '150', 'added_mos': '40', 'alpha': '0.15', 'nbroyden': '8', 'temperature': '500'}"
+    },
+    {
+      "name": "C50_baseline_parameters",
+      "passed": true,
+      "detail": "settings={'eps_scf': '1e-06', 'max_scf': '150', 'added_mos': '40', 'alpha': '0.15', 'nbroyden': '8', 'temperature': '500'}"
+    },
+    {
+      "name": "H1_minimal_scf_fix",
+      "passed": true,
+      "detail": "settings={'eps_scf': '1e-06', 'max_scf': '250', 'added_mos': '100', 'alpha': '0.08', 'nbroyden': '12', 'temperature': '500', 'nlumo': '100'}"
+    },
+    {
+      "name": "H2_minimal_scf_fix",
+      "passed": true,
+      "detail": "settings={'eps_scf': '1e-06', 'max_scf': '250', 'added_mos': '100', 'alpha': '0.08', 'nbroyden': '12', 'temperature': '500', 'nlumo': '100'}"
+    },
+    {
+      "name": "bulk_energy_only_kpoint_ladder",
+      "passed": true,
+      "detail": "Gamma/2x2x2/3x3x3/4x4x4 are energy-only inputs."
+    },
+    {
+      "name": "fixed_geometry_only",
+      "passed": true,
+      "detail": "No server input may request geometry optimization."
+    },
+    {
+      "name": "server_results_truthfully_not_run",
+      "passed": true,
+      "detail": "Initial server results must contain no invented energy or success state."
+    },
+    {
+      "name": "server_metrics_blank_not_ready",
+      "passed": true,
+      "detail": "Formation-energy and curvature outputs remain blank before server runs."
+    },
+    {
+      "name": "cp2k_2024_3_syntax_precheck_evidence",
+      "passed": true,
+      "detail": "All 8 current inputs passed local CP2K 2024.3 --check; this is syntax-only evidence for a 2024.1 target."
+    },
+    {
+      "name": "shell_syntax_and_unrun_scope_recorded",
+      "passed": true,
+      "detail": "Bash syntax passed for 11 shell/Slurm files while server execution remains explicitly false."
+    },
+    {
+      "name": "old_h1_failure_boundary",
+      "passed": true,
+      "detail": "Old H1 remains a timeout/non-convergence record, not a code-error or OOM claim."
+    },
+    {
+      "name": "old_coverage_energy_not_paper_ready",
+      "passed": true,
+      "detail": "Every old CP2K 2024.3 coverage-energy row must be explicitly excluded from paper conclusions."
+    },
+    {
+      "name": "upload_manifest_hashes",
+      "passed": true,
+      "detail": "manifest_entries=27"
+    },
+    {
+      "name": "no_credentials_or_private_keys",
+      "passed": true,
+      "detail": "hits=[]"
+    }
+  ],
+  "scope": "static package audit only; no SCNet CP2K calculation was run"
+}

@@ -68,7 +68,21 @@ Linux 把 Python 路径替换为 `.venv/bin/python`。详细 CP2K 运行方式�
 - `research_lite/runs/cu2te_bulk_k222`、`B0`、`C50`：已真实运行并通过各自门禁；H1 已真实尝试但在 runner 的 7200 s 硬上限处停止且未收敛，H2 因门控未运行。原始输入、输出、metadata 和严格解析文件均保留。
 - `results/coverage_model_summary.csv`：覆盖度、原子数、终止和条带周期性。
 - `results/final_model_status.csv`：真实运行、返回码、超时、SCF、能量、电子输出完整性、警告和停止原因；未运行模型的数值保持空白。
-- `results/relative_coverage_formation_energy.csv`：固定初始几何相对覆盖形成能；C50 仅在严格能量门禁后得到原型值，H1/C100 因能量无效而保持空白。
+- `results/relative_coverage_formation_energy.csv`：旧 CP2K 2024.3 固定初始几何诊断值；全部行明确标记 `not_ready_for_paper`，C50 数值不得进入论文结论。
 - `results/dft_proxy_summary.csv`：比较由唯一 KS 轨道列表统一展宽得到的每面积轨道谱、按 Cu₂Te 化学式单位归一化的投影谱，以及按界面原子归一化的界面谱；CP2K 自带 DOS 只作为归一化直方图证据，不能冒充总 KS 轨道 DOS。
 - `PAPER_RESULTS_SUMMARY.md` 与 `USER_REVIEW_CHECKLIST.md`：分别给出论文表述边界和逐文件人工复核方法。
 - `results/experiment_data_template.csv`：以后对接膜厚、覆盖度、效率和接触电阻的实验数据表头。
+
+## 超算互联网 CP2K 2024.1 运行包
+
+`server_scnet_2024_1/` 是国家超算互联网华东一区昆山 `kshctest02` 分区的独立运行包。它不会覆盖 `research_lite/runs/`，也没有自动提交命令。服务器任务当前全部为 `not_run`；本地只完成了静态检查和 CP2K 2024.3 `--check` 语法预检。
+
+- `server_scnet_2024_1/README_SCNET_CN.md`：上传、环境检查、手动顺序、资源和失败处理；
+- `server_scnet_2024_1/env_scnet.sh`：绕过有缺陷 CP2K 模块，手动加载 GNU/Intel/Intel MPI 并使用 `cp2k.popt`；
+- `server_scnet_2024_1/scripts/`：Gamma→2×2×2→3×3×3→4×4×4、B0、C50、H1、H2 的单节点纯 MPI 作业；
+- `server_scnet_2024_1/verify_server_outputs.py`：严格解析返回码、版本、SCF、能量、PDOS/LDOS、cube、谱积分和最高 MO 警告；
+- `server_scnet_2024_1/results/`：初始空白状态、静态审计及本地语法预检证据。
+
+H1 只做最小 SCF 修正：`ADDED_MOS/NLUMO=100`、`ALPHA=0.08`、`NBROYDEN=12`、`MAX_SCF=250`；`EPS_SCF` 仍为 `1e-6`，结构和主要物理参数不变。H2 脚本在 `srun` 前强制验证 H1 严格成功并检查 H1/H2 SCF 参数一致；H1 未成功时不能提交 H2。
+
+全部作业硬上限合计约 1036.17 CPU·h，低于 2000 核时额度。详细边界、8/8 输入语法预检和 33/33 静态审计分别见运行包 README、`results/syntax_precheck_cp2k_2024_3.json` 与 `results/static_audit.json`。本地 2024.3 语法通过不代表服务器 2024.1 已运行或一定收敛。

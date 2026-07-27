@@ -1,0 +1,75 @@
+{
+  "checked_at_utc": "2026-07-27T05:27:56.285951+00:00",
+  "local_precheck_cp2k_version": "CP2K version 2024.3",
+  "target_server_cp2k_version": "2024.1",
+  "docker_image": "cp2k/cp2k:2024.3",
+  "all_passed": true,
+  "input_count": 8,
+  "results": [
+    {
+      "task_id": "cu2te_bulk_gamma",
+      "input_file": "inputs/cu2te_bulk/input_gamma.inp",
+      "input_sha256": "8794234622bb161261ae12a38077c278c9b63205f4c5d7fae7c686edd1103779",
+      "return_code": 0,
+      "check_passed": true,
+      "last_message": "         or will run successfully"
+    },
+    {
+      "task_id": "cu2te_bulk_k222",
+      "input_file": "inputs/cu2te_bulk/input_k222.inp",
+      "input_sha256": "3179d87e5e712fa45f7df973289c01814f54645cc2e65853fadd5eaaa5bce0ca",
+      "return_code": 0,
+      "check_passed": true,
+      "last_message": "         or will run successfully"
+    },
+    {
+      "task_id": "cu2te_bulk_k333",
+      "input_file": "inputs/cu2te_bulk/input_k333.inp",
+      "input_sha256": "ed3f90429481dab015ce937f443d3ee8ec217af31c85ff251d16dfd86b7fa53b",
+      "return_code": 0,
+      "check_passed": true,
+      "last_message": "         or will run successfully"
+    },
+    {
+      "task_id": "cu2te_bulk_k444",
+      "input_file": "inputs/cu2te_bulk/input_k444.inp",
+      "input_sha256": "ba2e475cd18946068dcb8a7669a11e6f914c5a204073829ecde739a5868727ca",
+      "return_code": 0,
+      "check_passed": true,
+      "last_message": "         or will run successfully"
+    },
+    {
+      "task_id": "B0",
+      "input_file": "inputs/B0/input.inp",
+      "input_sha256": "b3cee06fdbb994849c3d0b2aaecc8595fdd4a60417dc4613d7a9589297b499e3",
+      "return_code": 0,
+      "check_passed": true,
+      "last_message": "         or will run successfully"
+    },
+    {
+      "task_id": "C50",
+      "input_file": "inputs/C50/input.inp",
+      "input_sha256": "53289997d320b3e6ee6f66eeff38554a9d946fa37d45e23a20d654a76a0575b4",
+      "return_code": 0,
+      "check_passed": true,
+      "last_message": "         or will run successfully"
+    },
+    {
+      "task_id": "H1",
+      "input_file": "inputs/H1/input.inp",
+      "input_sha256": "6c7b29f6d43834e83022002ffec50f8b72faf67ac36392992414b61a1c0cbb91",
+      "return_code": 0,
+      "check_passed": true,
+      "last_message": "         or will run successfully"
+    },
+    {
+      "task_id": "H2",
+      "input_file": "inputs/H2/input.inp",
+      "input_sha256": "0bc37d8b2d2322f8e61d607121aef949fceda19c5d50fde38d9327a89e3ef3cd",
+      "return_code": 0,
+      "check_passed": true,
+      "last_message": "         or will run successfully"
+    }
+  ],
+  "scope": "Syntax-only precheck with local CP2K 2024.3. This is not a CP2K 2024.1 server run and proves neither SCF convergence nor scientific validity."
+}

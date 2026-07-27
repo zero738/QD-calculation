@@ -287,6 +287,7 @@ def write_relative_coverage_formation_energy() -> tuple[Path, list[dict]]:
         "fixed_geometry_relative_coverage_formation_energy_ev_per_Cu2Te_formula_unit",
         "energy_valid",
         "status",
+        "paper_eligibility_status",
         "limitations",
     ]
     bulk = _parsed("cu2te_bulk_k222")
@@ -349,13 +350,15 @@ def write_relative_coverage_formation_energy() -> tuple[Path, list[dict]]:
                     and bulk.get("energy_valid")
                 ),
                 "status": (
-                    "computed_from_real_converged_research_lite_energies"
+                    "historical_prototype_diagnostic_computed"
                     if per_area is not None
                     else "blank_missing_one_or_more_valid_research_lite_energies"
                 ),
+                "paper_eligibility_status": "not_ready_for_paper",
                 "limitations": (
                     "固定初始几何相对覆盖形成能，不是绝对表面能；界面未弛豫。"
-                    "Cu2Te 参考仅做 2x2x2 最小检查，薄片仍为 Gamma；"
+                    "旧值来自 CP2K 2024.3，Cu2Te 参考仅做 2x2x2 最小检查，"
+                    "没有完成体相 k 点收敛，薄片仍为 Gamma；"
                     "极性 CdTe(111) 和原型晶相都未完成科研级收敛验证。"
                 ),
             }
@@ -509,7 +512,7 @@ def plot_coverage_formation_energy(rows: list[dict]) -> Path:
     ax.set_xticks([0, 50, 100])
     ax.set_xlabel("Cu₂Te coverage (%)")
     ax.set_ylabel("Fixed-geometry relative coverage formation energy (eV/Å²)")
-    ax.set_title("Prototype fixed-geometry coverage-energy trend")
+    ax.set_title("Historical prototype diagnostic — NOT READY FOR PAPER")
     ax.grid(axis="y", color="#E2E8F0", lw=0.8)
     fig.tight_layout()
     fig.savefig(destination, dpi=180)
@@ -719,7 +722,7 @@ def write_paper_results_summary(
             )
         else:
             task_lines.append(f"- {task_id}: 未运行。")
-    available_formation = [
+    historical_formation = [
         row
         for row in formation_rows
         if row[
@@ -727,13 +730,17 @@ def write_paper_results_summary(
         ]
         != ""
     ]
-    trend_text = (
+    historical_text = (
         "、".join(
             f"{row['model_id']}={float(row['fixed_geometry_relative_coverage_formation_energy_ev_per_angstrom2']):.6f} eV/Å²"
-            for row in available_formation
+            for row in historical_formation
         )
-        if available_formation
-        else "覆盖能趋势尚无足够的有效 research_lite 能量，数值保持空白"
+        if historical_formation
+        else "无"
+    )
+    trend_text = (
+        "not_ready_for_paper；旧 CP2K 2024.3 历史诊断值为 "
+        f"{historical_text}，仅用于审计旧管线，不进入论文趋势结论"
     )
     reliable_work = [
         row for row in proxy_rows if row["top_surface_work_function_proxy_ev"] != ""
@@ -776,7 +783,7 @@ def write_paper_results_summary(
 
 - 固定初始几何相对覆盖形成能：{trend_text}。
 - Cu₂Te 最低 k 点差值：{kpoint_text}。
-- C50 的负覆盖形成能量级受未弛豫几何、Gamma 薄片与 2×2×2 bulk 混合参考、极性薄片和未完成收敛测试共同影响，只能视为原型筛查数值，不能据此排序实验稳定性。
+- 旧 C50 的负覆盖形成能量级受未弛豫几何、Gamma 薄片与未完成 k 点收敛的 2×2×2 bulk 混合参考、极性薄片及版本差异共同影响，只保留为历史原型证据，不得进入论文结论或实验稳定性排序。
 - 顶部功函数代理：{work_text}。
 - 可比较的电子结构量只包括：由唯一 KS 轨道列表按统一 0.10 eV FWHM 高斯展宽得到的每面积谱、每 Cu₂Te 化学式单位投影谱权重，以及每个界面原子的投影谱权重。
 - 所有谱以 E−EF 对齐，只比较形状和规范化代理；这不是跨模型的真空能级对齐。
@@ -795,6 +802,7 @@ def write_paper_results_summary(
 - 不能直接比较不同模型的原始 CP2K Fermi 能量。
 - 不能把未弛豫的固定初始几何相对覆盖形成能称为绝对表面能。
 - 不能把 Gamma 薄片结果称为完成 k 点收敛；Cu₂Te 2×2×2 也只是一次最低检查。
+- CP2K 2024.1 服务器统一重跑尚未发生；服务器覆盖能与覆盖曲率代理目前必须保持空白。
 """
     destination = ROOT / "PAPER_RESULTS_SUMMARY.md"
     destination.write_text(content, encoding="utf-8", newline="\n")

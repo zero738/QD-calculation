@@ -164,3 +164,15 @@ Hartree 势按 CP2K 文档要求反转 `V_HARTREE_CUBE` 的符号，再从 Ha �
 - `PAPER_RESULTS_SUMMARY.md`：可陈述结果、合理解释、待验证推断和禁止结论。
 
 实际最终数值、失败/未运行任务及自动测试结果以这些由最新原始输出生成的文件为准。当前 CdTe(111) 薄片很薄、有极性且未弛豫，Cu₂Te 相/取向也只是有来源的原型假设；任何数值都不能直接解释为实验最佳膜厚、绝对表面能、真实接触电阻或器件效率。
+
+## 14. 国家超算互联网 CP2K 2024.1 运行包（2026-07-27）
+
+新增独立目录 `server_scnet_2024_1/`，目标为华东一区昆山 `kshctest02` 分区。服务器模块 `apps/cp2k/2024.1/intel2021` 因依赖缺失不使用；脚本执行 `module purge` 后只加载 GNU 9.3.0、Intel 2021.3.0 和 Intel MPI 2021.3.0，并直接调用 `/public/software/apps/cp2k/2024.1/exe/local/cp2k.popt`。所有计算采用单节点纯 MPI、`srun --mpi=pmix_v3`，没有 `--exclusive`、跨节点或自动 `sbatch`。
+
+运行包重新包含 Cu₂Te bulk Gamma/2×2×2/3×3×3/4×4×4、B0、C50、H1、H2。B0/C50 的结构和输入主要物理参数与现有 research_lite 完全一致。H1/H2 的结构也完全不变，只把 `ADDED_MOS/NLUMO` 改为 100、`ALPHA` 改为 0.08、`NBROYDEN` 改为 12、`MAX_SCF` 改为 250；标准对角化、500 K 展宽和 `EPS_SCF=1e-6` 保持。该修正针对旧 H1 的 72 次未收敛迭代、70 次持续最高 MO 占据警告和约 `1e-4` 至 `5e-5` 残差振荡；不能据此断言代码错误、OOM 或延长时间必然收敛。
+
+H2 使用 24 MPI tasks、24 h，即最大 576 CPU·h。全部九个 Slurm 作业（含环境检查）的硬请求上限合计约 1036.17 CPU·h，低于 2000 核时额度。H2 脚本在任何 `srun` 之前调用严格门控；只有 CP2K 2024.1 H1 返回码 0、正常结束、SCF 收敛、能量有效、最高 MO 警告不持续、DOS/PDOS/LDOS/cube 完整、MO 列表一致、谱积分通过且 H1/H2 SCF 参数一致时才放行。
+
+当前没有运行任何服务器 CP2K 任务。`server_scnet_2024_1/results/server_task_status.csv` 的八个任务均为 `not_run`，覆盖形成能和覆盖曲率 `E(H1)+E(B0)-2E(C50)` 均为空且标记 `not_ready_for_paper`。本地仅完成：46 个 Python 测试、33/33 静态审计、11 个 shell 文件 `bash -n` 和 8/8 个输入的 CP2K 2024.3 `--check`。最后一项只是面向服务器 2024.1 输入的语法预检，不证明服务器版本兼容性、SCF 收敛或科学有效性。
+
+旧 CP2K 2024.3 C50 `-0.662188 eV/Å²` 继续保留为历史原型诊断证据，但 `results/relative_coverage_formation_energy.csv` 已明确标记 `not_ready_for_paper`，不得进入论文结论。功函数没有可靠连续真空平台时继续为空；`E−EF` 只用于相对谱形；普通 DFT 不输出真实接触电阻。C50 仍是周期性半面积条带，不代表所有 50% 岛状形貌。

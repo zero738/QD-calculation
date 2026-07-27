@@ -130,3 +130,58 @@
 - 异常时会看到：`all_passed=false`，并在对应检查项看到失败原因。
 - 这证明：最终派生表与当前原始输出一致，未运行/无效结果保持空白，关键科学定义通过机器检查。
 - 这不能证明：模型相、界面取向、k 点、slab 厚度或实验对应关系已完成科研级验证。
+
+## 13. 超算运行包入口
+
+- 文件：`server_scnet_2024_1/README_SCNET_CN.md`
+- 完整本地路径：`C:\Users\Xu\OneDrive\桌面\重要事务\SRP离子交换电池方法\QD-calculation\interface_thickness_prototype\server_scnet_2024_1\README_SCNET_CN.md`
+- 搜索：`服务器任务尚未运行`、`手动运行顺序`、`H1 最小修正`。
+- 正确时应看到：服务器路径建议为 ASCII；所有任务需人工按顺序 `sbatch`；H1 未严格成功前禁止 H2；总硬上限约 1036.17 CPU·h。
+- 异常时会看到：声称服务器任务已成功、自动批量提交、跨节点、`--exclusive`，或直接加载有缺陷的 CP2K 模块。
+- 这证明：上传和提交方法、资源边界及失败处理已明确。
+- 这不能证明：超算模块、队列和 CP2K 2024.1 在实际作业中一定正常。
+
+## 14. 服务器任务初始真实状态
+
+- 文件：`server_scnet_2024_1/results/server_task_status.csv`
+- 完整本地路径：`C:\Users\Xu\OneDrive\桌面\重要事务\SRP离子交换电池方法\QD-calculation\interface_thickness_prototype\server_scnet_2024_1\results\server_task_status.csv`
+- 搜索：`not_run`、`strict_success`、`total_energy_hartree`。
+- 正确时应看到：8 个未来任务全部 `actually_run=False`、`status=not_run`、能量为空。
+- 异常时会看到：没有原始服务器输出却出现 CP2K 2024.1 能量、SCF 步数或成功状态。
+- 这证明：本轮没有伪造服务器结果，旧 `research_lite/runs/` 也未被覆盖。
+- 这不能证明：以后上传后任务会自动成功或满足队列时间限制。
+
+## 15. H1 最小修正与 H2 硬门控
+
+- 文件：`server_scnet_2024_1/inputs/H1/input.inp`、`server_scnet_2024_1/scripts/40_H2.slurm`、`server_scnet_2024_1/verify_server_outputs.py`
+- 完整本地路径：
+  - `C:\Users\Xu\OneDrive\桌面\重要事务\SRP离子交换电池方法\QD-calculation\interface_thickness_prototype\server_scnet_2024_1\inputs\H1\input.inp`
+  - `C:\Users\Xu\OneDrive\桌面\重要事务\SRP离子交换电池方法\QD-calculation\interface_thickness_prototype\server_scnet_2024_1\scripts\40_H2.slurm`
+  - `C:\Users\Xu\OneDrive\桌面\重要事务\SRP离子交换电池方法\QD-calculation\interface_thickness_prototype\server_scnet_2024_1\verify_server_outputs.py`
+- 搜索：`ADDED_MOS 100`、`NLUMO 100`、`ALPHA 0.08`、`NBROYDEN 12`、`MAX_SCF 250`、`EPS_SCF 1e-06`、`--gate-h2`。
+- 正确时应看到：H1 只改五个最小 SCF/输出参数；H2 的 `--gate-h2` 位于 `srun` 之前；验证器还检查 CP2K 2024.1、返回码、SCF、能量、最高 MO 警告、PDOS/LDOS、cube、谱积分和 H1/H2 参数一致性。
+- 异常时会看到：`EPS_SCF=1e-4`、OT、结构/晶胞变化，或 H2 在门控前启动。
+- 这证明：旧 H1 的未占据轨道不足和混合振荡得到最小、可审计的处理，H2 不会绕过失败门控。
+- 这不能证明：H1 使用这些参数后必然收敛，也不能排除需要新的受控调整。
+
+## 16. 体相 k 点与覆盖派生量接口
+
+- 文件：`server_scnet_2024_1/results/bulk_kpoint_convergence.csv`、`server_scnet_2024_1/results/server_coverage_metrics.csv`
+- 完整本地路径：
+  - `C:\Users\Xu\OneDrive\桌面\重要事务\SRP离子交换电池方法\QD-calculation\interface_thickness_prototype\server_scnet_2024_1\results\bulk_kpoint_convergence.csv`
+  - `C:\Users\Xu\OneDrive\桌面\重要事务\SRP离子交换电池方法\QD-calculation\interface_thickness_prototype\server_scnet_2024_1\results\server_coverage_metrics.csv`
+- 搜索：`delta_from_previous_ev_per_Cu2Te_formula_unit`、`not_ready_for_paper`、`coverage_curvature_E_H1_plus_E_B0_minus_2E_C50`。
+- 正确时应看到：服务器未运行时全部能量/差值为空；相邻 k 点阈值为 0.01 eV/Cu₂Te 化学式单位；覆盖形成能和曲率都为空且 `not_ready_for_paper`。
+- 异常时会看到：复用旧 2024.3 C50 数值填充服务器表，或 H1 未成功却输出覆盖曲率。
+- 这证明：Gamma→2×2×2→3×3×3→4×4×4 以及化学势抵消曲率代理已有严格状态接口。
+- 这不能证明：未来 4×4×4 一定满足收敛；若仍失败，只能人工评估后续 5×5×5。
+
+## 17. 本地预检与静态审计
+
+- 文件：`server_scnet_2024_1/results/local_validation_summary.json`、`server_scnet_2024_1/results/static_audit.json`、`server_scnet_2024_1/results/syntax_precheck_cp2k_2024_3.json`
+- 完整本地路径：`C:\Users\Xu\OneDrive\桌面\重要事务\SRP离子交换电池方法\QD-calculation\interface_thickness_prototype\server_scnet_2024_1\results\local_validation_summary.json`
+- 搜索：`server_cp2k_calculations_actually_run`、`31`、`8`、`CP2K version 2024.3`、`target_server_version`。
+- 正确时应看到：服务器实际运行是 `false`；46 个 Python 测试、33/33 静态审计、11 个 shell 文件语法通过、8/8 输入通过本地 CP2K 2024.3 `--check`。
+- 异常时会看到：把 2024.3 语法预检写成 2024.1 服务器计算成功，或静态审计存在失败项。
+- 这证明：当前包结构、输入语法和门控逻辑在本地通过预检。
+- 这不能证明：服务器 CP2K 2024.1 运行时兼容、性能、SCF 收敛或科学收敛。

@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-07-27T13:34:06+08:00",
+  "server_cp2k_calculations_actually_run": false,
+  "python_tests": {
+    "passed": 46,
+    "failed": 0,
+    "warnings": 12,
+    "duration_seconds": 3.43,
+    "warning_scope": "ASE/NumPy deprecation warnings"
+  },
+  "static_package_audit": {
+    "passed": 33,
+    "total": 33,
+    "evidence": "static_audit.json"
+  },
+  "shell_syntax": {
+    "command": "bash -n env_scnet.sh collect_results.sh scripts/*.slurm",
+    "exit_code": 0,
+    "checked_files": 11
+  },
+  "cp2k_input_syntax_precheck": {
+    "passed": 8,
+    "total": 8,
+    "local_version": "CP2K version 2024.3",
+    "target_server_version": "2024.1",
+    "evidence": "syntax_precheck_cp2k_2024_3.json",
+    "scope": "syntax only; not a server run and not evidence of SCF convergence"
+  },
+  "h2_gate_initial_state": "blocked because H1 has not run successfully on the server"
+}

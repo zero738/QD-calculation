@@ -1,0 +1,9 @@
+task_id,actually_run,status,strict_success,return_code,normal_program_end,scf_converged,scf_steps,scf_iterations_observed,total_energy_hartree,energy_valid,electronic_outputs_complete,cp2k_version,cp2k_version_valid,input_hash_valid,environment_record_present,wall_time_seconds,ntasks,kpoint_mesh,cp2k_warning_count,last_mo_smearing_warning_count,last_mo_smearing_warning_persistent,pdos_ldos_consistent,spectrum_integral_valid,warning_or_error
+cu2te_bulk_gamma,False,not_run,False,,False,False,,0,,False,False,,False,False,False,,,Gamma,0,0,,,,no server run evidence
+cu2te_bulk_k222,False,not_run,False,,False,False,,0,,False,False,,False,False,False,,,2x2x2,0,0,,,,no server run evidence
+cu2te_bulk_k333,False,not_run,False,,False,False,,0,,False,False,,False,False,False,,,3x3x3,0,0,,,,no server run evidence
+cu2te_bulk_k444,False,not_run,False,,False,False,,0,,False,False,,False,False,False,,,4x4x4,0,0,,,,no server run evidence
+B0,False,not_run,False,,False,False,,0,,False,False,,False,False,False,,,Gamma,0,0,,,,no server run evidence
+C50,False,not_run,False,,False,False,,0,,False,False,,False,False,False,,,Gamma,0,0,,,,no server run evidence
+H1,False,not_run,False,,False,False,,0,,False,False,,False,False,False,,,Gamma,0,0,,,,no server run evidence
+H2,False,not_run,False,,False,False,,0,,False,False,,False,False,False,,,Gamma,0,0,,,,no server run evidence

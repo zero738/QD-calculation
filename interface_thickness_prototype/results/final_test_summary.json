@@ -1,10 +1,10 @@
 {
-  "recorded_at": "2026-07-26T16:59:09+08:00",
-  "command": ".venv/Scripts/python.exe -m pytest interface_thickness_prototype/tests -q",
+  "recorded_at": "2026-07-27T13:34:06+08:00",
+  "command": ".venv/Scripts/python.exe -m pytest interface_thickness_prototype/tests -q --basetemp=.codex_pytest_tmp",
   "exit_code": 0,
-  "passed": 33,
+  "passed": 46,
   "failed": 0,
   "warnings": 12,
-  "duration_seconds": 2.90,
+  "duration_seconds": 3.43,
   "warning_summary": "12 ASE/NumPy deprecation warnings; no test failures"
 }

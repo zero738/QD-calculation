@@ -32,6 +32,11 @@ interface_thickness_prototype/research_lite/runs/**/*.cube
 interface_thickness_prototype/research_lite/runs/**/*-RESTART.kp
 interface_thickness_prototype/research_lite/runs/**/*.wfn
 
+# SCNet package runtime evidence is produced only after manual server jobs and
+# must not be confused with the unrun package committed in this PR.
+interface_thickness_prototype/server_scnet_2024_1/runs/
+interface_thickness_prototype/server_scnet_2024_1/*.out
+
 # Keep only the two small (about 117 kB each) cubes from the one audited
 # six-atom research_lite run; larger future slab cubes remain ignored.
 !interface_thickness_prototype/research_lite/runs/cu2te_bulk/electron_density.cube

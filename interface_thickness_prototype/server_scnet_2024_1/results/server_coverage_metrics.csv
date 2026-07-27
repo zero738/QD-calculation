@@ -1,0 +1,4 @@
+metric_id,value_hartree,value_ev,value_ev_per_angstrom2,value_ev_per_Cu2Te_formula_unit,status,requirements,limitations
+C50_fixed_geometry_relative_coverage_formation_energy,,,,,not_ready_for_paper,CP2K 2024.1 strict B0/model success plus converged bulk adjacent k-point check,fixed initial geometry; polar slab; Gamma slab; prototype Cu2Te phase
+H1_fixed_geometry_relative_coverage_formation_energy,,,,,not_ready_for_paper,CP2K 2024.1 strict B0/model success plus converged bulk adjacent k-point check,fixed initial geometry; polar slab; Gamma slab; prototype Cu2Te phase
+coverage_curvature_E_H1_plus_E_B0_minus_2E_C50,,,,,not_ready_for_paper,"strict same-version/same-major-physics B0, C50 and H1 results",bulk chemical potential cancels; periodic C50 stripe is not every 50% island morphology
